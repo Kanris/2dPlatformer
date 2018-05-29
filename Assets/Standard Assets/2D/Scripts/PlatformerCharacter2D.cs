@@ -31,11 +31,6 @@ namespace UnityStandardAssets._2D
             m_Rigidbody2D = GetComponent<Rigidbody2D>();
 
 			playerGraphics = transform.Find("Graphics");
-
-			if(!ReferenceEquals(playerGraphics, null))
-			{
-				Debug.LogError("Can't find player graphics");
-			}
         }
 
 
