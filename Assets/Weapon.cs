@@ -55,6 +55,7 @@ public class Weapon : MonoBehaviour {
         if (!ReferenceEquals(hit2D.collider, null))
         {
             Debug.DrawLine(firePointPosition, hit2D.point, Color.red);
+            Debug.Log("We hit " + hit2D.collider.name + " and did " + Damage + "dmg.");
         }
     }
 
