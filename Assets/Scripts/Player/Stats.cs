@@ -6,6 +6,8 @@ using UnityEngine;
 public class Stats {
 
     public int Health = 100;
+    public float speed = 300f;
+
     private GameObject gameObject;
 
     public Stats(GameObject thisGameObject)
