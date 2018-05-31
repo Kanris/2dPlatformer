@@ -10,6 +10,8 @@ public class Weapon : MonoBehaviour {
     public LayerMask whatToHit;
 
     public Transform bulletTrailPrefab;
+    public Transform muzzleFlashPrefab;
+
     private float timeToSpawnEffect = 0f;
     public float effectSpawnRate = 10f;
 
@@ -70,7 +72,22 @@ public class Weapon : MonoBehaviour {
         {
             timeToSpawnEffect = Time.time + 1 / effectSpawnRate;
             Instantiate(bulletTrailPrefab, firePoint.position, firePoint.rotation);
+
+            StartCoroutine(DrawMuzzleFlash());
         }
+    }
+
+    private IEnumerator DrawMuzzleFlash()
+    {
+        var muzzleFlashClone = Instantiate(muzzleFlashPrefab, firePoint.position, firePoint.rotation);
+        muzzleFlashClone.parent = firePoint;
+
+        var size = Random.Range(0.6f, 0.9f);
+        muzzleFlashClone.localScale = new Vector2(size, size);
+
+        yield return 0; //skip 1 frame
+
+        Destroy(muzzleFlashClone.gameObject);
     }
 
     private Vector2 GetMousePosition()

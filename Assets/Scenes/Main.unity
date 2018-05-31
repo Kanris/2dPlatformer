@@ -306,8 +306,14 @@ Prefab:
     - target: {fileID: 114250849465528042, guid: b637f4027e8a4480f807ec427daea733,
         type: 2}
       propertyPath: FireRate
-      value: 60
+      value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114250849465528042, guid: b637f4027e8a4480f807ec427daea733,
+        type: 2}
+      propertyPath: muzzleFlashPrefab
+      value: 
+      objectReference: {fileID: 4809798339850482, guid: e8bdbe4a2ad5d7049a24179a128eeb6c,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b637f4027e8a4480f807ec427daea733, type: 2}
   m_IsPrefabParent: 0
