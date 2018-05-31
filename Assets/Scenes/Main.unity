@@ -122,6 +122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 48447872}
   - component: {fileID: 48447871}
+  - component: {fileID: 48447873}
   m_Layer: 0
   m_Name: _GM
   m_TagString: Untagged
@@ -158,6 +159,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &48447873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 48447870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bfa98147d16d1c459ea924d3ef91949, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &493414660
 GameObject:
   m_ObjectHideFlags: 0
@@ -930,6 +942,23 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &1391869484 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100002, guid: 87a2357765801c34292d6718d8b4d770, type: 2}
+  m_PrefabInternal: {fileID: 677149544}
+--- !u!114 &1391869485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1391869484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4ef8d9d65672c648b62a82501a772d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerStats:
+    Health: 100
 --- !u!1 &1507978220
 GameObject:
   m_ObjectHideFlags: 0
@@ -1308,6 +1337,7 @@ MonoBehaviour:
   lookAheadFactor: 3
   lookAheadReturnSpeed: 0.5
   lookAheadMoveThreshold: 0.1
+  yMaxPosition: -1
 --- !u!1 &1804561646
 GameObject:
   m_ObjectHideFlags: 0
