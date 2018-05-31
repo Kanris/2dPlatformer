@@ -9,6 +9,7 @@ public class GameMaster : MonoBehaviour {
     public Transform playerPrefab;
     public Transform spawnPoint;
     public int spawnDelay = 2;
+    public Transform spawnPrefab;
 
     private void Start()
     {
@@ -23,6 +24,9 @@ public class GameMaster : MonoBehaviour {
         Debug.Log("TODO: Player respawn audio");
         yield return new WaitForSeconds(spawnDelay);
         Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
+
+        var spawnEffect = Instantiate(spawnPrefab, spawnPoint.position, spawnPoint.rotation).gameObject;
+        Destroy(spawnEffect, 2.5f);
     }
 
     public static void KillObject(GameObject objectToKill)
