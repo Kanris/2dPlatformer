@@ -8,7 +8,7 @@ public class GameMaster : MonoBehaviour {
 
     public Transform playerPrefab;
     public Transform spawnPoint;
-    public int spawnDelay = 2;
+    public float spawnDelay = 3.7f;
     public Transform spawnPrefab;
 
     private void Start()
@@ -21,8 +21,10 @@ public class GameMaster : MonoBehaviour {
 
     public IEnumerator RespawnPlayer()
     {
-        Debug.Log("TODO: Player respawn audio");
+        GetComponent<AudioSource>().Play();
+        
         yield return new WaitForSeconds(spawnDelay);
+
         Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
 
         var spawnEffect = Instantiate(spawnPrefab, spawnPoint.position, spawnPoint.rotation).gameObject;
