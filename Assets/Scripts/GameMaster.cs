@@ -17,7 +17,7 @@ public class GameMaster : MonoBehaviour {
     public Transform liveImage;
     private Transform[] livesLeft;
 
-    public Text announcer;
+    public GameObject announcer;
 
     void Awake()
     {
@@ -78,11 +78,12 @@ public class GameMaster : MonoBehaviour {
 
     private IEnumerator DisplayAnnouncerMessage(string message, float duration)
     {
-        announcer.text = message;
+        announcer.SetActive(true);
+        announcer.GetComponentInChildren<Text>().text = message;
 
         yield return new WaitForSeconds(duration);
 
-        announcer.text = string.Empty;
+        announcer.SetActive(false);
     }
 
 }
