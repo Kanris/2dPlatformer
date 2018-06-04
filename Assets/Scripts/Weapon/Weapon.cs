@@ -63,7 +63,12 @@ public class Weapon : MonoBehaviour {
         {
             Debug.DrawLine(firePointPosition, hit2D.point, Color.red);
             Debug.Log("We hit " + hit2D.collider.name + " and did " + Damage + "dmg.");
-            hit2D.transform.GetComponent<EnemyAI>().enemyStats.Damage(Damage);
+            var enemyAI = hit2D.transform.GetComponent<EnemyAI>();
+
+            if (enemyAI != null)
+            {
+                enemyAI.enemyStats.Damage(Damage);
+            }
         }
     }
 

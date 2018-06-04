@@ -60,9 +60,9 @@ public class EnemyAI : MonoBehaviour {
 
     private IEnumerator UpdatePath()
     {
-        if (target == null)
+        if (target == null) //if player is dead
         {
-            SearchForPlayer();
+            SearchForPlayer(); //search for player
             yield return new WaitForSeconds(1f / updateRateSearchPlayer);
         }
         else
@@ -112,6 +112,7 @@ public class EnemyAI : MonoBehaviour {
         }
     }
 
+    //enemy search for player when player is dead
     private void SearchForPlayer()
     {
         if (Time.time >= updateRateSearchPlayer)
