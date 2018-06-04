@@ -11,7 +11,7 @@ public class EnemyAI : MonoBehaviour {
     public Transform target;
 
     public float updateRate = 2f;
-    public float updateRateSearchPlayer = 0;
+    public float updateRateSearchPlayer = 0f;
 
     private Seeker seeker;
     private Rigidbody2D rb;
@@ -63,7 +63,7 @@ public class EnemyAI : MonoBehaviour {
         if (target == null)
         {
             SearchForPlayer();
-            yield return 0;
+            yield return new WaitForSeconds(1f / updateRateSearchPlayer);
         }
         else
         {
