@@ -3,46 +3,54 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[System.Serializable]
-public class Stats {
+public class ObjectStats {
 
-    public float MaxHealth = 100f;
-    public float CurrentHealth = 100f;
-    public float speed = 300f;
+    public Stats stats;
 
     private GameObject gameObject;
     private Canvas StatsUI;
     private Slider healthSlider;
     private Text healthText;
 
-    private SomeMono mono;
-
-    public Stats(GameObject thisGameObject)
+    public ObjectStats(GameObject thisGameObject, Stats stats)
     {
+        stats.CurrentHealth = stats.MaxHealth;
+        this.stats = stats;
+
         this.gameObject = thisGameObject;
         this.StatsUI = this.gameObject.GetComponentInChildren(typeof(Canvas)) as Canvas;
         this.healthSlider = this.gameObject.GetComponentInChildren(typeof(Slider)) as Slider;
         this.healthText = this.gameObject.GetComponentInChildren(typeof(Text)) as Text;
 
+        if (healthSlider == null)
+        {
+            Debug.LogError("Can't find slider!");
+        }
+
         if (this.healthSlider != null)
         {
-            this.healthSlider.maxValue = CurrentHealth;
+            this.healthSlider.maxValue = this.stats.CurrentHealth;
+        }
+
+        if (healthText != null)
+        {
+            healthText.text = stats.CurrentHealth + "/" + stats.MaxHealth;
         }
 
         if (StatsUI != null)
         {
-            StatsUI.enabled = false;
+            StatsUI.enabled = true;
         }
 
-        mono = new SomeMono();
+        Debug.Log(thisGameObject.name + "-" + stats.MaxHealth + "/" + stats.CurrentHealth);
     }
 
     public void Damage(float damageFromSource)
     {
-        CurrentHealth -= damageFromSource;
+        stats.CurrentHealth -= damageFromSource;
         DisplayUIChanges(damageFromSource);
 
-        if (CurrentHealth <= 0)
+        if (stats.CurrentHealth <= 0)
         {
             GameMaster.KillObject(gameObject);
         }
@@ -53,18 +61,9 @@ public class Stats {
         StatsUI.enabled = true;
 
         if (healthText != null)
-            healthText.text = CurrentHealth + "/" + MaxHealth;
+            healthText.text = stats.CurrentHealth + "/" + stats.MaxHealth;
 
         if (healthSlider != null)
             healthSlider.value += damageFromSource;
-    }
-}
-
-public class SomeMono : MonoBehaviour
-{
-    public IEnumerator DoCoroutine(IEnumerator cor)
-    {
-        while (cor.MoveNext())
-            yield return cor.Current;
     }
 }

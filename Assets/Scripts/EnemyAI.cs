@@ -20,6 +20,7 @@ public class EnemyAI : MonoBehaviour {
     private int currentWaypoint = 0;
 
     public Stats enemyStats;
+    public ObjectStats enemyOjectStats;
     public ForceMode2D fMode;
 
     public float nextWaypointDistance = 3; //max distacne from the AI to a waypoint
@@ -35,7 +36,7 @@ public class EnemyAI : MonoBehaviour {
 
     private void Start()
     {
-        enemyStats = new Stats(gameObject);
+        enemyOjectStats = new ObjectStats(gameObject, enemyStats);
 
         if (target == null)
         {
@@ -98,7 +99,7 @@ public class EnemyAI : MonoBehaviour {
         pathIsEnded = false;
 
         Vector3 direction = (path.vectorPath[currentWaypoint] - transform.position).normalized;
-        direction *= enemyStats.speed * Time.fixedDeltaTime;
+        direction *= enemyOjectStats.stats.speed * Time.fixedDeltaTime;
 
         //move ai
         rb.AddForce(direction, fMode);
@@ -125,6 +126,17 @@ public class EnemyAI : MonoBehaviour {
             }
 
             updateRateSearchPlayer = Time.time + 0.5f;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Player player = collision.collider.GetComponent<Player>();
+
+        if (player != null)
+        {
+            player.playerObjectStats.Damage(enemyOjectStats.stats.damage);
+            Debug.Log("Damage player for " + enemyOjectStats.stats.damage + "dmg");
         }
     }
 }

@@ -4,18 +4,19 @@ using UnityEngine;
 public class Player : MonoBehaviour {
 
     public Stats playerStats;
+    public ObjectStats playerObjectStats;
     public int yBoundaries = -20;
 
     private void Awake()
     {
-        playerStats = new Stats(gameObject);
+        playerObjectStats = new ObjectStats(gameObject, playerStats);
     }
 
     private void Update()
     {
         if (transform.position.y.CompareTo(yBoundaries) <= 0) //kill player after fall
         {
-            playerStats.Damage(100);
+            playerObjectStats.Damage(100);
         }
     }
 
