@@ -41,8 +41,6 @@ public class ObjectStats {
         {
             StatsUI.enabled = true;
         }
-
-        Debug.Log(thisGameObject.name + "-" + stats.MaxHealth + "/" + stats.CurrentHealth);
     }
 
     public void Damage(float damageFromSource)

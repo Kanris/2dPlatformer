@@ -40,8 +40,7 @@ public class EnemyAI : MonoBehaviour {
 
         if (target == null)
         {
-            Debug.LogError("No player to chase.");
-            return;
+            SearchForPlayer();
         }
 
         // Path to the target position
