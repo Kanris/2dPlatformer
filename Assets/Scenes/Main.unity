@@ -354,7 +354,7 @@ GameObject:
   - component: {fileID: 31227029}
   - component: {fileID: 31227028}
   m_Layer: 10
-  m_Name: Platform07 (1)
+  m_Name: Platform08
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -609,7 +609,6 @@ MonoBehaviour:
     enemyToSpawn: {fileID: 4819917772079494, guid: 4fd7794488797478688919042166478b,
       type: 2}
     count: 2
-  spawnLocation: {fileID: 189617212}
 --- !u!1 &493414660
 GameObject:
   m_ObjectHideFlags: 0
@@ -1878,7 +1877,6 @@ MonoBehaviour:
     enemyToSpawn: {fileID: 4819917772079494, guid: 4fd7794488797478688919042166478b,
       type: 2}
     count: 3
-  spawnLocation: {fileID: 1959832042}
 --- !u!1 &2055108493
 GameObject:
   m_ObjectHideFlags: 0

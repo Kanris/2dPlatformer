@@ -13,7 +13,6 @@ public class EnemySpawn : MonoBehaviour {
     }
 
     public Wave[] waves;
-    public Transform spawnLocation;
     private int currentWave = 0;
     private float rateForNextWaveCheck = 5f;
 
@@ -49,7 +48,8 @@ public class EnemySpawn : MonoBehaviour {
         for (int index = 0; index < waves[currentWave].count; index++)
         {
             var spawnPosition = GetRandomSpawnPoint();
-            Instantiate(enemyToSpawn, spawnLocation.position, spawnLocation.rotation);
+            var enemy = Instantiate(enemyToSpawn, gameObject.transform);
+            enemy.transform.position = spawnPosition;
         }
     }
 
@@ -58,7 +58,7 @@ public class EnemySpawn : MonoBehaviour {
         var offsetX = Random.Range(-1.0f, 1.0f);
         var offsetY = Random.Range(-1.0f, 1.0f);
 
-        var parrentPosition = spawnLocation.position;
+        var parrentPosition = gameObject.transform.position;
 
         return new Vector3(parrentPosition.x + offsetX, parrentPosition.y + offsetY);
     }
