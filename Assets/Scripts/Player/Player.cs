@@ -15,7 +15,6 @@ public class Player : MonoBehaviour {
     {
         if (transform.position.y.CompareTo(yBoundaries) <= 0) //kill player after fall
         {
-            Debug.Log("Try to kill player");
             playerStats.Damage(100);
         }
     }

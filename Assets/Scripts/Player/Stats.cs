@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class Stats {
 
-    public int Health = 100;
+    public float Health = 100f;
     public float speed = 300f;
 
     private GameObject gameObject;
@@ -15,7 +15,7 @@ public class Stats {
         this.gameObject = thisGameObject;
     }
 
-    public void Damage(int damageFromSource)
+    public void Damage(float damageFromSource)
     {
         Health -= damageFromSource;
 

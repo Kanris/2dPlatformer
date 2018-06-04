@@ -35,7 +35,9 @@ public class GameMaster : MonoBehaviour {
     {
         //Debug.Log(objectToKill.name);
         Destroy(objectToKill);
-        gm.StartCoroutine(gm.RespawnPlayer());
+
+        if (objectToKill.tag == "Player")
+            gm.StartCoroutine(gm.RespawnPlayer());
     }
 
 
