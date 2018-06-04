@@ -18,6 +18,10 @@ public class Weapon : MonoBehaviour {
     private float timeToFire = 0f;
     private Transform firePoint;
 
+    public float camShakeAmount = 0.1f;
+    public float camShakeLength = 0.2f;
+    CameraShake cameraShake;
+
     private void Awake()
     {
         firePoint = transform.Find("FirePoint");
@@ -25,6 +29,13 @@ public class Weapon : MonoBehaviour {
         if (ReferenceEquals(firePoint, null))
         {
             Debug.LogError("No firepoint. Weapon.cs");
+        }
+
+        var gm = GameMaster.gm.gameObject;
+
+        if (gm != null)
+        {
+            cameraShake = gm.GetComponent<CameraShake>();
         }
     }
 	
@@ -57,12 +68,10 @@ public class Weapon : MonoBehaviour {
         RaycastHit2D hit2D = Physics2D.Raycast(firePointPosition, mousePosition - firePointPosition, Distance, whatToHit);
         DrawBulletTrailEffect();
 
-        Debug.DrawLine(firePointPosition, (mousePosition - firePointPosition) * Distance, Color.cyan);
+        cameraShake.Shake(camShakeAmount, camShakeLength);
 
         if (!ReferenceEquals(hit2D.collider, null))
         {
-            Debug.DrawLine(firePointPosition, hit2D.point, Color.red);
-            Debug.Log("We hit " + hit2D.collider.name + " and did " + Damage + "dmg.");
             var enemyAI = hit2D.transform.GetComponent<EnemyAI>();
 
             if (enemyAI != null)
@@ -85,6 +94,7 @@ public class Weapon : MonoBehaviour {
 
     private IEnumerator DrawMuzzleFlash()
     {
+
         var muzzleFlashClone = Instantiate(muzzleFlashPrefab, firePoint.position, firePoint.rotation);
         muzzleFlashClone.parent = firePoint;
 
