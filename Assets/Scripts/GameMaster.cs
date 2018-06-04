@@ -53,8 +53,14 @@ public class GameMaster : MonoBehaviour {
                 LivesCount--;
                 gm.ChangeLiveGui();
 
-                var announcerMessage = LivesCount + " Lives left";
+
+                string result = LivesCount > 1 ? "Lifes" : "Life";
+                var announcerMessage = LivesCount + " " + result + " left";
                 gm.StartCoroutine(gm.DisplayAnnouncerMessage(announcerMessage, 3f));
+            }
+            else
+            {
+                gm.StartCoroutine(gm.DisplayAnnouncerMessage("Game Over", 10f));
             }
         }
     }
