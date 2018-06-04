@@ -11,7 +11,7 @@ public class GameMaster : MonoBehaviour {
     public float spawnDelay = 3.7f;
     public Transform spawnPrefab;
 
-    private void Awake()
+    void Awake()
     {
         if (gm == null)
         {

@@ -22,7 +22,7 @@ public class Weapon : MonoBehaviour {
     public float camShakeLength = 0.2f;
     CameraShake cameraShake;
 
-    private void Awake()
+    private void Start()
     {
         firePoint = transform.Find("FirePoint");
 
