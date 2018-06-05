@@ -45,23 +45,31 @@ public class GameMaster : MonoBehaviour {
     {
         Destroy(objectToKill);
 
+        var spawnEffect = Instantiate(gm.spawnPrefab, objectToKill.transform.position, objectToKill.transform.rotation).gameObject;
+        Destroy(spawnEffect, 2.5f);
+
         if (objectToKill.tag == "Player")
         {
-            if (LivesCount > 0)
-            {
-                gm.StartCoroutine(gm.RespawnPlayer());
-                LivesCount--;
-                gm.ChangeLiveGui();
+            gm.PlayerIsDead();
+        }
+    }
+
+    private void PlayerIsDead()
+    {
+        if (LivesCount > 0)
+        {
+            StartCoroutine(RespawnPlayer());
+            LivesCount--;
+            ChangeLiveGui();
 
 
-                string result = LivesCount > 1 ? "Lifes" : "Life";
-                var announcerMessage = LivesCount + " " + result + " left";
-                gm.StartCoroutine(gm.DisplayAnnouncerMessage(announcerMessage, 3f));
-            }
-            else
-            {
-                gm.StartCoroutine(gm.DisplayAnnouncerMessage("Game Over", 10f));
-            }
+            string result = LivesCount > 1 ? "Lifes" : "Life";
+            var announcerMessage = LivesCount + " " + result + " left";
+            StartCoroutine(DisplayAnnouncerMessage(announcerMessage, 3f));
+        }
+        else
+        {
+            gm.StartCoroutine(gm.DisplayAnnouncerMessage("Game Over", 10f));
         }
     }
 
