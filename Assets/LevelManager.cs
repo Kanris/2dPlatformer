@@ -42,7 +42,7 @@ public class LevelManager : MonoBehaviour {
             isLevelOver = true;
             updateRate = 10f;
             StartCoroutine(GameMaster.gm.DisplayAnnouncerMessage("Level complete", updateRate));
-
+            TextLevelCompletion.text = string.Empty;
         }
 
         yield return new WaitForSeconds(updateRate);
