@@ -19,8 +19,7 @@ public class EnemyAI : MonoBehaviour {
     public Path path; //calculated path
     private int currentWaypoint = 0;
 
-    public Stats enemyStats;
-    public ObjectStats enemyOjectStats;
+    public EnemyStats stats;
     public ForceMode2D fMode;
 
     public float nextWaypointDistance = 3; //max distacne from the AI to a waypoint
@@ -36,12 +35,12 @@ public class EnemyAI : MonoBehaviour {
 
     private void Start()
     {
-        enemyOjectStats = new ObjectStats(gameObject, enemyStats);
-
         if (target == null)
         {
             StartCoroutine(SearchForPlayer());
         }
+
+        stats.Initialize(gameObject);
 
         // Path to the target position
         seeker.StartPath(transform.position, target.position, OnPathComplete);
@@ -98,7 +97,7 @@ public class EnemyAI : MonoBehaviour {
         pathIsEnded = false;
 
         Vector3 direction = (path.vectorPath[currentWaypoint] - transform.position).normalized;
-        direction *= enemyOjectStats.stats.speed * Time.fixedDeltaTime;
+        direction *= stats.speed * Time.fixedDeltaTime;
 
         //move ai
         rb.AddForce(direction, fMode);
@@ -152,11 +151,11 @@ public class EnemyAI : MonoBehaviour {
         {
             if (player.transform.position.y >= gameObject.transform.position.y)
             {
-                enemyOjectStats.Damage(99999);
+                stats.Damage(99999);
             }
             else {
-                player.playerObjectStats.Damage(enemyOjectStats.stats.damage);
-                enemyOjectStats.Damage(99999);
+                player.playerStats.Damage(stats.damage);
+                stats.Damage(99999);
             }
 
         }

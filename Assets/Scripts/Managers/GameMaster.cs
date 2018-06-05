@@ -63,10 +63,10 @@ public class GameMaster : MonoBehaviour {
 
         if (objectToKill.tag == "Enemy")
         {
-            var sound = objectToKill.GetComponent<EnemyAI>().enemyOjectStats.stats.DeathSound;
+            var sound = objectToKill.GetComponent<EnemyAI>().stats.DeathSound;
             gm.audioManager.PlaySound(sound);
         }
-
+        Debug.LogError(objectToKill.name);
         Destroy(objectToKill);
 
         var spawnEffect = Instantiate(gm.spawnPrefab, objectToKill.transform.position, objectToKill.transform.rotation).gameObject;

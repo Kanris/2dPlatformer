@@ -542,8 +542,6 @@ MonoBehaviour:
   playerStats:
     MaxHealth: 200
     speed: 0
-    damage: 10
-    isAttacking: 0
     DeathSound: Explosion
     DamageSound: Grunt
   yBoundaries: -20

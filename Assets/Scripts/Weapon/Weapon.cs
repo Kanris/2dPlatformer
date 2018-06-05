@@ -86,7 +86,7 @@ public class Weapon : MonoBehaviour {
 
             if (enemyAI != null)
             {
-                enemyAI.enemyOjectStats.Damage(Damage);
+                enemyAI.stats.Damage(Damage);
             }
         }
     }

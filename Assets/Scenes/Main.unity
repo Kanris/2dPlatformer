@@ -594,11 +594,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waves:
   - name: First Wave
-    enemyToSpawn: {fileID: 4819917772079494, guid: 4fd7794488797478688919042166478b,
+    enemyToSpawn: {fileID: 4404395157042404, guid: 4fd7794488797478688919042166478b,
       type: 2}
     count: 1
   - name: Second Wave
-    enemyToSpawn: {fileID: 4819917772079494, guid: 4fd7794488797478688919042166478b,
+    enemyToSpawn: {fileID: 4404395157042404, guid: 4fd7794488797478688919042166478b,
       type: 2}
     count: 2
 --- !u!1 &493414660
@@ -2356,6 +2356,11 @@ Prefab:
       propertyPath: playerStats.DamageSound
       value: Grunt
       objectReference: {fileID: 0}
+    - target: {fileID: 114405415792233912, guid: f18f99404b229964b9e53ed1c0c37306,
+        type: 2}
+      propertyPath: playerStats.MaxHealth
+      value: 200
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f18f99404b229964b9e53ed1c0c37306, type: 2}
   m_IsPrefabParent: 0
@@ -2608,15 +2613,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waves:
   - name: First wave
-    enemyToSpawn: {fileID: 4819917772079494, guid: 4fd7794488797478688919042166478b,
+    enemyToSpawn: {fileID: 4404395157042404, guid: 4fd7794488797478688919042166478b,
       type: 2}
     count: 1
   - name: Second wave
-    enemyToSpawn: {fileID: 4819917772079494, guid: 4fd7794488797478688919042166478b,
+    enemyToSpawn: {fileID: 4404395157042404, guid: 4fd7794488797478688919042166478b,
       type: 2}
     count: 1
   - name: Third wave
-    enemyToSpawn: {fileID: 4819917772079494, guid: 4fd7794488797478688919042166478b,
+    enemyToSpawn: {fileID: 4404395157042404, guid: 4fd7794488797478688919042166478b,
       type: 2}
     count: 3
 --- !u!1 &2055108493
