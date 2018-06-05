@@ -90,7 +90,7 @@ public class GameMaster : MonoBehaviour {
         Destroy(livesLeft[LivesCount].gameObject);
     }
 
-    private IEnumerator DisplayAnnouncerMessage(string message, float duration)
+    public IEnumerator DisplayAnnouncerMessage(string message, float duration)
     {
         announcer.SetActive(true);
         announcer.GetComponentInChildren<Text>().text = message;

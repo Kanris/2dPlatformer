@@ -14,6 +14,7 @@ public class EnemySpawn : MonoBehaviour {
 
     public Wave[] waves;
     private int currentWave = 0;
+    public int CurrentWave { get { return currentWave; } }
     private float rateForNextWaveCheck = 5f;
 
     private void Start()
@@ -31,7 +32,7 @@ public class EnemySpawn : MonoBehaviour {
                 currentWave++;
             }
             else
-            {
+            {                
                 Destroy(gameObject);
             }
         }
