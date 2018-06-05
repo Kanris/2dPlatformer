@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class WeaponChange : MonoBehaviour {
-
+    
     public int currentWeaponEquiped = 0;
 
     public Transform[] weaponsToEquip;
@@ -13,7 +13,7 @@ public class WeaponChange : MonoBehaviour {
     public GridLayoutGroup weaponsPanel;
     public Transform weaponArm;
 
-#region keycodes
+    #region keycodes
     private KeyCode[] keyCodes = {
          KeyCode.Alpha1,
          KeyCode.Alpha2,
@@ -25,11 +25,16 @@ public class WeaponChange : MonoBehaviour {
          KeyCode.Alpha8,
          KeyCode.Alpha9,
      };
-#endregion
+    #endregion
 
     private void Start()
     {
         totalWeaponAmount = 2; //TODO : CHANGE TO ARRAY LENGTH
+
+        if (weaponsPanel == null)
+        {
+            weaponsPanel = FindObjectOfType(typeof(GridLayoutGroup)) as GridLayoutGroup;
+        }
     }
 
     // Update is called once per frame
@@ -70,5 +75,10 @@ public class WeaponChange : MonoBehaviour {
         newColor.a = isEquiped ? 1f : 0.4f;
 
         equipedWeapon.color = newColor;
+    }
+
+    public void ResetWeaponGUI()
+    {
+        EquipWeapon(0);
     }
 }

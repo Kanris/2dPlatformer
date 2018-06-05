@@ -43,15 +43,16 @@ public class GameMaster : MonoBehaviour {
 
     public static void KillObject(GameObject objectToKill)
     {
+        if (objectToKill.tag == "Player")
+        {
+            (FindObjectOfType(typeof(WeaponChange)) as WeaponChange).ResetWeaponGUI();
+            gm.PlayerIsDead();
+        }
+
         Destroy(objectToKill);
 
         var spawnEffect = Instantiate(gm.spawnPrefab, objectToKill.transform.position, objectToKill.transform.rotation).gameObject;
         Destroy(spawnEffect, 2.5f);
-
-        if (objectToKill.tag == "Player")
-        {
-            gm.PlayerIsDead();
-        }
     }
 
     private void PlayerIsDead()
@@ -61,7 +62,6 @@ public class GameMaster : MonoBehaviour {
             StartCoroutine(RespawnPlayer());
             LivesCount--;
             ChangeLiveGui();
-
 
             string result = LivesCount > 1 ? "Lifes" : "Life";
             var announcerMessage = LivesCount + " " + result + " left";
