@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 114849567616996304}
   m_Layer: 0
   m_Name: EnemyAlienShip
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -395,8 +395,10 @@ MonoBehaviour:
   enemyStats:
     MaxHealth: 200
     speed: 600
-    damage: 80
+    damage: 60
     isAttacking: 0
+    DeathSound: Explosion
+    DamageSound: 
   fMode: 0
   nextWaypointDistance: 3
   pathIsEnded: 0

@@ -544,6 +544,8 @@ MonoBehaviour:
     speed: 0
     damage: 10
     isAttacking: 0
+    DeathSound: Explosion
+    DamageSound: Grunt
   yBoundaries: -20
 --- !u!114 &114483840533781092
 MonoBehaviour:
@@ -676,6 +678,7 @@ MonoBehaviour:
   effectSpawnRate: 10
   camShakeAmount: 0.05
   camShakeLength: 0.1
+  weaponShootSound: DefaultShot
 --- !u!212 &212607439894403716
 SpriteRenderer:
   m_ObjectHideFlags: 1

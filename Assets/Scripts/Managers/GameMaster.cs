@@ -12,7 +12,7 @@ public class GameMaster : MonoBehaviour {
     public float spawnDelay = 3.7f;
     public Transform spawnPrefab;
 
-    public static int LivesCount = 4;
+    public static int LivesCount = 2;
     public Transform LivesGUI;
     public Transform liveImage;
     private Transform[] livesLeft;
@@ -57,7 +57,14 @@ public class GameMaster : MonoBehaviour {
         if (objectToKill.tag == "Player")
         {
             (FindObjectOfType(typeof(WeaponChange)) as WeaponChange).ResetWeaponGUI();
+            gm.audioManager.PlaySound("DeathVoice");
             gm.PlayerIsDead();
+        }
+
+        if (objectToKill.tag == "Enemy")
+        {
+            var sound = objectToKill.GetComponent<EnemyAI>().enemyOjectStats.stats.DeathSound;
+            gm.audioManager.PlaySound(sound);
         }
 
         Destroy(objectToKill);

@@ -15,4 +15,6 @@ public class Stats {
     public float speed = 300f;
     public float damage = 20f;
     public bool isAttacking = false;
+    public string DeathSound = "Explosion";
+    public string DamageSound;
 }

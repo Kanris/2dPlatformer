@@ -22,6 +22,9 @@ public class Weapon : MonoBehaviour {
     public float camShakeLength = 0.2f;
     CameraShake cameraShake;
 
+    public string weaponShootSound = "DefaultShot";
+    AudioManager audioManager;
+
     private void Start()
     {
         firePoint = transform.Find("FirePoint");
@@ -37,6 +40,11 @@ public class Weapon : MonoBehaviour {
         {
             cameraShake = gm.GetComponent<CameraShake>();
         }
+
+        audioManager = AudioManager.instance;
+
+        if (audioManager == null)
+            Debug.LogError("Weapon: No audiomanager found in scene");
     }
 	
 	// Update is called once per frame
@@ -69,6 +77,8 @@ public class Weapon : MonoBehaviour {
         DrawBulletTrailEffect();
 
         cameraShake.Shake(camShakeAmount, camShakeLength);
+
+        audioManager.PlaySound(weaponShootSound);
 
         if (!ReferenceEquals(hit2D.collider, null))
         {

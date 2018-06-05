@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ObjectStats {
-
+public class ObjectStats
+{
     public Stats stats;
 
     private GameObject gameObject;
     private Canvas StatsUI;
     private Slider healthSlider;
     private Text healthText;
+    private AudioManager audioManager;
 
     public ObjectStats(GameObject thisGameObject, Stats stats)
     {
@@ -21,6 +22,8 @@ public class ObjectStats {
         this.StatsUI = this.gameObject.GetComponentInChildren(typeof(Canvas)) as Canvas;
         this.healthSlider = this.gameObject.GetComponentInChildren(typeof(Slider)) as Slider;
         this.healthText = this.gameObject.GetComponentInChildren(typeof(Text)) as Text;
+
+        audioManager = AudioManager.instance;
 
         if (healthSlider == null)
         {
@@ -47,6 +50,11 @@ public class ObjectStats {
     {
         stats.CurrentHealth -= damageFromSource;
         DisplayUIChanges(damageFromSource);
+
+        if (stats.DamageSound != string.Empty)
+        {
+            audioManager.PlaySound(stats.DamageSound);
+        }
 
         if (stats.CurrentHealth <= 0)
         {
