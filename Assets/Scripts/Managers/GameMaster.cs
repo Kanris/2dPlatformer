@@ -19,6 +19,9 @@ public class GameMaster : MonoBehaviour {
 
     public GameObject announcer;
 
+    private AudioManager audioManager;
+    public string spawnSoundName;
+
     void Awake()
     {
         if (gm == null)
@@ -29,9 +32,17 @@ public class GameMaster : MonoBehaviour {
         InitializeLiveGUI();
     }
 
+    private void Start()
+    {
+        audioManager = AudioManager.instance;
+
+        if (audioManager == null)
+            Debug.LogError("GameMaster: Can't found AudioManager");
+    }
+
     public IEnumerator RespawnPlayer()
     {
-        GetComponent<AudioSource>().Play();
+        audioManager.PlaySound(spawnSoundName);
         
         yield return new WaitForSeconds(spawnDelay);
 

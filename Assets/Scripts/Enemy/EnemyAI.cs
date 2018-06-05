@@ -138,7 +138,10 @@ public class EnemyAI : MonoBehaviour {
             {
                 enemyOjectStats.Damage(99999);
             }
-            else player.playerObjectStats.Damage(enemyOjectStats.stats.damage);
+            else {
+                player.playerObjectStats.Damage(enemyOjectStats.stats.damage);
+                enemyOjectStats.Damage(99999);
+            }
 
         }
     }
