@@ -134,8 +134,12 @@ public class EnemyAI : MonoBehaviour {
 
         if (player != null)
         {
-            player.playerObjectStats.Damage(enemyOjectStats.stats.damage);
-            Debug.Log("Damage player for " + enemyOjectStats.stats.damage + "dmg");
+            if (player.transform.position.y >= gameObject.transform.position.y)
+            {
+                enemyOjectStats.Damage(99999);
+            }
+            else player.playerObjectStats.Damage(enemyOjectStats.stats.damage);
+
         }
     }
 }
