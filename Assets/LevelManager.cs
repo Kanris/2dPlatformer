@@ -1,26 +1,38 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour {
 
     private int wavesCount = 0;
-    private EnemySpawn[] enemySpawns;
-    private float updateRate = 5f;
+    private int wavesCompleted = 0;
+    private float updateRate = 2f;
 
     private bool isLevelOver = false;
 
+    public Text TextLevelCompletion;
+
     private void Start()
     {
-        enemySpawns = new EnemySpawn[gameObject.transform.childCount];
-
         for (int index = 0; index < gameObject.transform.childCount; index++)
         {
-            enemySpawns[index] = gameObject.transform.GetChild(index).GetComponent<EnemySpawn>();
-            wavesCount += enemySpawns[index].waves.Length;
+            var enemySpawn = gameObject.transform.GetChild(index).GetComponent<EnemySpawn>();
+            wavesCount += enemySpawn.waves.Length;
         }
 
+        wavesCompleted -= gameObject.transform.childCount;
+
         StartCoroutine(IsLevelOver());
+    }
+
+    public void WaveCompleted()
+    {
+        wavesCompleted += 1;
+
+        float waveCompletedPercent = (float)wavesCompleted / (float)wavesCount * 100f;
+
+        TextLevelCompletion.text = "Level completion:" + waveCompletedPercent + "%";
     }
 
     private IEnumerator IsLevelOver()

@@ -17,8 +17,11 @@ public class EnemySpawn : MonoBehaviour {
     public int CurrentWave { get { return currentWave; } }
     private float rateForNextWaveCheck = 5f;
 
+    private LevelManager levelManager;
+
     private void Start()
     {
+        levelManager = gameObject.transform.parent.GetComponent<LevelManager>();
         StartCoroutine(SpawnWave());
     }
 
@@ -30,9 +33,11 @@ public class EnemySpawn : MonoBehaviour {
             {
                 SpawnEnemies();
                 currentWave++;
+                levelManager.WaveCompleted();
             }
             else
-            {                
+            {   
+                levelManager.WaveCompleted();
                 Destroy(gameObject);
             }
         }
