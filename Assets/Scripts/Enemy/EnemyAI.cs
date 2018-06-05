@@ -40,7 +40,7 @@ public class EnemyAI : MonoBehaviour {
 
         if (target == null)
         {
-            SearchForPlayer();
+            StartCoroutine(SearchForPlayer());
         }
 
         // Path to the target position
@@ -62,7 +62,7 @@ public class EnemyAI : MonoBehaviour {
     {
         if (target == null) //if player is dead
         {
-            SearchForPlayer(); //search for player
+            StartCoroutine(SearchForPlayer());
             yield return new WaitForSeconds(1f / updateRateSearchPlayer);
         }
         else
@@ -81,7 +81,7 @@ public class EnemyAI : MonoBehaviour {
 
         if (target == null | path == null)
         {
-            SearchForPlayer();
+            StartCoroutine(SearchForPlayer());
             return;
         }
 
@@ -113,18 +113,34 @@ public class EnemyAI : MonoBehaviour {
     }
 
     //enemy search for player when player is dead
-    private void SearchForPlayer()
+    private IEnumerator SearchForPlayer()
     {
-        if (Time.time >= updateRateSearchPlayer)
+        if (target == null)
         {
-            var searchResult = GameObject.FindGameObjectWithTag("Player");
-
-            if (searchResult != null)
+            if (Time.time >= updateRateSearchPlayer)
             {
-                target = searchResult.transform;
+                var searchResult = GameObject.FindGameObjectWithTag("Player");
+
+                if (searchResult != null)
+                {
+                    target = searchResult.transform;
+                }
+                else
+                {
+                    
+                    updateRateSearchPlayer = Time.time + 0.5f;
+
+                    yield return new WaitForSeconds(updateRateSearchPlayer);
+
+                    StartCoroutine(SearchForPlayer());
+                }
             }
 
-            updateRateSearchPlayer = Time.time + 0.5f;
+        } else
+        {
+            // Path to the target position
+            seeker.StartPath(transform.position, target.position, OnPathComplete);
+            StartCoroutine(UpdatePath());
         }
     }
 

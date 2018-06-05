@@ -19,6 +19,8 @@ public class Sound
     [Range(0f, 0.5f)]
     public float pitchOffset = 0.1f;
 
+    public bool loop = false;
+
     private AudioSource source;
 
     public void SetSource(AudioSource source)
@@ -31,24 +33,38 @@ public class Sound
     {
         this.source.volume = volume * (1 + Random.Range(-volumeOffset / 2f, volumeOffset / 2f));
         this.source.pitch = pitch * (1 + Random.Range(-pitchOffset / 2f, pitchOffset / 2f));
+        this.source.loop = loop;
         this.source.Play();
+    }
+
+    public void Stop()
+    {
+        this.source.Stop();
     }
 }
 
 public class AudioManager : MonoBehaviour {
+
+    [SerializeField]
+    Sound[] sounds;
 
     public static AudioManager instance;
 
     private void Awake()
     {
         if (instance != null)
-            Debug.LogError("More than one AudioManager in scene");
+        {
+            if (instance != this)
+            {
+                Destroy(gameObject);
+            }
+        }
         else
+        {
             instance = this;
+            DontDestroyOnLoad(this);
+        }
     }
-
-    [SerializeField]
-    Sound[] sounds;
 
     private void Start()
     {
@@ -58,6 +74,8 @@ public class AudioManager : MonoBehaviour {
             go.transform.SetParent(this.transform);
             sounds[index].SetSource(go.AddComponent<AudioSource>());
         }
+
+        PlaySound("Music");
     }
 
     public void PlaySound(string name)
@@ -67,6 +85,19 @@ public class AudioManager : MonoBehaviour {
         if (neededSound != null)
         {
             neededSound.Play();
+            return;
+        }
+
+        Debug.LogError("Audiomanager: can't found sound with name - " + name);
+    }
+
+    public void StopSound(string name)
+    {
+        var neededSound = sounds.First(x => x.name == name);
+
+        if (neededSound != null)
+        {
+            neededSound.Stop();
             return;
         }
 
