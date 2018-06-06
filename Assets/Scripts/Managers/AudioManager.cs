@@ -74,6 +74,8 @@ public class AudioManager : MonoBehaviour {
             go.transform.SetParent(this.transform);
             sounds[index].SetSource(go.AddComponent<AudioSource>());
         }
+
+        PlaySound("E1M1");
     }
 
     public void PlaySound(string name)

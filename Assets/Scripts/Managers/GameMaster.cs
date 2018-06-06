@@ -37,8 +37,6 @@ public class GameMaster : MonoBehaviour {
     {
         audioManager = AudioManager.instance;
 
-        audioManager.PlaySound(LevelMusic);
-
         if (audioManager == null)
             Debug.LogError("GameMaster: Can't found AudioManager");
     }

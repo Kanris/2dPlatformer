@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour {
@@ -105,7 +104,12 @@ public class Weapon : MonoBehaviour {
             }
             else
             {
-                hit2D.transform.GetComponent<RangeEnemyAI>().stats.Damage(Damage);
+                var rangeEnemyAI = hit2D.transform.GetComponent<RangeEnemyAI>();
+
+                if (rangeEnemyAI != null)
+                {
+                    rangeEnemyAI.stats.Damage(Damage);
+                }
             }
         }
     }

@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 
@@ -32,8 +31,6 @@ public class RangeEnemyAI : MonoBehaviour
     private Vector3 firePointPosition;
     public Transform bulletTrailPrefab;
     public LayerMask whatToHit;
-    private float timeToSpawnEffect = 0f;
-    public float effectSpawnRate = 10f;
 
     private void Awake()
     {
@@ -128,6 +125,8 @@ public class RangeEnemyAI : MonoBehaviour
     {
         if (target == null)
         {
+            stats.shotPreparing = false;
+
             if (Time.time >= updateRateSearchPlayer)
             {
                 var searchResult = GameObject.FindGameObjectWithTag("Player");
@@ -176,34 +175,48 @@ public class RangeEnemyAI : MonoBehaviour
 
     private IEnumerator ShootPlayer()
     {
-        //cameraShake.Shake(camShakeAmount, camShakeLength);
-
         //audioManager.PlaySound(weaponShootSound);
 
-        yield return new WaitForSeconds(stats.AttackRate);
-
-        firePointPosition = new Vector3(firePoint.position.x, firePoint.position.y);
-
-        var whereToShoot = target.position;
-        DrawLine(firePointPosition, whereToShoot, Color.red, 0.5f);
-
-        yield return new WaitForSeconds(0.6f);
-
-        RaycastHit2D hit2D = Physics2D.Raycast(firePointPosition, whereToShoot - firePointPosition, stats.AttackRange, whatToHit);
-        DrawBulletTrailEffect(whereToShoot);
-
-        if (!ReferenceEquals(hit2D.collider, null) & target == hit2D.transform)
+        if (!stats.shotPreparing)
         {
-            var player = hit2D.transform.GetComponent<Player>();
+            stats.shotPreparing = true;
 
-            if (player != null)
+            if (target == null)
             {
-                player.playerStats.Damage(stats.damage);
+                stats.shotPreparing = false;
+                yield return new WaitForSeconds(1f / updateRateSearchPlayer);
+                StartCoroutine(ShootPlayer());
             }
-        }
+            else
+            {
+                var whereToShoot = target.position;
+                firePointPosition = new Vector3(firePoint.position.x, firePoint.position.y);
+                DrawLine(firePointPosition, whereToShoot, Color.red, 0.5f);
 
-        if (stats.isAttacking)
-            StartCoroutine(ShootPlayer());
+                yield return new WaitForSeconds(0.6f);
+
+                RaycastHit2D hit2D = Physics2D.Raycast(firePointPosition, whereToShoot - firePointPosition, 
+                                                       stats.AttackRange, whatToHit);
+                DrawBulletTrailEffect(whereToShoot);
+
+                if (!ReferenceEquals(hit2D.collider, null) & target == hit2D.transform)
+                {
+                    var player = hit2D.transform.GetComponent<Player>();
+
+                    if (player != null)
+                    {
+                        player.playerStats.Damage(stats.damage);
+                    }
+                }
+
+                yield return new WaitForSeconds(stats.AttackRate);
+
+                stats.shotPreparing = false;
+
+                if (stats.isAttacking)
+                    StartCoroutine(ShootPlayer());
+            }
+            }
     }
 
     void DrawLine(Vector3 start, Vector3 end, Color color, float duration = 0.2f)
@@ -212,29 +225,26 @@ public class RangeEnemyAI : MonoBehaviour
         myLine.transform.position = start;
         myLine.AddComponent<LineRenderer>();
         LineRenderer lr = myLine.GetComponent<LineRenderer>();
-        lr.material = new Material(Shader.Find("Particles/Alpha Blended Premultiply"));
+        //lr.material = new Material(Shader.Find("Particles/Alpha Blended Premultiply"));
 
-        color.a = 0.2f;
         lr.startColor = color;
         lr.endColor = color;
-        lr.SetWidth(0.1f, 0.1f);
+        lr.startWidth = 0.1f;
+        lr.endWidth = 0.1f;
         lr.SetPosition(0, start);
         lr.SetPosition(1, end);
+
         Destroy(myLine, duration);
     }
 
-    private void DrawBulletTrailEffect(Vector3 target)
+    private void DrawBulletTrailEffect(Vector3 whereToShoot)
     {
-        if (Time.time >= timeToSpawnEffect)
-        {
-            timeToSpawnEffect = Time.time + 1 / effectSpawnRate;
-            Vector3 difference = target - firePoint.position;
-            difference.Normalize();
+        Vector3 difference = whereToShoot - firePoint.position;
+        difference.Normalize();
 
-            float rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
-            Instantiate(bulletTrailPrefab, firePoint.position, 
-                        Quaternion.Euler(0f, 0f, rotationZ));
-        }
+        float rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
+        Instantiate(bulletTrailPrefab, firePoint.position,
+                    Quaternion.Euler(0f, 0f, rotationZ));
     }
 
     private IEnumerator IdleAnimation(float offsetY)

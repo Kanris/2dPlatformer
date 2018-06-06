@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 [System.Serializable]
@@ -93,4 +91,5 @@ public class RangeEnemyStats : EnemyStats
 {
     public float AttackRange = 50f;
     public float AttackRate = 1f;
+    public bool shotPreparing = false;
 }
