@@ -44,7 +44,6 @@ public class RangeEnemyAI : MonoBehaviour
     private void Start()
     {
         firePoint = transform.Find("FirePoint");
-        firePointPosition = new Vector3(firePoint.position.x, firePoint.position.y);
 
         if (target == null)
         {
@@ -183,10 +182,15 @@ public class RangeEnemyAI : MonoBehaviour
 
         yield return new WaitForSeconds(stats.AttackRate);
 
-        RaycastHit2D hit2D = Physics2D.Raycast(firePointPosition, target.position - firePointPosition, stats.AttackRange, whatToHit);
-        DrawBulletTrailEffect();
+        firePointPosition = new Vector3(firePoint.position.x, firePoint.position.y);
 
-        yield return new WaitForSeconds(0.2f);
+        var whereToShoot = target.position;
+        DrawLine(firePointPosition, whereToShoot, Color.red, 0.5f);
+
+        yield return new WaitForSeconds(0.6f);
+
+        RaycastHit2D hit2D = Physics2D.Raycast(firePointPosition, whereToShoot - firePointPosition, stats.AttackRange, whatToHit);
+        DrawBulletTrailEffect(whereToShoot);
 
         if (!ReferenceEquals(hit2D.collider, null) & target == hit2D.transform)
         {
@@ -202,12 +206,29 @@ public class RangeEnemyAI : MonoBehaviour
             StartCoroutine(ShootPlayer());
     }
 
-    private void DrawBulletTrailEffect()
+    void DrawLine(Vector3 start, Vector3 end, Color color, float duration = 0.2f)
+    {
+        GameObject myLine = new GameObject();
+        myLine.transform.position = start;
+        myLine.AddComponent<LineRenderer>();
+        LineRenderer lr = myLine.GetComponent<LineRenderer>();
+        lr.material = new Material(Shader.Find("Particles/Alpha Blended Premultiply"));
+
+        color.a = 0.2f;
+        lr.startColor = color;
+        lr.endColor = color;
+        lr.SetWidth(0.1f, 0.1f);
+        lr.SetPosition(0, start);
+        lr.SetPosition(1, end);
+        Destroy(myLine, duration);
+    }
+
+    private void DrawBulletTrailEffect(Vector3 target)
     {
         if (Time.time >= timeToSpawnEffect)
         {
             timeToSpawnEffect = Time.time + 1 / effectSpawnRate;
-            Vector3 difference = target.position - transform.position;
+            Vector3 difference = target - firePoint.position;
             difference.Normalize();
 
             float rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
