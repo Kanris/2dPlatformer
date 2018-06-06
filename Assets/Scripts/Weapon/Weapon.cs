@@ -88,6 +88,10 @@ public class Weapon : MonoBehaviour {
             {
                 enemyAI.stats.Damage(Damage);
             }
+            else
+            {
+                hit2D.transform.GetComponent<RangeEnemyAI>().stats.Damage(Damage);
+            }
         }
     }
 

@@ -1510,7 +1510,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4602524463012110, guid: 924df003b63d8694589500e078d1b768, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114562341167925466, guid: 924df003b63d8694589500e078d1b768,
         type: 2}
@@ -1691,7 +1691,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1357489484
 GameObject:
@@ -2659,6 +2659,10 @@ MonoBehaviour:
     enemyToSpawn: {fileID: 4404395157042404, guid: 4fd7794488797478688919042166478b,
       type: 2}
     count: 3
+  - name: Fourth wave
+    enemyToSpawn: {fileID: 4934472473297774, guid: ea5da0c5ac46941e5bbfcc39d730e75e,
+      type: 2}
+    count: 1
 --- !u!1 &2055108493
 GameObject:
   m_ObjectHideFlags: 0

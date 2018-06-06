@@ -85,5 +85,12 @@ public class EnemyStats : Stats
 {
     public float damage = 20f;
     public bool isAttacking = false;
+}
 
+
+[System.Serializable]
+public class RangeEnemyStats : EnemyStats
+{
+    public float AttackRange = 50f;
+    public float AttackRate = 1f;
 }

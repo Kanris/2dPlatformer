@@ -68,9 +68,9 @@ public class EnemyAI : MonoBehaviour {
         {
             // Path to the target position
             seeker.StartPath(transform.position, target.position, OnPathComplete);
-            yield return new WaitForSeconds(1f / updateRate);
         }
 
+        yield return new WaitForSeconds(1f / updateRate);
         StartCoroutine(UpdatePath());
     }
 
@@ -89,7 +89,6 @@ public class EnemyAI : MonoBehaviour {
             if (pathIsEnded)
                 return;
 
-            Debug.Log("End of path reached");
             pathIsEnded = true;
             return;
         }
