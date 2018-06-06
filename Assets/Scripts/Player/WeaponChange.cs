@@ -11,7 +11,8 @@ public class WeaponChange : MonoBehaviour {
     private int totalWeaponAmount = 0;
 
     public GridLayoutGroup weaponsPanel;
-    public Transform weaponArm;
+
+    public bool AllowToChageWeapon;
 
     #region keycodes
     private KeyCode[] keyCodes = {
@@ -39,18 +40,20 @@ public class WeaponChange : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-
-        for (int keyValue = 0; keyValue < totalWeaponAmount & keyValue < keyCodes.Length; keyValue++)
+        if (AllowToChageWeapon)
         {
-            if (Input.GetKeyDown(keyCodes[keyValue]))
+            for (int keyValue = 0; keyValue < totalWeaponAmount & keyValue < keyCodes.Length; keyValue++)
             {
-                EquipWeapon(keyValue);
-                break;
-            }
+                if (Input.GetKeyDown(keyCodes[keyValue]))
+                {
+                    EquipWeapon(keyValue);
+                    break;
+                }
+            }   
         }
 	}
 
-    void EquipWeapon(int weaponToEquip)
+    public void EquipWeapon(int weaponToEquip)
     {
         if (weaponToEquip != currentWeaponEquiped)
         {
@@ -60,21 +63,24 @@ public class WeaponChange : MonoBehaviour {
 
             ChangeAlpha(true);
 
-            Destroy(weaponArm.transform.GetChild(0).gameObject); //destroy equiped weapon 
+            Destroy(gameObject.transform.GetChild(0).gameObject); //destroy equiped weapon 
 
-            Instantiate(weaponsToEquip[currentWeaponEquiped], weaponArm.transform);
+            Instantiate(weaponsToEquip[currentWeaponEquiped], gameObject.transform);
         }
     }
 
     void ChangeAlpha(bool isEquiped)
     {
-        var equipedWeapon = weaponsPanel.gameObject.transform.GetChild(currentWeaponEquiped).GetComponent<Image>();
+        if (weaponsPanel != null)
+        {
+            var equipedWeapon = weaponsPanel.gameObject.transform.GetChild(currentWeaponEquiped).GetComponent<Image>();
 
-        var newColor = equipedWeapon.color;
+            var newColor = equipedWeapon.color;
 
-        newColor.a = isEquiped ? 1f : 0.4f;
+            newColor.a = isEquiped ? 1f : 0.4f;
 
-        equipedWeapon.color = newColor;
+            equipedWeapon.color = newColor;   
+        }
     }
 
     public void ResetWeaponGUI()

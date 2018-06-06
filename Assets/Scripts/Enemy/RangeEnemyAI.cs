@@ -186,7 +186,9 @@ public class RangeEnemyAI : MonoBehaviour
         RaycastHit2D hit2D = Physics2D.Raycast(firePointPosition, target.position - firePointPosition, stats.AttackRange, whatToHit);
         DrawBulletTrailEffect();
 
-        if (!ReferenceEquals(hit2D.collider, null))
+        yield return new WaitForSeconds(0.2f);
+
+        if (!ReferenceEquals(hit2D.collider, null) & target == hit2D.transform)
         {
             var player = hit2D.transform.GetComponent<Player>();
 
@@ -210,7 +212,7 @@ public class RangeEnemyAI : MonoBehaviour
 
             float rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
             Instantiate(bulletTrailPrefab, firePoint.position, 
-                        Quaternion.Euler(0f, 0f, rotationZ + 0));
+                        Quaternion.Euler(0f, 0f, rotationZ));
         }
     }
 

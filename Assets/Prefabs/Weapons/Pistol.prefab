@@ -94,6 +94,7 @@ MonoBehaviour:
   effectSpawnRate: 10
   camShakeAmount: 0.05
   camShakeLength: 0.1
+  weaponShootSound: DefaultShot
 --- !u!212 &212951126709777992
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -24,6 +24,7 @@ public class Weapon : MonoBehaviour {
 
     public string weaponShootSound = "DefaultShot";
     AudioManager audioManager;
+    WeaponChange weaponChange;
 
     private void Start()
     {
@@ -45,21 +46,35 @@ public class Weapon : MonoBehaviour {
 
         if (audioManager == null)
             Debug.LogError("Weapon: No audiomanager found in scene");
+
+        weaponChange = transform.parent.gameObject.GetComponent<WeaponChange>();
+
+        if (weaponChange == null)
+            Debug.LogError("Weapon: can't find weaponchange in parent");
     }
 	
 	// Update is called once per frame
 	void Update () {
+        
+        if (Input.GetButtonDown("Fire1"))
+        {
+            weaponChange.EquipWeapon(0);
+        } 
+        else if (Input.GetButtonDown("Fire2"))
+        {
+            weaponChange.EquipWeapon(1);
+        }
 
         if (FireRate.CompareTo(0f) == 0)
         {
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1") | Input.GetButtonDown("Fire2"))
             {
                 Shoot();
             }
         }
         else
         {
-            if (Input.GetButton("Fire1") & Time.time > timeToFire)
+            if ((Input.GetButton("Fire1") | Input.GetButton("Fire2")) & Time.time > timeToFire)
             {
                 timeToFire = Time.time + 1 / FireRate;
                 Shoot();

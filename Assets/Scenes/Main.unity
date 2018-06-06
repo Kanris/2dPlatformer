@@ -552,6 +552,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCam: {fileID: 0}
+--- !u!1 &122993825 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1160336978134648, guid: f18f99404b229964b9e53ed1c0c37306,
+    type: 2}
+  m_PrefabInternal: {fileID: 1928143567}
+--- !u!114 &122993829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 122993825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 532837f0e06ed4b159bfd7efcde0faff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentWeaponEquiped: 0
+  weaponsToEquip:
+  - {fileID: 4816786078542380, guid: b637f4027e8a4480f807ec427daea733, type: 2}
+  - {fileID: 4411233066889512, guid: d3e41d7e20d3d4397ac638f2a9b510d3, type: 2}
+  weaponsPanel: {fileID: 1151220507}
 --- !u!1 &189617211
 GameObject:
   m_ObjectHideFlags: 0
@@ -1691,7 +1712,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1357489484
 GameObject:
@@ -2366,7 +2387,13 @@ Prefab:
       propertyPath: playerStats.MaxHealth
       value: 200
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 114833558522505616, guid: f18f99404b229964b9e53ed1c0c37306,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 114833558522505616, guid: f18f99404b229964b9e53ed1c0c37306, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: f18f99404b229964b9e53ed1c0c37306, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &1940122518
@@ -2411,7 +2438,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4035183660919168, guid: c0ac15d7b5a47466cb6a416ba661d003, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114272371960102228, guid: c0ac15d7b5a47466cb6a416ba661d003,
         type: 2}

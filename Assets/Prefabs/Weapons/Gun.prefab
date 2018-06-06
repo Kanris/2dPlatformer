@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 193fa6ce4237f4c63b6cb867c7700ae0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FireRate: 40
+  FireRate: 20
   Distance: 100
   Damage: 5
   whatToHit:
@@ -94,6 +94,7 @@ MonoBehaviour:
   effectSpawnRate: 10
   camShakeAmount: 0.05
   camShakeLength: 0.1
+  weaponShootSound: DefaultShot
 --- !u!212 &212083029004314332
 SpriteRenderer:
   m_ObjectHideFlags: 1
