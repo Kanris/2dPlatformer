@@ -83,13 +83,22 @@ public class EnemyStats : Stats
 {
     public float damage = 20f;
     public bool isAttacking = false;
+
+    public RangeEnemyStats rangeEnemyStats;
 }
 
 
 [System.Serializable]
-public class RangeEnemyStats : EnemyStats
+public class RangeEnemyStats
 {
     public float AttackRange = 50f;
     public float AttackRate = 1f;
+    [HideInInspector]
     public bool shotPreparing = false;
+
+    public Transform firePoint;
+    [HideInInspector]
+    public Vector3 firePointPosition;
+    public Transform bulletTrailPrefab;
+    public LayerMask whatToHit;
 }

@@ -75,37 +75,40 @@ public class EnemyAI : MonoBehaviour {
 
     private void FixedUpdate()
     {
-        transform.rotation = Quaternion.Euler(Vector3.zero);
-
-        if (target == null | path == null)
+        if (!stats.isAttacking)
         {
-            StartCoroutine(SearchForPlayer());
-            return;
-        }
+            transform.rotation = Quaternion.Euler(Vector3.zero);
 
-        if (currentWaypoint >= path.vectorPath.Count)
-        {
-            if (pathIsEnded)
+            if (target == null | path == null)
+            {
+                StartCoroutine(SearchForPlayer());
                 return;
+            }
 
-            pathIsEnded = true;
-            return;
-        }
+            if (currentWaypoint >= path.vectorPath.Count)
+            {
+                if (pathIsEnded)
+                    return;
 
-        pathIsEnded = false;
+                pathIsEnded = true;
+                return;
+            }
 
-        Vector3 direction = (path.vectorPath[currentWaypoint] - transform.position).normalized;
-        direction *= stats.speed * Time.fixedDeltaTime;
+            pathIsEnded = false;
 
-        //move ai
-        rb.AddForce(direction, fMode);
+            Vector3 direction = (path.vectorPath[currentWaypoint] - transform.position).normalized;
+            direction *= stats.speed * Time.fixedDeltaTime;
 
-        //move to another waypoint??
-        float distance = Vector3.Distance(transform.position, path.vectorPath[currentWaypoint]);
-        if (distance < nextWaypointDistance)
-        {
-            currentWaypoint++;
-            return;
+            //move ai
+            rb.AddForce(direction, fMode);
+
+            //move to another waypoint??
+            float distance = Vector3.Distance(transform.position, path.vectorPath[currentWaypoint]);
+            if (distance < nextWaypointDistance)
+            {
+                currentWaypoint++;
+                return;
+            }
         }
     }
 
@@ -143,19 +146,130 @@ public class EnemyAI : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Player player = collision.collider.GetComponent<Player>();
-
-        if (player != null)
+        if (stats.rangeEnemyStats.firePoint == null)
         {
-            if (player.transform.position.y >= gameObject.transform.position.y)
-            {
-                stats.Damage(99999);
-            }
-            else {
-                player.playerStats.Damage(stats.damage);
-                stats.Damage(99999);
-            }
+            Player player = collision.collider.GetComponent<Player>();
 
+            if (player != null)
+            {
+                if (player.transform.position.y >= gameObject.transform.position.y)
+                {
+                    stats.Damage(99999);
+                }
+                else
+                {
+                    player.playerStats.Damage(stats.damage);
+                    stats.Damage(99999);
+                }
+
+            }
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            stats.isAttacking = true;
+            StartCoroutine(ShootPlayer());
+            StartCoroutine(IdleAnimation(0.1f));
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            stats.isAttacking = false;
+        }
+    }
+
+    private IEnumerator ShootPlayer()
+    {
+        //audioManager.PlaySound(weaponShootSound);
+
+        if (!stats.rangeEnemyStats.shotPreparing)
+        {
+            stats.rangeEnemyStats.shotPreparing = true;
+
+            if (target == null)
+            {
+                stats.rangeEnemyStats.shotPreparing = false;
+                yield return new WaitForSeconds(1f / updateRateSearchPlayer);
+                StartCoroutine(ShootPlayer());
+            }
+            else
+            {
+                var whereToShoot = target.position;
+                stats.rangeEnemyStats.firePointPosition = 
+                    new Vector3(stats.rangeEnemyStats.firePoint.position.x, stats.rangeEnemyStats.firePoint.position.y);
+                DrawLine(stats.rangeEnemyStats.firePointPosition, whereToShoot, Color.red, 0.5f);
+
+                yield return new WaitForSeconds(0.6f);
+
+                RaycastHit2D hit2D = Physics2D.Raycast(stats.rangeEnemyStats.firePointPosition, 
+                                                       whereToShoot - stats.rangeEnemyStats.firePointPosition,
+                                                       stats.rangeEnemyStats.AttackRange, stats.rangeEnemyStats.whatToHit);
+                DrawBulletTrailEffect(whereToShoot);
+
+                if (!ReferenceEquals(hit2D.collider, null) & target == hit2D.transform)
+                {
+                    var player = hit2D.transform.GetComponent<Player>();
+
+                    if (player != null)
+                    {
+                        player.playerStats.Damage(stats.damage);
+                    }
+                }
+
+                yield return new WaitForSeconds(stats.rangeEnemyStats.AttackRate);
+
+                stats.rangeEnemyStats.shotPreparing = false;
+
+                if (stats.isAttacking)
+                    StartCoroutine(ShootPlayer());
+            }
+        }
+    }
+
+    void DrawLine(Vector3 start, Vector3 end, Color color, float duration = 0.2f)
+    {
+        GameObject myLine = new GameObject();
+        myLine.transform.position = start;
+        myLine.AddComponent<LineRenderer>();
+        LineRenderer lr = myLine.GetComponent<LineRenderer>();
+        //lr.material = new Material(Shader.Find("Particles/Alpha Blended Premultiply"));
+
+        lr.startColor = color;
+        lr.endColor = color;
+        lr.startWidth = 0.1f;
+        lr.endWidth = 0.1f;
+        lr.SetPosition(0, start);
+        lr.SetPosition(1, end);
+
+        Destroy(myLine, duration);
+    }
+
+    private void DrawBulletTrailEffect(Vector3 whereToShoot)
+    {
+        Vector3 difference = whereToShoot - stats.rangeEnemyStats.firePoint.position;
+        difference.Normalize();
+
+        float rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
+        Instantiate(stats.rangeEnemyStats.bulletTrailPrefab, stats.rangeEnemyStats.firePoint.position,
+                    Quaternion.Euler(0f, 0f, rotationZ));
+    }
+
+    private IEnumerator IdleAnimation(float offsetY)
+    {
+        var rigid2d = GetComponent<Rigidbody2D>();
+        rigid2d.transform.position = Vector3.MoveTowards(rigid2d.transform.position,
+                                                         new Vector3(rigid2d.transform.position.x, rigid2d.transform.position.y - offsetY),
+                                                         stats.speed * Time.deltaTime);
+
+        yield return new WaitForSeconds(1f);
+
+        if (stats.isAttacking)
+            StartCoroutine(IdleAnimation(-offsetY));
     }
 }

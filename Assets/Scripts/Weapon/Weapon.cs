@@ -102,15 +102,6 @@ public class Weapon : MonoBehaviour {
             {
                 enemyAI.stats.Damage(Damage);
             }
-            else
-            {
-                var rangeEnemyAI = hit2D.transform.GetComponent<RangeEnemyAI>();
-
-                if (rangeEnemyAI != null)
-                {
-                    rangeEnemyAI.stats.Damage(Damage);
-                }
-            }
         }
     }
 
