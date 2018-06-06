@@ -30,7 +30,7 @@ public class LevelManager : MonoBehaviour {
     {
         wavesCompleted += 1;
 
-        float waveCompletedPercent = (float)wavesCompleted / (float)wavesCount * 100f;
+        float waveCompletedPercent = Mathf.Round((float)wavesCompleted / (float)wavesCount * 100f);
 
         TextLevelCompletion.text = "Level completion:" + waveCompletedPercent + "%";
     }

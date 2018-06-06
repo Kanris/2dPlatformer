@@ -163,6 +163,7 @@ public class RangeEnemyAI : MonoBehaviour
         {
             stats.isAttacking = true;
             StartCoroutine(ShootPlayer());
+            StartCoroutine(IdleAnimation(0.1f));
         }
     }
 
@@ -211,5 +212,18 @@ public class RangeEnemyAI : MonoBehaviour
             Instantiate(bulletTrailPrefab, firePoint.position, 
                         Quaternion.Euler(0f, 0f, rotationZ + 0));
         }
+    }
+
+    private IEnumerator IdleAnimation(float offsetY)
+    {
+        var rigid2d = GetComponent<Rigidbody2D>();
+        rigid2d.transform.position = Vector3.MoveTowards(rigid2d.transform.position, 
+                                                         new Vector3(rigid2d.transform.position.x, rigid2d.transform.position.y - offsetY), 
+                                                         stats.speed * Time.deltaTime);
+
+        yield return new WaitForSeconds(1f);
+
+        if (stats.isAttacking)
+            StartCoroutine(IdleAnimation(-offsetY));
     }
 }

@@ -303,10 +303,10 @@ MonoBehaviour:
     DeathSound: Explosion
     DamageSound: 
     gameObject: {fileID: 0}
-    damage: 10
+    damage: 30
     isAttacking: 0
     AttackRange: 50
-    AttackRate: 3
+    AttackRate: 2
   fMode: 0
   nextWaypointDistance: 3
   pathIsEnded: 0
