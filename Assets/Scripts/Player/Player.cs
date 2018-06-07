@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public class Player : MonoBehaviour {
 
-    public Stats playerStats;
+    public PlayerStats playerStats;
     public int yBoundaries = -20;
 
     private void Start()
@@ -15,7 +15,7 @@ public class Player : MonoBehaviour {
     {
         if (transform.position.y.CompareTo(yBoundaries) <= 0) //kill player after fall
         {
-            playerStats.Damage(100);
+            playerStats.Damage(99999);
         }
     }
 

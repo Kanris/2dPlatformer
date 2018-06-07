@@ -4,31 +4,29 @@ using UnityEngine.UI;
 [System.Serializable]
 public class Stats {
 
-    public float MaxHealth = 100f;
-    private float _currentHealth;
+    public float MaxHealth = 100f; //max object health
+    private float _currentHealth; //current object health
     public float CurrentHealth
     {
         get { return _currentHealth; }
-        set { _currentHealth = Mathf.Clamp(value, 0, MaxHealth); }
+        set { _currentHealth = Mathf.Clamp(value, 0, MaxHealth); } //current health can't be less than thero and greter than MaxHealth
     }
 
-    public float speed = 300f;
+    public float speed = 300f; //object movement speed
 
-    public string DeathSound = "Explosion";
-    public string DamageSound;
+    public string DeathSound = "Explosion"; //death sound
+    public string DamageSound; //sound when object takes some damage
 
-    public GameObject gameObject;
+    private GameObject gameObject; //gameobject where this Stats attached
+    private Slider healthSlider; //object health UI
+    private Text healthText; //object text health UI
+    private AudioManager audioManager; //audio manager
 
-    private Canvas StatsUI;
-    private Slider healthSlider;
-    private Text healthText;
-    private AudioManager audioManager;
+    public Transform deathPrefab;
 
     public void Initialize(GameObject parentGameObject)
     {
-
         gameObject = parentGameObject;
-        StatsUI = gameObject.GetComponentInChildren(typeof(Canvas)) as Canvas;
         healthSlider = gameObject.GetComponentInChildren(typeof(Slider)) as Slider;
         healthText = gameObject.GetComponentInChildren(typeof(Text)) as Text;
 
@@ -59,13 +57,29 @@ public class Stats {
 
         if (CurrentHealth <= 0)
         {
-            GameMaster.KillObject(gameObject);
+            KillObject();
         }
 
-        if (DamageSound != string.Empty)
+        PlayDamageSound();
+    }
+
+    protected virtual void KillObject()
+    {
+        PlayDeathSound();
+
+        ShowDeathAnimation();
+
+        GameObject.Destroy(gameObject); 
+    }
+
+    private void ShowDeathAnimation()
+    {
+        if (deathPrefab != null)
         {
-            audioManager.PlaySound(DamageSound);
+            var deathEffect = GameObject.Instantiate(deathPrefab, gameObject.transform.position, gameObject.transform.rotation).gameObject;
+            GameObject.Destroy(deathEffect, 2.5f);
         }
+
     }
 
     private void DisplayUIChanges(float damageFromSource)
@@ -76,6 +90,33 @@ public class Stats {
         if (healthSlider != null)
             healthSlider.value += damageFromSource;
     }
+
+    private void PlayDamageSound()
+    {
+        if (DamageSound != string.Empty)
+        {
+            audioManager.PlaySound(DamageSound);
+        }
+    }
+
+    private void PlayDeathSound()
+    {
+        if (DeathSound != string.Empty)
+        {
+            audioManager.PlaySound(DeathSound);
+        }
+    }
+}
+
+[System.Serializable]
+public class PlayerStats : Stats
+{
+    protected override void KillObject()
+    {
+        (GameObject.FindObjectOfType(typeof(WeaponChange)) as WeaponChange).ResetWeaponGUI(); //reset player weapon GUI
+        GameMaster.gm.PlayerIsDead(); //notify game manager that player is dead
+        base.KillObject();
+    }
 }
 
 [System.Serializable]
@@ -83,22 +124,16 @@ public class EnemyStats : Stats
 {
     public float damage = 20f;
     public bool isAttacking = false;
-
-    public RangeEnemyStats rangeEnemyStats;
 }
 
 
 [System.Serializable]
-public class RangeEnemyStats
+public class RangeEnemyStats : EnemyStats
 {
     public float AttackRange = 50f;
     public float AttackRate = 1f;
-    [HideInInspector]
+    //[HideInInspector]
     public bool shotPreparing = false;
 
     public Transform firePoint;
-    [HideInInspector]
-    public Vector3 firePointPosition;
-    public Transform bulletTrailPrefab;
-    public LayerMask whatToHit;
 }

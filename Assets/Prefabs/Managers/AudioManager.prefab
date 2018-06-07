@@ -58,3 +58,4 @@ MonoBehaviour:
     pitch: 1
     volumeOffset: 0.1
     pitchOffset: 0.1
+    loop: 0

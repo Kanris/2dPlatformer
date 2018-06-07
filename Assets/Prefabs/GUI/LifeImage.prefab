@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 222897652780841002}
   - component: {fileID: 114184215455223962}
   m_Layer: 0
-  m_Name: LiveImage
+  m_Name: LifeImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

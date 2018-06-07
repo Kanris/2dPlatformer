@@ -110,7 +110,8 @@ public class Weapon : MonoBehaviour {
         if(Time.time >= timeToSpawnEffect)
         {
             timeToSpawnEffect = Time.time + 1 / effectSpawnRate;
-            Instantiate(bulletTrailPrefab, firePoint.position, firePoint.rotation);
+            var bulletPrefab = Instantiate(bulletTrailPrefab, firePoint.position, firePoint.rotation);
+            bulletPrefab.transform.parent = firePoint;
 
             StartCoroutine(DrawMuzzleFlash());
         }

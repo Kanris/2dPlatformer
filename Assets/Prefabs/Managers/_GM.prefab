@@ -68,3 +68,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bfa98147d16d1c459ea924d3ef91949, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerPrefab: {fileID: 0}
+  spawnPoint: {fileID: 0}
+  spawnDelay: 3.7
+  spawnPrefab: {fileID: 0}
+  LifeGUI: {fileID: 0}
+  lifeImage: {fileID: 0}
+  announcer: {fileID: 0}
+  spawnSoundName: 
+  LevelMusic: 

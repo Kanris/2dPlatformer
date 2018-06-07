@@ -12,10 +12,10 @@ public class GameMaster : MonoBehaviour {
     public float spawnDelay = 3.7f;
     public Transform spawnPrefab;
 
-    public static int LivesCount = 2;
-    public Transform LivesGUI;
-    public Transform liveImage;
-    private Transform[] livesLeft;
+    public static int LifeCount = 2;
+    public Transform LifeGUI;
+    public Transform lifeImage;
+    private Transform[] lifesLeft;
 
     public GameObject announcer;
 
@@ -30,7 +30,7 @@ public class GameMaster : MonoBehaviour {
             gm = GameObject.FindGameObjectWithTag("GameMaster").GetComponent<GameMaster>();
         }
 
-        InitializeLiveGUI();
+        InitializeLifeGUI();
     }
 
     private void Start()
@@ -53,31 +53,16 @@ public class GameMaster : MonoBehaviour {
         Destroy(spawnEffect, 2.5f);
     }
 
-    public static void KillObject(GameObject objectToKill)
+    public void PlayerIsDead()
     {
-        if (objectToKill.tag == "Player")
-        {
-            (FindObjectOfType(typeof(WeaponChange)) as WeaponChange).ResetWeaponGUI();
-            gm.audioManager.PlaySound("DeathVoice");
-            gm.PlayerIsDead();
-        }
-
-        Destroy(objectToKill);
-
-        var spawnEffect = Instantiate(gm.spawnPrefab, objectToKill.transform.position, objectToKill.transform.rotation).gameObject;
-        Destroy(spawnEffect, 2.5f);
-    }
-
-    private void PlayerIsDead()
-    {
-        if (LivesCount > 0)
+        if (LifeCount > 0)
         {
             StartCoroutine(RespawnPlayer());
-            LivesCount--;
-            ChangeLiveGui();
+            LifeCount--;
+            ChangeLifeGUI();
 
-            string result = LivesCount > 1 ? "Lifes" : "Life";
-            var announcerMessage = LivesCount + " " + result + " left";
+            string result = LifeCount > 1 ? "Lifes" : "Life";
+            var announcerMessage = LifeCount + " " + result + " left";
             StartCoroutine(DisplayAnnouncerMessage(announcerMessage, 3f));
         }
         else
@@ -86,21 +71,21 @@ public class GameMaster : MonoBehaviour {
         }
     }
 
-    private void InitializeLiveGUI()
+    private void InitializeLifeGUI()
     {
-        livesLeft = new Transform[LivesCount];
+        lifesLeft = new Transform[LifeCount];
 
-        for (int index = 0, offsetX = 0; index < LivesCount; index++)
+        for (int index = 0, offsetX = 0; index < LifeCount; index++)
         {
-            livesLeft[index] = Instantiate(liveImage, LivesGUI.transform);
-            livesLeft[index].position = new Vector3(livesLeft[index].position.x - offsetX, livesLeft[index].position.y);
+            lifesLeft[index] = Instantiate(lifeImage, LifeGUI.transform);
+            lifesLeft[index].position = new Vector3(lifesLeft[index].position.x - offsetX, lifesLeft[index].position.y);
             offsetX += 18;
         }
     }
 
-    private void ChangeLiveGui()
+    private void ChangeLifeGUI()
     {
-        Destroy(livesLeft[LivesCount].gameObject);
+        Destroy(lifesLeft[LifeCount].gameObject);
     }
 
     public IEnumerator DisplayAnnouncerMessage(string message, float duration)
