@@ -678,7 +678,7 @@ MonoBehaviour:
   m_AirControl: 1
   m_WhatIsGround:
     serializedVersion: 2
-    m_Bits: 4294966479
+    m_Bits: 4294966472
 --- !u!212 &212230061399335616
 SpriteRenderer:
   m_ObjectHideFlags: 1

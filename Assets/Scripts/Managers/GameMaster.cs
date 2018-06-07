@@ -12,7 +12,7 @@ public class GameMaster : MonoBehaviour {
     public float spawnDelay = 3.7f;
     public Transform spawnPrefab;
 
-    public static int LifeCount = 2;
+    public int LifeCount = 2;
     public Transform LifeGUI;
     public Transform lifeImage;
     private Transform[] lifesLeft;
