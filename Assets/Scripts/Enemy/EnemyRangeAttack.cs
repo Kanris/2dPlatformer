@@ -48,24 +48,24 @@ public class EnemyRangeAttack : MonoBehaviour {
         if (collision.CompareTag("Player"))
         {
             stats.isAttacking = false;
-            stats.shotPreparing = false;
         }
     }
 
     private IEnumerator ShootPlayer()
     {
         //audioManager.PlaySound(weaponShootSound);
-        if (enemyAI.target == null)
-        {
-            stats.shotPreparing = false;
-            yield return new WaitForSeconds(1f / updateRateSearchPlayer);
-            StartCoroutine(ShootPlayer());
-        }
-        else if (!stats.shotPreparing & stats.isAttacking)
+
+        if (!stats.shotPreparing)
         {
             stats.shotPreparing = true;
 
-            if (enemyAI.target != null)
+            if (enemyAI.target == null)
+            {
+                stats.shotPreparing = false;
+                yield return new WaitForSeconds(1f / updateRateSearchPlayer);
+                StartCoroutine(ShootPlayer());
+            } 
+            else
             {
                 var whereToShoot = enemyAI.target.position;
 
@@ -79,9 +79,7 @@ public class EnemyRangeAttack : MonoBehaviour {
                                                        stats.AttackRange, whatToHit);
                 DrawBulletTrailEffect(whereToShoot);
 
-                if (enemyAI.target != null)
-                {
-                    if (!ReferenceEquals(hit2D.collider, null) & enemyAI.target == hit2D.transform)
+                if (!ReferenceEquals(hit2D.collider, null) & enemyAI.target == hit2D.transform)
                     {
                         var player = hit2D.transform.GetComponent<Player>();
                         if (player != null)
@@ -89,19 +87,12 @@ public class EnemyRangeAttack : MonoBehaviour {
                             player.playerStats.Damage(stats.damage);
                         }
                     }   
-                }
 
                 yield return new WaitForSeconds(stats.AttackRate);
-
                 stats.shotPreparing = false;
 
-                StartCoroutine(ShootPlayer());
-            }
-            else
-            {
-                stats.shotPreparing = false;
-                yield return new WaitForSeconds(1f / updateRateSearchPlayer);
-                StartCoroutine(ShootPlayer());
+                if (stats.isAttacking)
+                    StartCoroutine(ShootPlayer());
             }
         }
     }

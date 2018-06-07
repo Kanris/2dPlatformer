@@ -431,7 +431,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats:
     MaxHealth: 4000
-    speed: 300
+    speed: 400
     DeathSound: Explosion
     DamageSound: 
     deathPrefab: {fileID: 4747140216253446, guid: e8e0008fb9a05d0438576bd3d90494ea,
