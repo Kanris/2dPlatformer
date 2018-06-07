@@ -68,7 +68,15 @@ public class GameMaster : MonoBehaviour {
         else
         {
             gm.StartCoroutine(gm.DisplayAnnouncerMessage("Game Over", 10f));
+            StartCoroutine(LoadScene("MainMenu", 4.5f));
         }
+    }
+
+    private IEnumerator LoadScene(string scene, float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        (FindObjectOfType(typeof(LoadScene)) as LoadScene).Load(scene);
     }
 
     private void InitializeLifeGUI()
