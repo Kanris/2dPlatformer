@@ -27,6 +27,8 @@ public class Weapon : MonoBehaviour {
 
     private PauseMenu pauseMenu;
 
+    private Transform parentTransform;
+
     private void Start()
     {
         firePoint = transform.Find("FirePoint");
@@ -54,6 +56,8 @@ public class Weapon : MonoBehaviour {
             Debug.LogError("Weapon: can't find weaponchange in parent");
 
         pauseMenu = PauseMenu.pm;
+
+        parentTransform = transform.parent.GetComponent<ArmRotation>().parentTransform;
     }
 	
 	// Update is called once per frame
@@ -93,21 +97,26 @@ public class Weapon : MonoBehaviour {
         Vector2 mousePosition = GetMousePosition();
         Vector2 firePointPosition = new Vector2(firePoint.position.x, firePoint.position.y);
 
-        RaycastHit2D hit2D = Physics2D.Raycast(firePointPosition, mousePosition - firePointPosition, Distance, whatToHit);
-        DrawBulletTrailEffect();
+        var whereToShoot = mousePosition - firePointPosition;
 
-        cameraShake.Shake(camShakeAmount, camShakeLength);
-
-        audioManager.PlaySound(weaponShootSound);
-
-        if (!ReferenceEquals(hit2D.collider, null))
+        if ((whereToShoot.x < 0 & parentTransform.localScale.x < 0) | (whereToShoot.x > 0 & parentTransform.localScale.x > 0))
         {
-            var enemyAI = hit2D.transform.GetComponent<EnemyAI>();
+            RaycastHit2D hit2D = Physics2D.Raycast(firePointPosition, mousePosition - firePointPosition, Distance, whatToHit);
+            DrawBulletTrailEffect();
 
-            if (enemyAI != null)
+            cameraShake.Shake(camShakeAmount, camShakeLength);
+
+            audioManager.PlaySound(weaponShootSound);
+
+            if (!ReferenceEquals(hit2D.collider, null))
             {
-                enemyAI.stats.Damage(Damage);
-            }
+                var enemyAI = hit2D.transform.GetComponent<EnemyAI>();
+
+                if (enemyAI != null)
+                {
+                    enemyAI.stats.Damage(Damage);
+                }
+            }   
         }
     }
 
@@ -117,7 +126,7 @@ public class Weapon : MonoBehaviour {
         {
             timeToSpawnEffect = Time.time + 1 / effectSpawnRate;
             var bulletPrefab = Instantiate(bulletTrailPrefab, firePoint.position, firePoint.rotation);
-            bulletPrefab.transform.parent = firePoint;
+            bulletPrefab.parent = firePoint;
 
             StartCoroutine(DrawMuzzleFlash());
         }
