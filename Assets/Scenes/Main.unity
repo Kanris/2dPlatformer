@@ -2670,6 +2670,10 @@ Prefab:
       propertyPath: sounds.Array.data[6].loop
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1350361430816440, guid: c0ac15d7b5a47466cb6a416ba661d003, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c0ac15d7b5a47466cb6a416ba661d003, type: 2}
   m_IsPrefabParent: 0
