@@ -11,22 +11,13 @@ public class Kamikaze : MonoBehaviour {
         stats.Initialize(gameObject);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        Player player = collision.collider.GetComponent<Player>();
-
-        if (player != null)
+        if (collision.CompareTag("Player"))
         {
-            if (player.transform.position.y >= gameObject.transform.position.y)
-            {
-                stats.Damage(99999);
-            }
-            else
-            {
-                player.playerStats.Damage(stats.damage);
-                stats.Damage(99999);
-            }
-
+            var player = collision.gameObject.GetComponent<Player>();
+            player.playerStats.Damage(stats.damage);
+            stats.Damage(99999);
         }
     }
 }

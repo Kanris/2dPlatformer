@@ -619,11 +619,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waves:
   - name: First Wave
-    enemyToSpawn: {fileID: 4519856088443362, guid: 4fd7794488797478688919042166478b,
+    enemyToSpawn: {fileID: 4706343575558478, guid: 4fd7794488797478688919042166478b,
       type: 2}
     count: 1
   - name: Second Wave
-    enemyToSpawn: {fileID: 4519856088443362, guid: 4fd7794488797478688919042166478b,
+    enemyToSpawn: {fileID: 4706343575558478, guid: 4fd7794488797478688919042166478b,
       type: 2}
     count: 2
 --- !u!1 &218141618
@@ -1558,7 +1558,7 @@ Prefab:
     - target: {fileID: 224993426864965306, guid: 75b789ba696724502a6c025fae682b73,
         type: 2}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 224993426864965306, guid: 75b789ba696724502a6c025fae682b73,
         type: 2}
@@ -1679,7 +1679,7 @@ RectTransform:
   - {fileID: 1040498699}
   - {fileID: 1151220506}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3644,15 +3644,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waves:
   - name: First wave
-    enemyToSpawn: {fileID: 4519856088443362, guid: 4fd7794488797478688919042166478b,
+    enemyToSpawn: {fileID: 4706343575558478, guid: 4fd7794488797478688919042166478b,
       type: 2}
     count: 1
   - name: Second wave
-    enemyToSpawn: {fileID: 4519856088443362, guid: 4fd7794488797478688919042166478b,
+    enemyToSpawn: {fileID: 4706343575558478, guid: 4fd7794488797478688919042166478b,
       type: 2}
     count: 1
   - name: Third wave
-    enemyToSpawn: {fileID: 4519856088443362, guid: 4fd7794488797478688919042166478b,
+    enemyToSpawn: {fileID: 4706343575558478, guid: 4fd7794488797478688919042166478b,
       type: 2}
     count: 3
   - name: Fourth wave
