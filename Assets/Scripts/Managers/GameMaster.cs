@@ -72,7 +72,7 @@ public class GameMaster : MonoBehaviour {
         }
     }
 
-    private IEnumerator LoadScene(string scene, float time)
+    public IEnumerator LoadScene(string scene, float time)
     {
         yield return new WaitForSeconds(time);
 

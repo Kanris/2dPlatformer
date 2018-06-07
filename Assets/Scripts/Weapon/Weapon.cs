@@ -25,6 +25,8 @@ public class Weapon : MonoBehaviour {
     AudioManager audioManager;
     WeaponChange weaponChange;
 
+    private PauseMenu pauseMenu;
+
     private void Start()
     {
         firePoint = transform.Find("FirePoint");
@@ -50,36 +52,40 @@ public class Weapon : MonoBehaviour {
 
         if (weaponChange == null)
             Debug.LogError("Weapon: can't find weaponchange in parent");
+
+        pauseMenu = PauseMenu.pm;
     }
 	
 	// Update is called once per frame
 	void Update () {
-        
-        if (Input.GetButtonDown("Fire1"))
-        {
-            weaponChange.EquipWeapon(0);
-        } 
-        else if (Input.GetButtonDown("Fire2"))
-        {
-            weaponChange.EquipWeapon(1);
-        }
 
-        if (FireRate.CompareTo(0f) == 0)
+        if (!pauseMenu.IsGamePause)
         {
-            if (Input.GetButtonDown("Fire1") | Input.GetButtonDown("Fire2"))
+            if (Input.GetButtonDown("Fire1"))
             {
-                Shoot();
+                weaponChange.EquipWeapon(0);
             }
-        }
-        else
-        {
-            if ((Input.GetButton("Fire1") | Input.GetButton("Fire2")) & Time.time > timeToFire)
+            else if (Input.GetButtonDown("Fire2"))
             {
-                timeToFire = Time.time + 1 / FireRate;
-                Shoot();
+                weaponChange.EquipWeapon(1);
             }
-        }
 
+            if (FireRate.CompareTo(0f) == 0)
+            {
+                if (Input.GetButtonDown("Fire1") | Input.GetButtonDown("Fire2"))
+                {
+                    Shoot();
+                }
+            }
+            else
+            {
+                if ((Input.GetButton("Fire1") | Input.GetButton("Fire2")) & Time.time > timeToFire)
+                {
+                    timeToFire = Time.time + 1 / FireRate;
+                    Shoot();
+                }
+            }   
+        }
 	}
 
     private void Shoot()

@@ -14,6 +14,8 @@ public class WeaponChange : MonoBehaviour {
 
     public bool AllowToChageWeapon;
 
+    private PauseMenu pauseMenu;
+
     #region keycodes
     private KeyCode[] keyCodes = {
          KeyCode.Alpha1,
@@ -36,20 +38,25 @@ public class WeaponChange : MonoBehaviour {
         {
             weaponsPanel = FindObjectOfType(typeof(GridLayoutGroup)) as GridLayoutGroup;
         }
+
+        pauseMenu = PauseMenu.pm;
     }
 
     // Update is called once per frame
     void Update () {
         if (AllowToChageWeapon)
         {
-            for (int keyValue = 0; keyValue < totalWeaponAmount & keyValue < keyCodes.Length; keyValue++)
+            if (!pauseMenu.IsGamePause)
             {
-                if (Input.GetKeyDown(keyCodes[keyValue]))
+                for (int keyValue = 0; keyValue < totalWeaponAmount & keyValue < keyCodes.Length; keyValue++)
                 {
-                    EquipWeapon(keyValue);
-                    break;
-                }
-            }   
+                    if (Input.GetKeyDown(keyCodes[keyValue]))
+                    {
+                        EquipWeapon(keyValue);
+                        break;
+                    }
+                }    
+            }
         }
 	}
 
