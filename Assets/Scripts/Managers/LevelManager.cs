@@ -13,6 +13,8 @@ public class LevelManager : MonoBehaviour {
 
     public Text TextLevelCompletion;
 
+    public string NextScene;
+
     private void Start()
     {
         for (int index = 0; index < gameObject.transform.childCount; index++)
@@ -43,6 +45,9 @@ public class LevelManager : MonoBehaviour {
             updateRate = 10f;
             StartCoroutine(GameMaster.gm.DisplayAnnouncerMessage("Level complete", updateRate));
             TextLevelCompletion.text = string.Empty;
+
+            StartCoroutine(GameMaster.gm.LoadScene(NextScene, 0f));
+            //NextScene
         }
 
         yield return new WaitForSeconds(updateRate);
@@ -52,5 +57,7 @@ public class LevelManager : MonoBehaviour {
         else
             Destroy(gameObject);
     }
+
+
 
 }

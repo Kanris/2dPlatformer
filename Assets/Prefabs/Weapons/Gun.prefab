@@ -83,7 +83,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FireRate: 20
   Distance: 100
-  Damage: 5
+  Damage: 10
   whatToHit:
     serializedVersion: 2
     m_Bits: 4294965449

@@ -47,7 +47,10 @@ public class GameMaster : MonoBehaviour {
 
         if ( !string.IsNullOrEmpty(LevelName))
         {
-            StartCoroutine(DisplayAnnouncerMessage(LevelName, 2f, () => enemiesSpawnPrefab.SetActive(true)));
+            if (enemiesSpawnPrefab != null)
+                StartCoroutine(DisplayAnnouncerMessage(LevelName, 2f, () => enemiesSpawnPrefab.SetActive(true)));
+            else
+                StartCoroutine(DisplayAnnouncerMessage(LevelName, 2f));
         }
     }
 
@@ -91,19 +94,23 @@ public class GameMaster : MonoBehaviour {
 
     private void InitializeLifeGUI()
     {
-        lifesLeft = new Transform[LifeCount];
-
-        for (int index = 0, offsetX = 0; index < LifeCount; index++)
+        if (lifeImage != null)
         {
-            lifesLeft[index] = Instantiate(lifeImage, LifeGUI.transform);
-            lifesLeft[index].position = new Vector3(lifesLeft[index].position.x - offsetX, lifesLeft[index].position.y);
-            offsetX += 18;
+            lifesLeft = new Transform[LifeCount];
+
+            for (int index = 0, offsetX = 0; index < LifeCount; index++)
+            {
+                lifesLeft[index] = Instantiate(lifeImage, LifeGUI.transform);
+                lifesLeft[index].position = new Vector3(lifesLeft[index].position.x - offsetX, lifesLeft[index].position.y);
+                offsetX += 18;
+            }   
         }
     }
 
     private void ChangeLifeGUI()
     {
-        Destroy(lifesLeft[LifeCount].gameObject);
+        if (lifeImage != null)
+            Destroy(lifesLeft[LifeCount].gameObject);
     }
 
     public IEnumerator DisplayAnnouncerMessage(string message, float duration, VoidDelegate delayFunc = null)

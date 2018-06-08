@@ -115,19 +115,42 @@ public class PlayerStats : Stats
     public static float AdditionalDamage = 0f;
     public static float DamageResistance = 0f;
 
-    private Text CoinsText;
+    private static Text CoinsText;
 
     public override void Initialize(GameObject parentGameObject)
     {
         CoinsText = GameObject.Find("CoinsUI").GetComponent<Text>();
+        CoinsText.text = "Coins:" + Coins.ToString();
         base.Initialize(parentGameObject);
     }
 
     protected override void KillObject()
     {
-        (GameObject.FindObjectOfType(typeof(WeaponChange)) as WeaponChange).ResetWeaponGUI(); //reset player weapon GUI
+        var weaponChange = GameObject.FindObjectOfType(typeof(WeaponChange)) as WeaponChange;
+
+        if (weaponChange != null)
+            weaponChange.ResetWeaponGUI(); //reset player weapon GUI
+        
         GameMaster.gm.PlayerIsDead(); //notify game manager that player is dead
         base.KillObject();
+    }
+
+    public static void SpendMoney(int amount, Item item)
+    {
+        if (amount > Coins)
+        {
+            var announcerMessage = "Not enough money to buy - " + item.Name;
+            GameMaster.gm.StartCoroutine(
+                GameMaster.gm.DisplayAnnouncerMessage(announcerMessage, 2f));   
+        }
+        else
+        {
+            Coins -= amount;
+            CoinsText.text = "Coins:" + Coins.ToString();
+            var announcerMessage = item.itemType.ToString() + " increased by " + item.BuffAmount;
+            GameMaster.gm.StartCoroutine(
+                GameMaster.gm.DisplayAnnouncerMessage(announcerMessage, 2f));
+        }
     }
 }
 
