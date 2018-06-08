@@ -36,6 +36,8 @@ public class ArmRotation : MonoBehaviour {
             difference.Normalize();
 
             var rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
+            //transform.rotation = Quaternion.Euler(0f, 0f, rotationZ + rotationOffset);
+
             if (rotationZ <= 95f & rotationZ >= -95f)
             {
                 transform.rotation = Quaternion.Euler(0f, 0f, rotationZ + rotationOffset);

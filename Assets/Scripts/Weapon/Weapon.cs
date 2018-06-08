@@ -57,7 +57,7 @@ public class Weapon : MonoBehaviour {
 
         pauseMenu = PauseMenu.pm;
 
-        parentTransform = transform.parent.GetComponent<ArmRotation>().parentTransform;
+        parentTransform = transform.parent.gameObject.transform.parent;
     }
 	
 	// Update is called once per frame
@@ -101,13 +101,14 @@ public class Weapon : MonoBehaviour {
 
         if ((whereToShoot.x < 0 & parentTransform.localScale.x < 0) | (whereToShoot.x > 0 & parentTransform.localScale.x > 0))
         {
-            RaycastHit2D hit2D = Physics2D.Raycast(firePointPosition, mousePosition - firePointPosition, Distance, whatToHit);
+            RaycastHit2D hit2D = Physics2D.Raycast(firePointPosition, whereToShoot, Distance, whatToHit);
             DrawBulletTrailEffect();
 
             cameraShake.Shake(camShakeAmount, camShakeLength);
 
-            audioManager.PlaySound(weaponShootSound);
-
+            if (audioManager != null)
+                audioManager.PlaySound(weaponShootSound);
+            
             if (!ReferenceEquals(hit2D.collider, null))
             {
                 var enemyAI = hit2D.transform.GetComponent<EnemyAI>();
@@ -125,8 +126,15 @@ public class Weapon : MonoBehaviour {
         if(Time.time >= timeToSpawnEffect)
         {
             timeToSpawnEffect = Time.time + 1 / effectSpawnRate;
+
             var bulletPrefab = Instantiate(bulletTrailPrefab, firePoint.position, firePoint.rotation);
-            bulletPrefab.parent = firePoint;
+
+            if (parentTransform.localScale.x < 0)
+            {
+                var rotationOffset = firePoint.rotation.z > 0 ? 180 : -180;
+                bulletPrefab.Rotate(0, 0, rotationOffset);
+            }
+            //bulletPrefab.parent = firePoint.parent;
 
             StartCoroutine(DrawMuzzleFlash());
         }
