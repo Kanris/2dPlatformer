@@ -3000,6 +3000,16 @@ Prefab:
       value: 
       objectReference: {fileID: 224964067436239304, guid: dd58e26415e4847e7ba4f47dc93807d1,
         type: 2}
+    - target: {fileID: 114581457691080978, guid: 924df003b63d8694589500e078d1b768,
+        type: 2}
+      propertyPath: LevelName
+      value: E1M1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114581457691080978, guid: 924df003b63d8694589500e078d1b768,
+        type: 2}
+      propertyPath: enemiesSpawnPrefab
+      value: 
+      objectReference: {fileID: 11382916}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 924df003b63d8694589500e078d1b768, type: 2}
   m_IsPrefabParent: 0
@@ -4051,7 +4061,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1350361430816440, guid: c0ac15d7b5a47466cb6a416ba661d003, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c0ac15d7b5a47466cb6a416ba661d003, type: 2}

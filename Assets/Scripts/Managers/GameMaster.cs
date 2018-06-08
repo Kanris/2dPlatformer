@@ -22,6 +22,11 @@ public class GameMaster : MonoBehaviour {
     private AudioManager audioManager;
     public string spawnSoundName;
     public string LevelMusic;
+    public string LevelName;
+
+    [HideInInspector]
+    public delegate void VoidDelegate();
+    public GameObject enemiesSpawnPrefab;
 
     void Awake()
     {
@@ -39,6 +44,11 @@ public class GameMaster : MonoBehaviour {
 
         if (audioManager == null)
             Debug.LogError("GameMaster: Can't found AudioManager");
+
+        if ( !string.IsNullOrEmpty(LevelName))
+        {
+            StartCoroutine(DisplayAnnouncerMessage(LevelName, 2f, () => enemiesSpawnPrefab.SetActive(true)));
+        }
     }
 
     public IEnumerator RespawnPlayer()
@@ -96,7 +106,7 @@ public class GameMaster : MonoBehaviour {
         Destroy(lifesLeft[LifeCount].gameObject);
     }
 
-    public IEnumerator DisplayAnnouncerMessage(string message, float duration)
+    public IEnumerator DisplayAnnouncerMessage(string message, float duration, VoidDelegate delayFunc = null)
     {
         announcer.SetActive(true);
         announcer.GetComponentInChildren<Text>().text = message;
@@ -104,6 +114,11 @@ public class GameMaster : MonoBehaviour {
         yield return new WaitForSeconds(duration);
 
         announcer.SetActive(false);
+
+        if (delayFunc != null)
+        {
+            delayFunc();
+        }
     }
 
 }
