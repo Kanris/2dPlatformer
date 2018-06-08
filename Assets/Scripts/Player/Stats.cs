@@ -24,7 +24,7 @@ public class Stats {
 
     public Transform deathPrefab;
 
-    public void Initialize(GameObject parentGameObject)
+    public virtual void Initialize(GameObject parentGameObject)
     {
         gameObject = parentGameObject;
         healthSlider = gameObject.GetComponentInChildren(typeof(Slider)) as Slider;
@@ -82,7 +82,7 @@ public class Stats {
 
     }
 
-    private void DisplayUIChanges(float damageFromSource)
+    protected virtual void DisplayUIChanges(float damageFromSource)
     {
         if (healthText != null)
             healthText.text = CurrentHealth + "/" + MaxHealth;
@@ -111,6 +111,18 @@ public class Stats {
 [System.Serializable]
 public class PlayerStats : Stats
 {
+    public static int Coins = 0;
+    public static float AdditionalDamage = 0f;
+    public static float DamageResistance = 0f;
+
+    private Text CoinsText;
+
+    public override void Initialize(GameObject parentGameObject)
+    {
+        CoinsText = GameObject.Find("CoinsUI").GetComponent<Text>();
+        base.Initialize(parentGameObject);
+    }
+
     protected override void KillObject()
     {
         (GameObject.FindObjectOfType(typeof(WeaponChange)) as WeaponChange).ResetWeaponGUI(); //reset player weapon GUI
@@ -124,6 +136,23 @@ public class EnemyStats : Stats
 {
     public float damage = 20f;
     public bool isAttacking = false;
+
+    public int EnemyDeathCost = 10;
+
+    private Text CoinsText;
+
+    public override void Initialize(GameObject parentGameObject)
+    {
+        CoinsText = GameObject.Find("CoinsUI").GetComponent<Text>();
+        base.Initialize(parentGameObject);
+    }
+
+    protected override void KillObject()
+    {
+        PlayerStats.Coins += EnemyDeathCost;
+        CoinsText.text = "Coins:" + PlayerStats.Coins.ToString();
+        base.KillObject();
+    }
 }
 
 

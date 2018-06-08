@@ -438,6 +438,7 @@ MonoBehaviour:
       type: 2}
     damage: 50
     isAttacking: 0
+    EnemyDeathCost: 500
     AttackRange: 400
     AttackRate: 1
     shotPreparing: 0
@@ -472,6 +473,7 @@ MonoBehaviour:
     deathPrefab: {fileID: 0}
     damage: 40
     isAttacking: 0
+    EnemyDeathCost: 10
 --- !u!114 &114993032006113768
 MonoBehaviour:
   m_ObjectHideFlags: 1
