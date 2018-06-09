@@ -37,7 +37,6 @@ public class Player : MonoBehaviour {
             {
                 transform.position = new Vector3(transform.position.x, Camera.main.transform.position.y + 20);
                 m_Rigidbody2D.velocity = new Vector3(m_Rigidbody2D.velocity.x, -20);
-                Debug.LogError(m_Rigidbody2D.velocity.y);
             }
             else
                 playerStats.Damage(99999);
