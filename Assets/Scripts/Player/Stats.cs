@@ -135,13 +135,15 @@ public class PlayerStats : Stats
         base.KillObject();
     }
 
-    public static void SpendMoney(int amount, Item item)
+    public static bool SpendMoney(int amount, Item item)
     {
         if (amount > Coins)
         {
             var announcerMessage = "Not enough money to buy - " + item.Name;
             GameMaster.gm.StartCoroutine(
-                GameMaster.gm.DisplayAnnouncerMessage(announcerMessage, 2f));   
+                GameMaster.gm.DisplayAnnouncerMessage(announcerMessage, 2f));
+
+            return false;
         }
         else
         {
@@ -150,6 +152,8 @@ public class PlayerStats : Stats
             var announcerMessage = item.itemType.ToString() + " increased by " + item.BuffAmount;
             GameMaster.gm.StartCoroutine(
                 GameMaster.gm.DisplayAnnouncerMessage(announcerMessage, 2f));
+            
+            return true;
         }
     }
 }

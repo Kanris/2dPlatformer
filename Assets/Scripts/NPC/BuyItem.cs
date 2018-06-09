@@ -10,9 +10,11 @@ public class BuyItem : MonoBehaviour
 
     public void Buy()
     {
-        PlayerStats.SpendMoney(Price, item);
+        var playerBoughtItem = PlayerStats.SpendMoney(Price, item);
         //StartCoroutine(DestroyItem());
-        Destroy(gameObject);
+
+        if (playerBoughtItem)
+            Destroy(gameObject);
     }
 
     private IEnumerator DestroyItem()
