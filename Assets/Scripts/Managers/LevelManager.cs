@@ -47,7 +47,6 @@ public class LevelManager : MonoBehaviour {
             TextLevelCompletion.text = string.Empty;
 
             StartCoroutine(GameMaster.gm.LoadScene(NextScene, 0f));
-            //NextScene
         }
 
         yield return new WaitForSeconds(updateRate);
