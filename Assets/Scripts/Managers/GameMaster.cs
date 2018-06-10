@@ -98,11 +98,10 @@ public class GameMaster : MonoBehaviour {
         {
             lifesLeft = new Transform[LifeCount];
 
-            for (int index = 0, offsetX = 0; index < LifeCount; index++)
+            for (int index = 0; index < LifeCount; index++)
             {
                 lifesLeft[index] = Instantiate(lifeImage, LifeGUI.transform);
-                lifesLeft[index].position = new Vector3(lifesLeft[index].position.x - offsetX, lifesLeft[index].position.y);
-                offsetX += 18;
+                lifesLeft[index].position = new Vector3(lifesLeft[index].position.x, lifesLeft[index].position.y);
             }   
         }
     }
