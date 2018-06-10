@@ -223,7 +223,7 @@ Prefab:
     - target: {fileID: 114272371960102228, guid: c0ac15d7b5a47466cb6a416ba661d003,
         type: 2}
       propertyPath: sounds.Array.size
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4035183660919168, guid: c0ac15d7b5a47466cb6a416ba661d003, type: 2}
       propertyPath: m_LocalPosition.x
@@ -449,6 +449,31 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1350361430816440, guid: c0ac15d7b5a47466cb6a416ba661d003, type: 2}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114272371960102228, guid: c0ac15d7b5a47466cb6a416ba661d003,
+        type: 2}
+      propertyPath: sounds.Array.data[7].name
+      value: LaserShot
+      objectReference: {fileID: 0}
+    - target: {fileID: 114272371960102228, guid: c0ac15d7b5a47466cb6a416ba661d003,
+        type: 2}
+      propertyPath: sounds.Array.data[7].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: b3bd5b1e641bc4c5d9e806f391f471c8, type: 3}
+    - target: {fileID: 114272371960102228, guid: c0ac15d7b5a47466cb6a416ba661d003,
+        type: 2}
+      propertyPath: sounds.Array.data[7].volume
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114272371960102228, guid: c0ac15d7b5a47466cb6a416ba661d003,
+        type: 2}
+      propertyPath: sounds.Array.data[7].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114272371960102228, guid: c0ac15d7b5a47466cb6a416ba661d003,
+        type: 2}
+      propertyPath: sounds.Array.data[7].loop
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1669,7 +1694,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -51.5, y: -18.8}
+  m_AnchoredPosition: {x: -51.5, y: -18.800049}
   m_SizeDelta: {x: 100, y: 37.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1082181610
@@ -1763,7 +1788,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4030291963198620, guid: f18f99404b229964b9e53ed1c0c37306, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -3.9733906
+      value: -1.62
       objectReference: {fileID: 0}
     - target: {fileID: 4030291963198620, guid: f18f99404b229964b9e53ed1c0c37306, type: 2}
       propertyPath: m_LocalPosition.y
@@ -2309,53 +2334,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!1001 &1491317084
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4821295971649568, guid: ea5da0c5ac46941e5bbfcc39d730e75e, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -16.12
-      objectReference: {fileID: 0}
-    - target: {fileID: 4821295971649568, guid: ea5da0c5ac46941e5bbfcc39d730e75e, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 5.63
-      objectReference: {fileID: 0}
-    - target: {fileID: 4821295971649568, guid: ea5da0c5ac46941e5bbfcc39d730e75e, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4821295971649568, guid: ea5da0c5ac46941e5bbfcc39d730e75e, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4821295971649568, guid: ea5da0c5ac46941e5bbfcc39d730e75e, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4821295971649568, guid: ea5da0c5ac46941e5bbfcc39d730e75e, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4821295971649568, guid: ea5da0c5ac46941e5bbfcc39d730e75e, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4821295971649568, guid: ea5da0c5ac46941e5bbfcc39d730e75e, type: 2}
-      propertyPath: m_RootOrder
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 114747414402370526, guid: ea5da0c5ac46941e5bbfcc39d730e75e,
-        type: 2}
-      propertyPath: stats.damage
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: ea5da0c5ac46941e5bbfcc39d730e75e, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &1507978220
 GameObject:
   m_ObjectHideFlags: 0
@@ -2921,7 +2899,7 @@ MonoBehaviour:
       type: 2}
     count: 3
   - name: Fourth wave
-    enemyToSpawn: {fileID: 4821295971649568, guid: ea5da0c5ac46941e5bbfcc39d730e75e,
+    enemyToSpawn: {fileID: 4858982553244898, guid: ea5da0c5ac46941e5bbfcc39d730e75e,
       type: 2}
     count: 1
 --- !u!1 &2055108493

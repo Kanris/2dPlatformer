@@ -14,6 +14,10 @@ public class EnemyRangeAttack : MonoBehaviour {
 
     public Material trailMaterial;
 
+    public string weaponShootSound;
+
+    private AudioManager audioManager;
+
 	// Use this for initialization
 	void Start () {
 
@@ -28,6 +32,12 @@ public class EnemyRangeAttack : MonoBehaviour {
         {
             Debug.LogError("EnemyRangeAttack: Can't find EnemyStats in Parent GameObject");
         }
+
+        if (!string.IsNullOrEmpty(weaponShootSound))
+            audioManager = AudioManager.instance;
+
+        if (audioManager == null)
+            Debug.LogError("EnemyRangeAttack: Can't find AudioManager.");
 
         stats.Initialize(gameObject);
 	}
@@ -55,8 +65,6 @@ public class EnemyRangeAttack : MonoBehaviour {
 
     private IEnumerator ShootPlayer()
     {
-        //audioManager.PlaySound(weaponShootSound);
-
         if (!stats.shotPreparing)
         {
             stats.shotPreparing = true;
@@ -79,6 +87,9 @@ public class EnemyRangeAttack : MonoBehaviour {
                 RaycastHit2D hit2D = Physics2D.Raycast(firePointPosition,
                                                        whereToShoot - firePointPosition,
                                                        stats.AttackRange, whatToHit);
+
+                PlayShootSound();
+
                 DrawBulletTrailEffect(whereToShoot);
 
                 if (!ReferenceEquals(hit2D.collider, null) & enemyAI.target == hit2D.transform)
@@ -97,6 +108,12 @@ public class EnemyRangeAttack : MonoBehaviour {
                     StartCoroutine(ShootPlayer());
             }
         }
+    }
+
+    void PlayShootSound()
+    {
+        if (audioManager != null)
+            audioManager.PlaySound(weaponShootSound);
     }
 
     void DrawLine(Vector3 start, Vector3 end, Color color, float duration = 0.2f)

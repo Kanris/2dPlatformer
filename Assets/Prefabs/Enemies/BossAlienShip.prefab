@@ -293,6 +293,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   trailMaterial: {fileID: 2100000, guid: 3d87fcdf4e0654994b7ef9f05e73a061, type: 2}
+  weaponShootSound: LaserShot
 --- !u!114 &114269155348387112
 MonoBehaviour:
   m_ObjectHideFlags: 1
