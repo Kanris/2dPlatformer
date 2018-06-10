@@ -12,6 +12,8 @@ public class EnemyRangeAttack : MonoBehaviour {
     public Transform bulletTrailPrefab;
     public LayerMask whatToHit;
 
+    public Material trailMaterial;
+
 	// Use this for initialization
 	void Start () {
 
@@ -103,7 +105,7 @@ public class EnemyRangeAttack : MonoBehaviour {
         myLine.transform.position = start;
         myLine.AddComponent<LineRenderer>();
         LineRenderer lr = myLine.GetComponent<LineRenderer>();
-        //lr.material = new Material(Shader.Find("Particles/Alpha Blended Premultiply"));
+        lr.material = trailMaterial;
 
         lr.startColor = color;
         lr.endColor = color;
