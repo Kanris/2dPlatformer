@@ -111,7 +111,7 @@ public class Stats {
 [System.Serializable]
 public class PlayerStats : Stats
 {
-    public static int Coins = 100;
+    public static int Coins = 0;
     public static float AdditionalDamage = 0f;
     public static float DamageResistance = 0f;
 

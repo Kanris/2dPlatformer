@@ -218,7 +218,7 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 62264922}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 114272371960102228, guid: c0ac15d7b5a47466cb6a416ba661d003,
         type: 2}
@@ -255,7 +255,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4035183660919168, guid: c0ac15d7b5a47466cb6a416ba661d003, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114272371960102228, guid: c0ac15d7b5a47466cb6a416ba661d003,
         type: 2}
@@ -447,6 +447,10 @@ Prefab:
       propertyPath: sounds.Array.data[6].loop
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1350361430816440, guid: c0ac15d7b5a47466cb6a416ba661d003, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c0ac15d7b5a47466cb6a416ba661d003, type: 2}
   m_IsPrefabParent: 0
@@ -479,7 +483,7 @@ Transform:
   - {fileID: 189617212}
   - {fileID: 1959832042}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &11382918
 MonoBehaviour:
@@ -1226,7 +1230,7 @@ Transform:
   m_Children:
   - {fileID: 1798724810}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &779084513
 MonoBehaviour:
@@ -1282,7 +1286,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4657677059041652, guid: 689de5430ca0f46d4a598daa37d201f0, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 689de5430ca0f46d4a598daa37d201f0, type: 2}
@@ -1321,7 +1325,7 @@ Transform:
   - {fileID: 22441612}
   - {fileID: 31227027}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &886556913
 GameObject:
@@ -1468,7 +1472,7 @@ RectTransform:
   - {fileID: 680758732}
   - {fileID: 378645091}
   m_Father: {fileID: 62264922}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1623,7 +1627,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4453089973656488, guid: efc74bd3f99b64b2ca57fcabf14b9169, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: efc74bd3f99b64b2ca57fcabf14b9169, type: 2}
@@ -1787,7 +1791,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4030291963198620, guid: f18f99404b229964b9e53ed1c0c37306, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 114119793040047068, guid: f18f99404b229964b9e53ed1c0c37306,
         type: 2}
@@ -2039,7 +2043,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4142856795638098, guid: 924df003b63d8694589500e078d1b768, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 114883234586605516, guid: 924df003b63d8694589500e078d1b768,
         type: 2}
@@ -2432,7 +2436,7 @@ Transform:
   m_Children:
   - {fileID: 2055108494}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1610577815 stripped
 Transform:
@@ -2814,7 +2818,7 @@ Transform:
   m_Children:
   - {fileID: 1264637347}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1959832041
 GameObject:
@@ -3090,5 +3094,5 @@ Transform:
   m_Children:
   - {fileID: 886556915}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
