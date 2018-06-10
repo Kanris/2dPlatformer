@@ -1,12 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BuyItem : MonoBehaviour
 {
 
     public int Price = 50;
     public Item item;
+
+    public void Start()
+    {
+        var priceText = transform.GetComponentInChildren<Text>();
+
+        if (priceText != null)
+            priceText.text = Price.ToString();
+        else
+            Debug.LogError("BuyItem: Can't find text in child");
+    }
 
     public void Buy()
     {
