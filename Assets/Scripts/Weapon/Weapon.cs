@@ -115,7 +115,7 @@ public class Weapon : MonoBehaviour {
 
                 if (enemyAI != null)
                 {
-                    enemyAI.stats.Damage(Damage);
+                    enemyAI.stats.Damage(Damage + PlayerStats.AdditionalDamage);
                 }
             }   
         }

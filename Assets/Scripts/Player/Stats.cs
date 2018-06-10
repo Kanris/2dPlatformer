@@ -50,7 +50,7 @@ public class Stats {
         }
     }
 
-    public void Damage(float damageFromSource)
+    public virtual void Damage(float damageFromSource)
     {
         CurrentHealth -= damageFromSource;
         DisplayUIChanges(damageFromSource);
@@ -152,9 +152,24 @@ public class PlayerStats : Stats
             var announcerMessage = item.itemType.ToString() + " increased by " + item.BuffAmount;
             GameMaster.gm.StartCoroutine(
                 GameMaster.gm.DisplayAnnouncerMessage(announcerMessage, 2f));
-            
+
+            if (item.itemType == ItemType.Damage)
+                AdditionalDamage += item.BuffAmount;
+            else
+                DamageResistance += item.BuffAmount;
+
             return true;
         }
+    }
+
+    public override void Damage(float damageFromSource)
+    {
+        damageFromSource -= DamageResistance;
+
+        if (damageFromSource < 0)
+            damageFromSource = 1;
+
+        base.Damage(damageFromSource);
     }
 }
 
