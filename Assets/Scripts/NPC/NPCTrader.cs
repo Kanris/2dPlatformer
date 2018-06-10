@@ -15,6 +15,7 @@ public class NPCTrader : MonoBehaviour {
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
+                
                 ShowTraderMenu(interactionButton.activeSelf);
                 interactionButton.SetActive(!interactionButton.activeSelf);
             }

@@ -12,21 +12,20 @@ public class BuyItem : MonoBehaviour
 
     private void Start()
     {
-        if (isAlreadyPurchased())
-        {
-            Debug.LogError("Item is already purchased.");
-            Destroy(gameObject);
-        }
-
         var priceText = transform.GetComponentInChildren<Text>();
 
         if (priceText != null)
             priceText.text = Price.ToString();
         else
             Debug.LogError("BuyItem: Can't find text in child");
+
+        if (isAlreadyPurchased())
+        {
+            Destroy(gameObject);
+        }
     }
 
-    private void Buy()
+    public void Buy()
     {
         var playerBoughtItem = PlayerStats.SpendMoney(Price, item);
         //StartCoroutine(DestroyItem());
@@ -44,7 +43,6 @@ public class BuyItem : MonoBehaviour
     private bool isAlreadyPurchased()
     {
         var equipmentIndex = (int)item.itemType;
-        Debug.LogError("Index - " + equipmentIndex + "(" + PlayerStats.Equipment[equipmentIndex] + ")");
         return PlayerStats.Equipment[equipmentIndex] == item.Name;
     }
 

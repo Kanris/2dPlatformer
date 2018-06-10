@@ -126,7 +126,9 @@ public class PlayerStats : Stats
 
 
         var equipmentLength = (int)ItemType.ItemTypeCount;
-        Equipment = new string[equipmentLength];
+
+        if (Equipment == null)
+            Equipment = new string[equipmentLength];
 
         base.Initialize(parentGameObject);
     }
@@ -167,8 +169,6 @@ public class PlayerStats : Stats
 
             int equipmentIndex = (int)item.itemType;
             Equipment[equipmentIndex] = item.Name;
-
-            Debug.LogError(Equipment[equipmentIndex]);
 
             return true;
         }
