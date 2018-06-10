@@ -111,16 +111,23 @@ public class Stats {
 [System.Serializable]
 public class PlayerStats : Stats
 {
-    public static int Coins = 0;
+    public static int Coins = 100;
     public static float AdditionalDamage = 0f;
     public static float DamageResistance = 0f;
 
     private static Text CoinsText;
 
+    public static string[] Equipment;
+
     public override void Initialize(GameObject parentGameObject)
     {
         CoinsText = GameObject.Find("CoinsUI").GetComponent<Text>();
         CoinsText.text = "Coins:" + Coins.ToString();
+
+
+        var equipmentLength = (int)ItemType.ItemTypeCount;
+        Equipment = new string[equipmentLength];
+
         base.Initialize(parentGameObject);
     }
 
@@ -157,6 +164,11 @@ public class PlayerStats : Stats
                 AdditionalDamage += item.BuffAmount;
             else
                 DamageResistance += item.BuffAmount;
+
+            int equipmentIndex = (int)item.itemType;
+            Equipment[equipmentIndex] = item.Name;
+
+            Debug.LogError(Equipment[equipmentIndex]);
 
             return true;
         }
