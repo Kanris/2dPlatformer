@@ -25,6 +25,8 @@ public class LevelManager : MonoBehaviour {
 
         wavesCompleted -= gameObject.transform.childCount;
 
+        TextLevelCompletion.text = "Level completion:0%";
+
         StartCoroutine(IsLevelOver());
     }
 
