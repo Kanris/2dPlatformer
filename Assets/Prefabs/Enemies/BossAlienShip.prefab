@@ -280,7 +280,7 @@ MonoBehaviour:
     DamageSound: 
     deathPrefab: {fileID: 4747140216253446, guid: e8e0008fb9a05d0438576bd3d90494ea,
       type: 2}
-    damage: 0
+    damage: 50
     isAttacking: 0
     EnemyDeathCost: 500
     AttackRange: 400
