@@ -17,8 +17,19 @@ public class PauseMenu : MonoBehaviour {
     }
 
     #endregion 
-    public Transform pauseMenu;
+
+    private Transform pauseMenu;
     private bool isGamePaused = false;
+
+    private void Start()
+    {
+        pauseMenu = transform.GetChild(0).transform;
+
+        if (pauseMenu == null)
+        {
+            Debug.LogError("PauseMenu: Can't find PauseMenu in child.");
+        }
+    }
 
     public bool IsGamePause 
     {
@@ -68,6 +79,10 @@ public class PauseMenu : MonoBehaviour {
         if (loadScene != null)
         {
             loadScene.Load("MainMenu");
+        }
+        else
+        {
+            Debug.LogError("PauseMenu: Can't find LoadScene in Scene.");
         }
     }
 

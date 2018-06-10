@@ -6,8 +6,18 @@ using UnityEngine.SceneManagement;
 
 public class LoadScene : MonoBehaviour {
 
-    public GameObject loadingScene;
-    public Slider slider;
+    private GameObject loadingScene;
+    private Slider slider;
+
+    private void Start()
+    {
+        loadingScene = transform.GetChild(0).gameObject;
+
+        if (loadingScene == null)
+        {
+            Debug.LogError("LoadScene: Can't find LoadingScene in child.");
+        }
+    }
 
     public void Load(string scene)
     {
@@ -18,7 +28,17 @@ public class LoadScene : MonoBehaviour {
     {
         var operation = SceneManager.LoadSceneAsync(scene);
 
-        loadingScene.SetActive(true);
+        if (loadingScene != null)
+        {
+            loadingScene.SetActive(true);
+
+            slider = loadingScene.GetComponentInChildren<Slider>();
+        }
+
+        if (slider == null)
+        {
+            Debug.LogError("LoadScene: Can't find slider in LoadingScene.");
+        }
 
         while (!operation.isDone)
         {
