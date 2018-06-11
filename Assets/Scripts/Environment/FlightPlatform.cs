@@ -37,9 +37,6 @@ public class FlightPlatform : MonoBehaviour {
 
     IEnumerator Move()
     {
-
-        nextPoint = new Vector3(body.transform.position.x - m_offsetX, body.transform.position.y);
-        Vector3 direction = (nextPoint - transform.position).normalized;
         body.velocity = new Vector2(m_offsetX, 0);
 
         //yield return new WaitForSeconds(m_moveTime);
