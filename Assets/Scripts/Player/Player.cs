@@ -23,10 +23,6 @@ public class Player : MonoBehaviour {
             Debug.LogError("Player: can't find Rigidbody2 Component");
         }
 
-        if (gameObject.name == "HubPlayer")
-        {
-            isInHub = true;
-        }
     }
 
     private void Update()
