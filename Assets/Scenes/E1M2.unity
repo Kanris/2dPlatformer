@@ -843,14 +843,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waves:
-  - name: First Wave
-    enemyToSpawn: {fileID: 4706343575558478, guid: 4fd7794488797478688919042166478b,
-      type: 2}
-    count: 4
-  - name: Second Wave
-    enemyToSpawn: {fileID: 4706343575558478, guid: 4fd7794488797478688919042166478b,
-      type: 2}
-    count: 3
+  - name: 
+    enemyToSpawn: {fileID: 0}
+    count: 0
+  - name: 
+    enemyToSpawn: {fileID: 0}
+    count: 0
+  - name: 
+    enemyToSpawn: {fileID: 0}
+    count: 0
+  - name: 
+    enemyToSpawn: {fileID: 0}
+    count: 0
+  - name: 
+    enemyToSpawn: {fileID: 0}
+    count: 0
+  - name: 
+    enemyToSpawn: {fileID: 0}
+    count: 0
+  - name: 
+    enemyToSpawn: {fileID: 0}
+    count: 0
+  - name: 
+    enemyToSpawn: {fileID: 0}
+    count: 0
+  - name: 
+    enemyToSpawn: {fileID: 0}
+    count: 0
+  - name: 
+    enemyToSpawn: {fileID: 0}
+    count: 0
 --- !u!1001 &378645090
 Prefab:
   m_ObjectHideFlags: 0
@@ -1861,8 +1883,10 @@ GameObject:
   - component: {fileID: 1250782568}
   - component: {fileID: 1250782570}
   - component: {fileID: 1250782569}
+  - component: {fileID: 1250782571}
+  - component: {fileID: 1250782572}
   m_Layer: 10
-  m_Name: Platform01
+  m_Name: Platform01Bounce
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1951,6 +1975,38 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!50 &1250782571
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1250782567}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 9999
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 5
+--- !u!114 &1250782572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1250782567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fc3e0f14972e4fd0854519aaaa35248, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_offsetY: 2
 --- !u!1 &1264637345
 GameObject:
   m_ObjectHideFlags: 0
@@ -2391,7 +2447,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1507978220}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 16.87, y: -11.1, z: 9.984375}
+  m_LocalPosition: {x: 16.87, y: -5.64, z: 9.984375}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 859549563}
