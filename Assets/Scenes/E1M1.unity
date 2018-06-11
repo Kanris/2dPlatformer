@@ -844,11 +844,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waves:
   - name: First Wave
-    enemyToSpawn: {fileID: 4706343575558478, guid: 4fd7794488797478688919042166478b,
+    enemyToSpawn: {fileID: 4329877645357010, guid: 4fd7794488797478688919042166478b,
       type: 2}
     count: 1
   - name: Second Wave
-    enemyToSpawn: {fileID: 4706343575558478, guid: 4fd7794488797478688919042166478b,
+    enemyToSpawn: {fileID: 4329877645357010, guid: 4fd7794488797478688919042166478b,
       type: 2}
     count: 2
 --- !u!1 &493414660
@@ -2828,12 +2828,12 @@ Prefab:
     - target: {fileID: 224390982402373156, guid: 2b5560924a5f8495d8348b792be6ff28,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -340.00003
+      value: -340
       objectReference: {fileID: 0}
     - target: {fileID: 224390982402373156, guid: 2b5560924a5f8495d8348b792be6ff28,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -9.999985
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 224390982402373156, guid: 2b5560924a5f8495d8348b792be6ff28,
         type: 2}
@@ -3010,19 +3010,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waves:
   - name: First wave
-    enemyToSpawn: {fileID: 4706343575558478, guid: 4fd7794488797478688919042166478b,
+    enemyToSpawn: {fileID: 4329877645357010, guid: 4fd7794488797478688919042166478b,
       type: 2}
     count: 1
   - name: Second wave
-    enemyToSpawn: {fileID: 4706343575558478, guid: 4fd7794488797478688919042166478b,
+    enemyToSpawn: {fileID: 4329877645357010, guid: 4fd7794488797478688919042166478b,
       type: 2}
     count: 1
   - name: Third wave
-    enemyToSpawn: {fileID: 4706343575558478, guid: 4fd7794488797478688919042166478b,
+    enemyToSpawn: {fileID: 4329877645357010, guid: 4fd7794488797478688919042166478b,
       type: 2}
     count: 3
   - name: Fourth wave
-    enemyToSpawn: {fileID: 4332584090266294, guid: ea5da0c5ac46941e5bbfcc39d730e75e,
+    enemyToSpawn: {fileID: 4748672339976652, guid: ea5da0c5ac46941e5bbfcc39d730e75e,
       type: 2}
     count: 1
 --- !u!1 &2055108493
