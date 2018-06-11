@@ -488,7 +488,7 @@ GameObject:
   m_Component:
   - component: {fileID: 11382917}
   - component: {fileID: 11382918}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SpawnLocations
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -621,7 +621,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 22441611}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -35.82, y: -8.82, z: 9.984375}
+  m_LocalPosition: {x: -32.1, y: -10.8, z: 9.984375}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 859549563}
@@ -721,7 +721,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 31227026}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 25.17, y: -8.82, z: 9.984375}
+  m_LocalPosition: {x: 25.17, y: -7.1, z: 9.984375}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 859549563}
@@ -811,7 +811,7 @@ GameObject:
   m_Component:
   - component: {fileID: 189617212}
   - component: {fileID: 189617213}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SpawnEnemies1
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
@@ -952,7 +952,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 493414660}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.05, y: -6.5806227, z: 9.984375}
+  m_LocalPosition: {x: -5.8, y: -6.5806227, z: 9.984375}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 859549563}
@@ -1052,7 +1052,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 614680310}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.8, y: -8.82, z: 9.984375}
+  m_LocalPosition: {x: 6.8, y: -9, z: 9.984375}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 859549563}
@@ -1334,7 +1334,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 859549563}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Platforms
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1372,7 +1372,7 @@ GameObject:
   - component: {fileID: 886556915}
   - component: {fileID: 886556914}
   - component: {fileID: 886556916}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Foreground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1798,7 +1798,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4915299427332476, guid: f18f99404b229964b9e53ed1c0c37306, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -1.62
+      value: -3.5
       objectReference: {fileID: 0}
     - target: {fileID: 4915299427332476, guid: f18f99404b229964b9e53ed1c0c37306, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1875,7 +1875,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1250782567}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.543735, y: -6.5806227, z: 9.984375}
+  m_LocalPosition: {x: -0.4, y: -12.2, z: 9.984375}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 859549563}
@@ -1961,7 +1961,7 @@ GameObject:
   - component: {fileID: 1264637347}
   - component: {fileID: 1264637346}
   - component: {fileID: 1264637348}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: MountainsPurple
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2145,6 +2145,14 @@ Prefab:
         type: 2}
       propertyPath: LifeCount
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4309467606464308, guid: 924df003b63d8694589500e078d1b768, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4309467606464308, guid: 924df003b63d8694589500e078d1b768, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114634960738387082, guid: 924df003b63d8694589500e078d1b768, type: 2}
@@ -2383,7 +2391,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1507978220}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 16.87, y: -6.58, z: 9.984375}
+  m_LocalPosition: {x: 16.87, y: -11.1, z: 9.984375}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 859549563}
@@ -2467,7 +2475,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1510589427}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BackgroundsMountainsBlue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2849,7 +2857,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1804561647}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BackgroundMountainsPurple
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2879,7 +2887,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1959832042}
   - component: {fileID: 1959832043}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SpawnEnemies2
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
@@ -2911,14 +2919,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waves:
-  - name: First wave
+  - name: First Wave
     enemyToSpawn: {fileID: 4858982553244898, guid: ea5da0c5ac46941e5bbfcc39d730e75e,
       type: 2}
-    count: 1
-  - name: Second wave
+    count: 0
+  - name: Second Wave
     enemyToSpawn: {fileID: 4858982553244898, guid: ea5da0c5ac46941e5bbfcc39d730e75e,
       type: 2}
-    count: 1
+    count: 0
 --- !u!1 &2055108493
 GameObject:
   m_ObjectHideFlags: 0
@@ -2929,7 +2937,7 @@ GameObject:
   - component: {fileID: 2055108494}
   - component: {fileID: 2055108495}
   - component: {fileID: 2055108496}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: MountainsOrange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3033,7 +3041,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2080867323}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -24.76, y: -10.65, z: 9.984375}
+  m_LocalPosition: {x: -24.76, y: -6.3, z: 9.984375}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 859549563}
@@ -3117,7 +3125,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 2105432180}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Foregrounds
   m_TagString: Untagged
   m_Icon: {fileID: 0}

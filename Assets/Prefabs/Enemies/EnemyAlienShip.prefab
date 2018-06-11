@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 224651095371847032}
   - component: {fileID: 222189614129172910}
   - component: {fileID: 114264407978319010}
-  m_Layer: 5
+  m_Layer: 11
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224098976973002176}
   - component: {fileID: 114229797125208544}
-  m_Layer: 5
+  m_Layer: 11
   m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   - component: {fileID: 224484311825642016}
   - component: {fileID: 222363634537161456}
   - component: {fileID: 114852541765439506}
-  m_Layer: 5
+  m_Layer: 11
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,7 +69,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224007765637945058}
-  m_Layer: 5
+  m_Layer: 11
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 223307632386422398}
   - component: {fileID: 114122072303542610}
   - component: {fileID: 114016370359271182}
-  m_Layer: 5
+  m_Layer: 11
   m_Name: StatusIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 224298316703400652}
   - component: {fileID: 222094789493220584}
   - component: {fileID: 114309158520938304}
-  m_Layer: 5
+  m_Layer: 11
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 114896460218259726}
   - component: {fileID: 114235800127287820}
   - component: {fileID: 58140304150816576}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: EnemyAlienShip
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -328,6 +328,7 @@ MonoBehaviour:
       type: 2}
     damage: 20
     isAttacking: 0
+    EnemyDeathCost: 10
 --- !u!114 &114264407978319010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -440,6 +441,7 @@ MonoBehaviour:
     deathPrefab: {fileID: 0}
     damage: 20
     isAttacking: 0
+    EnemyDeathCost: 10
 --- !u!212 &212362358132887110
 SpriteRenderer:
   m_ObjectHideFlags: 1
