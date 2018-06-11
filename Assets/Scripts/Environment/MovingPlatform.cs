@@ -6,6 +6,7 @@ public class MovingPlatform : MonoBehaviour {
 
     public float m_offsetY = 20f;
     public float m_moveTime = 2f;
+
     Rigidbody2D body;
     bool isMoving = false;
     Vector3 nextPoint;
@@ -53,7 +54,7 @@ public class MovingPlatform : MonoBehaviour {
     private void OnCollisionEnter2D(Collision2D collision)
     {
         
-        body.velocity = Vector2.zero;
+        //body.velocity = Vector2.zero;
         //body.angularVelocity = Vector2.zero;
     }
 }
