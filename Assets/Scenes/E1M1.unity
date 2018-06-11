@@ -522,7 +522,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TextLevelCompletion: {fileID: 1040498700}
-  NextScene: Hub
+  NextScene: E1HUB1
 --- !u!1 &17631786
 GameObject:
   m_ObjectHideFlags: 0
@@ -909,6 +909,16 @@ Prefab:
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: Load
+      objectReference: {fileID: 0}
+    - target: {fileID: 114864967644669940, guid: 91bfc2910eda64ed6b32f3d6a9870237,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: E1M1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114527543246808294, guid: 91bfc2910eda64ed6b32f3d6a9870237,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: E1HUB1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 91bfc2910eda64ed6b32f3d6a9870237, type: 2}

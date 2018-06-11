@@ -36,7 +36,7 @@ public class Stats {
 
         if (healthSlider == null)
         {
-            Debug.LogError("Can't find slider!");
+            Debug.LogError("Stats: Can't find slider!");
         }
 
         if (healthSlider != null)

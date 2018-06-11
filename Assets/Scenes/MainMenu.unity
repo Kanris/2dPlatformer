@@ -379,7 +379,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadingScene: {fileID: 919679517}
   slider: {fileID: 1431748080}
-  scene: Main
+  scene: E1M1
 --- !u!4 &999491638
 Transform:
   m_ObjectHideFlags: 0
