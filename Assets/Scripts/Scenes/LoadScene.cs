@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class LoadScene : MonoBehaviour {
 
+
     private GameObject loadingScene;
     private Slider slider;
 

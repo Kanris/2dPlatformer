@@ -51,10 +51,4 @@ public class MovingPlatform : MonoBehaviour {
         body.velocity = new Vector2(0, m_offsetY);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        
-        //body.velocity = Vector2.zero;
-        //body.angularVelocity = Vector2.zero;
-    }
 }
