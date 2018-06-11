@@ -422,7 +422,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TextLevelCompletion: {fileID: 1040498700}
-  NextScene: E1HUB1
+  NextScene: E1M3
 --- !u!1 &17631786
 GameObject:
   m_ObjectHideFlags: 0
