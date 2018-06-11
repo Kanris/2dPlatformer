@@ -1741,7 +1741,7 @@ GameObject:
   - component: {fileID: 1151220507}
   m_Layer: 0
   m_Name: WeaponEquiped
-  m_TagString: Untagged
+  m_TagString: WeaponsPanel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1796,54 +1796,54 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4030291963198620, guid: f18f99404b229964b9e53ed1c0c37306, type: 2}
+    - target: {fileID: 4915299427332476, guid: f18f99404b229964b9e53ed1c0c37306, type: 2}
       propertyPath: m_LocalPosition.x
       value: -1.62
       objectReference: {fileID: 0}
-    - target: {fileID: 4030291963198620, guid: f18f99404b229964b9e53ed1c0c37306, type: 2}
+    - target: {fileID: 4915299427332476, guid: f18f99404b229964b9e53ed1c0c37306, type: 2}
       propertyPath: m_LocalPosition.y
       value: 1.8491683
       objectReference: {fileID: 0}
-    - target: {fileID: 4030291963198620, guid: f18f99404b229964b9e53ed1c0c37306, type: 2}
+    - target: {fileID: 4915299427332476, guid: f18f99404b229964b9e53ed1c0c37306, type: 2}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4030291963198620, guid: f18f99404b229964b9e53ed1c0c37306, type: 2}
+    - target: {fileID: 4915299427332476, guid: f18f99404b229964b9e53ed1c0c37306, type: 2}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4030291963198620, guid: f18f99404b229964b9e53ed1c0c37306, type: 2}
+    - target: {fileID: 4915299427332476, guid: f18f99404b229964b9e53ed1c0c37306, type: 2}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4030291963198620, guid: f18f99404b229964b9e53ed1c0c37306, type: 2}
+    - target: {fileID: 4915299427332476, guid: f18f99404b229964b9e53ed1c0c37306, type: 2}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4030291963198620, guid: f18f99404b229964b9e53ed1c0c37306, type: 2}
+    - target: {fileID: 4915299427332476, guid: f18f99404b229964b9e53ed1c0c37306, type: 2}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4030291963198620, guid: f18f99404b229964b9e53ed1c0c37306, type: 2}
+    - target: {fileID: 4915299427332476, guid: f18f99404b229964b9e53ed1c0c37306, type: 2}
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 114119793040047068, guid: f18f99404b229964b9e53ed1c0c37306,
+    - target: {fileID: 114910930152089422, guid: f18f99404b229964b9e53ed1c0c37306,
         type: 2}
       propertyPath: weaponsPanel
       value: 
       objectReference: {fileID: 1151220507}
-    - target: {fileID: 224551748528208832, guid: f18f99404b229964b9e53ed1c0c37306,
+    - target: {fileID: 224309506975643640, guid: f18f99404b229964b9e53ed1c0c37306,
         type: 2}
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 224551748528208832, guid: f18f99404b229964b9e53ed1c0c37306,
+    - target: {fileID: 224309506975643640, guid: f18f99404b229964b9e53ed1c0c37306,
         type: 2}
       propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 224551748528208832, guid: f18f99404b229964b9e53ed1c0c37306,
+    - target: {fileID: 224309506975643640, guid: f18f99404b229964b9e53ed1c0c37306,
         type: 2}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2129,7 +2129,7 @@ Prefab:
         type: 2}
       propertyPath: playerPrefab
       value: 
-      objectReference: {fileID: 4030291963198620, guid: f18f99404b229964b9e53ed1c0c37306,
+      objectReference: {fileID: 4915299427332476, guid: f18f99404b229964b9e53ed1c0c37306,
         type: 2}
     m_RemovedComponents:
     - {fileID: 114634960738387082, guid: 924df003b63d8694589500e078d1b768, type: 2}
@@ -2475,7 +2475,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1610577815 stripped
 Transform:
-  m_PrefabParentObject: {fileID: 4030291963198620, guid: f18f99404b229964b9e53ed1c0c37306,
+  m_PrefabParentObject: {fileID: 4915299427332476, guid: f18f99404b229964b9e53ed1c0c37306,
     type: 2}
   m_PrefabInternal: {fileID: 1239695427}
 --- !u!1 &1669622146

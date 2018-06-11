@@ -7,6 +7,7 @@ TagManager:
   - Fire
   - GameMaster
   - Enemy
+  - WeaponsPanel
   layers:
   - Default
   - TransparentFX

@@ -10,7 +10,7 @@ public class WeaponChange : MonoBehaviour {
     public Transform[] weaponsToEquip;
     private int totalWeaponAmount = 0;
 
-    public GridLayoutGroup weaponsPanel;
+    private GridLayoutGroup weaponsPanel;
 
     public bool AllowToChageWeapon;
 
@@ -36,7 +36,7 @@ public class WeaponChange : MonoBehaviour {
 
         if (weaponsPanel == null)
         {
-            weaponsPanel = FindObjectOfType(typeof(GridLayoutGroup)) as GridLayoutGroup;
+            weaponsPanel = GameObject.FindGameObjectWithTag("WeaponsPanel").GetComponent<GridLayoutGroup>();
         }
 
         pauseMenu = PauseMenu.pm;
@@ -86,7 +86,7 @@ public class WeaponChange : MonoBehaviour {
 
             newColor.a = isEquiped ? 1f : 0.4f;
 
-            equipedWeapon.color = newColor;   
+            equipedWeapon.color = newColor;
         }
     }
 
