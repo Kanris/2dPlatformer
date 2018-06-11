@@ -9,7 +9,21 @@ public class MainMenu : MonoBehaviour {
     public GameObject loadingScene;
     public Slider slider;
 
+    public string LevelMusic;
+
     public string scene = "Main";
+
+    private AudioManager audioManager;
+
+    private void Start()
+    {
+        audioManager = AudioManager.instance;
+
+        if (audioManager != null)
+        {
+            AudioManager.ChangeBackgroundMusic(LevelMusic);
+        }
+    }
 
     public void PlayGame()
     {

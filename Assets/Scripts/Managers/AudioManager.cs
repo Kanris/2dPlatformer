@@ -27,6 +27,7 @@ public class Sound
     {
         this.source = source;
         this.source.clip = clip;
+        this.source.playOnAwake = false;
     }
 
     public void Play()
@@ -34,7 +35,7 @@ public class Sound
         this.source.volume = volume * (1 + Random.Range(-volumeOffset / 2f, volumeOffset / 2f));
         this.source.pitch = pitch * (1 + Random.Range(-pitchOffset / 2f, pitchOffset / 2f));
         this.source.loop = loop;
-        this.source.Play();
+        this.source.Play(); 
     }
 
     public void Stop()
@@ -49,6 +50,7 @@ public class AudioManager : MonoBehaviour {
     Sound[] sounds;
 
     public static AudioManager instance;
+    public static string currentBackgroundMusic = "Music";
 
     private void Awake()
     {
@@ -64,18 +66,23 @@ public class AudioManager : MonoBehaviour {
             instance = this;
             DontDestroyOnLoad(this);
         }
-    }
 
-    private void Start()
-    {
         for (int index = 0; index < sounds.Length; index++)
         {
             GameObject go = new GameObject("Sound_" + index + "_" + sounds[index].name);
             go.transform.SetParent(this.transform);
             sounds[index].SetSource(go.AddComponent<AudioSource>());
         }
+    }
 
-        PlaySound("E1M1");
+    public static void ChangeBackgroundMusic(string LevelMusic)
+    {
+        if (currentBackgroundMusic != LevelMusic)
+        {
+            instance.StopSound(currentBackgroundMusic);
+            instance.PlaySound(LevelMusic);
+            currentBackgroundMusic = LevelMusic;
+        }
     }
 
     public void PlaySound(string name)

@@ -462,6 +462,46 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: Load
       objectReference: {fileID: 0}
+    - target: {fileID: 224511694838866458, guid: 2b5560924a5f8495d8348b792be6ff28,
+        type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224511694838866458, guid: 2b5560924a5f8495d8348b792be6ff28,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224511694838866458, guid: 2b5560924a5f8495d8348b792be6ff28,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224511694838866458, guid: 2b5560924a5f8495d8348b792be6ff28,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224163486170145914, guid: 2b5560924a5f8495d8348b792be6ff28,
+        type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224163486170145914, guid: 2b5560924a5f8495d8348b792be6ff28,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224163486170145914, guid: 2b5560924a5f8495d8348b792be6ff28,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224163486170145914, guid: 2b5560924a5f8495d8348b792be6ff28,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2b5560924a5f8495d8348b792be6ff28, type: 2}
   m_IsPrefabParent: 0
@@ -614,6 +654,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadingScene: {fileID: 919679517}
   slider: {fileID: 1431748080}
+  LevelMusic: MainMenu
   scene: E1M1
 --- !u!4 &999491638
 Transform:
@@ -1360,7 +1401,7 @@ Prefab:
     - target: {fileID: 114272371960102228, guid: c0ac15d7b5a47466cb6a416ba661d003,
         type: 2}
       propertyPath: sounds.Array.size
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4035183660919168, guid: c0ac15d7b5a47466cb6a416ba661d003, type: 2}
       propertyPath: m_LocalPosition.x
@@ -1612,6 +1653,31 @@ Prefab:
         type: 2}
       propertyPath: sounds.Array.data[7].loop
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114272371960102228, guid: c0ac15d7b5a47466cb6a416ba661d003,
+        type: 2}
+      propertyPath: sounds.Array.data[8].name
+      value: MainMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 114272371960102228, guid: c0ac15d7b5a47466cb6a416ba661d003,
+        type: 2}
+      propertyPath: sounds.Array.data[8].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: a6a7bc579f9024f68ad5b0009b06045c, type: 3}
+    - target: {fileID: 114272371960102228, guid: c0ac15d7b5a47466cb6a416ba661d003,
+        type: 2}
+      propertyPath: sounds.Array.data[8].volume
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114272371960102228, guid: c0ac15d7b5a47466cb6a416ba661d003,
+        type: 2}
+      propertyPath: sounds.Array.data[8].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114272371960102228, guid: c0ac15d7b5a47466cb6a416ba661d003,
+        type: 2}
+      propertyPath: sounds.Array.data[8].loop
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c0ac15d7b5a47466cb6a416ba661d003, type: 2}

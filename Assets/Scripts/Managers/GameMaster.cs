@@ -44,6 +44,10 @@ public class GameMaster : MonoBehaviour {
 
         if (audioManager == null)
             Debug.LogError("GameMaster: Can't found AudioManager");
+        else
+        {
+            AudioManager.ChangeBackgroundMusic(LevelMusic);
+        }
 
         if ( !string.IsNullOrEmpty(LevelName))
         {
