@@ -844,11 +844,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waves:
   - name: First Wave
-    enemyToSpawn: {fileID: 4329877645357010, guid: 4fd7794488797478688919042166478b,
+    enemyToSpawn: {fileID: 4306014976895326, guid: 4fd7794488797478688919042166478b,
       type: 2}
     count: 1
   - name: Second Wave
-    enemyToSpawn: {fileID: 4329877645357010, guid: 4fd7794488797478688919042166478b,
+    enemyToSpawn: {fileID: 4306014976895326, guid: 4fd7794488797478688919042166478b,
       type: 2}
     count: 2
 --- !u!1 &493414660
@@ -3010,15 +3010,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waves:
   - name: First wave
-    enemyToSpawn: {fileID: 4329877645357010, guid: 4fd7794488797478688919042166478b,
+    enemyToSpawn: {fileID: 4306014976895326, guid: 4fd7794488797478688919042166478b,
       type: 2}
     count: 1
   - name: Second wave
-    enemyToSpawn: {fileID: 4329877645357010, guid: 4fd7794488797478688919042166478b,
+    enemyToSpawn: {fileID: 4306014976895326, guid: 4fd7794488797478688919042166478b,
       type: 2}
     count: 1
   - name: Third wave
-    enemyToSpawn: {fileID: 4329877645357010, guid: 4fd7794488797478688919042166478b,
+    enemyToSpawn: {fileID: 4306014976895326, guid: 4fd7794488797478688919042166478b,
       type: 2}
     count: 3
   - name: Fourth wave
