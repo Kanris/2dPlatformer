@@ -12,8 +12,8 @@ public class FlightPlatform : MonoBehaviour {
     public bool isMoving = false;
     Vector2 target;
 
-    Rigidbody2D player;
-
+    public Rigidbody2D player;
+    public bool isPlayerMoving = false;
 
 	// Use this for initialization
 	void Start () {
@@ -34,10 +34,17 @@ public class FlightPlatform : MonoBehaviour {
             {
                 var playerMoveSpeed = player.gameObject.GetComponent<Animator>().GetFloat("Speed");
 
-                if (playerMoveSpeed != 0f)
+                if (playerMoveSpeed > 0f)
+                {
                     player = null;
-                                    
-                else if (player != null)
+                    isPlayerMoving = true;
+                }
+                else
+                {
+                    isPlayerMoving = false;
+                }
+
+                if (player != null)
                 {
                     player.position = new Vector2(body.transform.position.x, player.transform.position.y);
                 }
@@ -73,6 +80,14 @@ public class FlightPlatform : MonoBehaviour {
         {
             player = collision.gameObject.GetComponent<Rigidbody2D>();
             collision.transform.SetParent(transform);
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player" & player == null)
+        {
+            player = collision.gameObject.GetComponent<Rigidbody2D>();
         }
     }
 

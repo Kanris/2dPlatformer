@@ -30,4 +30,12 @@ public class AlarmEnemy : MonoBehaviour {
             collision.gameObject.GetComponent<Player>().playerStats.Damage(9999);
         }
     }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player") & isPlayerFound)
+        {
+            isPlayerFound = false;
+        }
+    }
 }

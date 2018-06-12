@@ -2268,11 +2268,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4915299427332476, guid: f18f99404b229964b9e53ed1c0c37306, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 19.16
+      value: -3.38
       objectReference: {fileID: 0}
     - target: {fileID: 4915299427332476, guid: f18f99404b229964b9e53ed1c0c37306, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 11.1
+      value: 1.55
       objectReference: {fileID: 0}
     - target: {fileID: 4915299427332476, guid: f18f99404b229964b9e53ed1c0c37306, type: 2}
       propertyPath: m_LocalPosition.z
@@ -3452,6 +3452,8 @@ MonoBehaviour:
   m_offsetX: 18
   m_moveTime: 10
   isMoving: 0
+  player: {fileID: 0}
+  isPlayerMoving: 0
 --- !u!50 &1779482668
 Rigidbody2D:
   serializedVersion: 4
