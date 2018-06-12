@@ -3132,7 +3132,7 @@ MonoBehaviour:
       type: 2}
     count: 3
   - name: Fourth wave
-    enemyToSpawn: {fileID: 4748672339976652, guid: ea5da0c5ac46941e5bbfcc39d730e75e,
+    enemyToSpawn: {fileID: 4222370387764742, guid: ea5da0c5ac46941e5bbfcc39d730e75e,
       type: 2}
     count: 1
 --- !u!1 &2055108493
