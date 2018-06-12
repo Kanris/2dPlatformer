@@ -471,60 +471,6 @@ MonoBehaviour:
     enemyToSpawn: {fileID: 4748672339976652, guid: ea5da0c5ac46941e5bbfcc39d730e75e,
       type: 2}
     count: 1
---- !u!1 &334445280
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 334445281}
-  - component: {fileID: 334445282}
-  m_Layer: 10
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &334445281
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 334445280}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1779482666}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &334445282
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 334445280}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.05750537, y: 0.08625889}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 2.840199, y: 1.1725178}
-  m_EdgeRadius: 0
 --- !u!1 &405657362
 GameObject:
   m_ObjectHideFlags: 0
@@ -2322,11 +2268,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4915299427332476, guid: f18f99404b229964b9e53ed1c0c37306, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -13.85
+      value: 19.16
       objectReference: {fileID: 0}
     - target: {fileID: 4915299427332476, guid: f18f99404b229964b9e53ed1c0c37306, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 8.98
+      value: 11.1
       objectReference: {fileID: 0}
     - target: {fileID: 4915299427332476, guid: f18f99404b229964b9e53ed1c0c37306, type: 2}
       propertyPath: m_LocalPosition.z
@@ -2523,7 +2469,7 @@ Prefab:
         type: 2}
       propertyPath: enemiesSpawnPrefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 568255186}
     - target: {fileID: 114463801097830012, guid: 924df003b63d8694589500e078d1b768,
         type: 2}
       propertyPath: backgrounds.Array.data[0]
@@ -3487,9 +3433,8 @@ Transform:
   m_GameObject: {fileID: 1779482665}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -9.55, y: 6.3, z: 9.984375}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 334445281}
+  m_LocalScale: {x: 1.5, y: 1, z: 1}
+  m_Children: []
   m_Father: {fileID: 859549563}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3504,8 +3449,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 087ea33f8b01940df8af14bcac863ce9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_offsetX: -4
-  m_moveTime: 2
+  m_offsetX: 18
+  m_moveTime: 10
   isMoving: 0
 --- !u!50 &1779482668
 Rigidbody2D:
@@ -3535,7 +3480,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1779482665}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 0cb77231a430b454fb792ff7ffcc3943, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0

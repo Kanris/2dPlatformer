@@ -10,45 +10,78 @@ public class FlightPlatform : MonoBehaviour {
 
     Rigidbody2D body;
     public bool isMoving = false;
-    Vector3 nextPoint;
+    Vector2 target;
+
+    Rigidbody2D player;
+
 
 	// Use this for initialization
 	void Start () {
 
         body = transform.GetComponent<Rigidbody2D>();
 
-        IdleAnimation();
+        ChangePlatformDirection();
 	}
 
     private void FixedUpdate()
     {
         if (isMoving)
         {
-            StartCoroutine(Move());
+            var moveTowards = Vector2.MoveTowards(body.transform.position, target, Time.fixedDeltaTime * 2f);
+            body.MovePosition(moveTowards);
+
+            if (player != null)
+            {
+                var playerMoveSpeed = player.gameObject.GetComponent<Animator>().GetFloat("Speed");
+
+                if (playerMoveSpeed != 0f)
+                    player = null;
+                                    
+                else if (player != null)
+                {
+                    player.position = new Vector2(body.transform.position.x, player.transform.position.y);
+                }
+            }
         }
     }
 
-    void IdleAnimation()
+    private void ChangePlatformDirection()
     {
+        m_offsetX = -m_offsetX;
+        target = new Vector2(body.transform.position.x - m_offsetX, body.transform.position.y);
+
         this.isMoving = true;
 
-        m_offsetX = -m_offsetX;
+        StartCoroutine(Move());
     }
 
-    IEnumerator Move()
+    private IEnumerator Move()
     {
-        body.velocity = new Vector2(m_offsetX, 0);
-
-        //yield return new WaitForSeconds(m_moveTime);
-
+        yield return new WaitForSeconds(m_moveTime);
         this.isMoving = false;
-        yield return new WaitForSeconds(5f);
 
-
-        body.velocity = Vector2.zero;
+        target = Vector2.zero;
 
         yield return new WaitForSeconds(2f);
 
-        IdleAnimation();
+        ChangePlatformDirection();
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player" & player == null)
+        {
+            player = collision.gameObject.GetComponent<Rigidbody2D>();
+            collision.transform.SetParent(transform);
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            player = null;
+            collision.transform.SetParent(null);
+        }
     }
 }
