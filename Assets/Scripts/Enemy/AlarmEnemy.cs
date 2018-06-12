@@ -6,7 +6,7 @@ public class AlarmEnemy : MonoBehaviour {
 
     public float waitBeforeTurnSeconds = 5f;
 
-    private bool isPlayerFound = false;
+    public bool isPlayerFound = false;
 
     private void Start()
     {
@@ -20,6 +20,8 @@ public class AlarmEnemy : MonoBehaviour {
         yield return new WaitForSeconds(waitBeforeTurnSeconds);
 
         StartCoroutine(TurnAround(-rotationOffset));
+
+        if (isPlayerFound) isPlayerFound = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -33,7 +35,7 @@ public class AlarmEnemy : MonoBehaviour {
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") & isPlayerFound)
+        if (collision.CompareTag("Player"))
         {
             isPlayerFound = false;
         }
