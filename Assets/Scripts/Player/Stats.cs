@@ -135,7 +135,7 @@ public class PlayerStats : Stats
 
     protected override void KillObject()
     {
-        var weaponChange = GameObject.FindObjectOfType(typeof(WeaponChange)) as WeaponChange;
+        var weaponChange = GameObject.FindObjectOfType(typeof(WeaponManager)) as WeaponManager;
 
         if (weaponChange != null)
             weaponChange.ResetWeaponGUI(); //reset player weapon GUI

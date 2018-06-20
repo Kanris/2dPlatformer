@@ -3,27 +3,27 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour {
 
-    public float FireRate = 0f;
-    public float Distance = 100f;
-    public float Damage = 10f;
-    public LayerMask whatToHit;
+    public float FireRate = 0f; //weapon firerate
+    public float Distance = 100f; //weapon shooting distance
+    public float Damage = 10f; //weapon damage
+    public LayerMask whatToHit; //what can weapon damage
 
-    public Transform bulletTrailPrefab;
-    public Transform muzzleFlashPrefab;
+    public Transform bulletTrailPrefab; //bullet trail
+    public Transform muzzleFlashPrefab; //muzzle flash
 
-    private float timeToSpawnEffect = 0f;
-    public float effectSpawnRate = 10f;
+    private float timeToSpawnEffect = 0f; //when spawn next bullet trail
+    public float effectSpawnRate = 10f; //max effects count
 
     private float timeToFire = 0f;
-    private Transform firePoint;
+    private Transform firePoint; //from where spawn bullet trail and muzzle prefabs
 
-    public float camShakeAmount = 0.1f;
-    public float camShakeLength = 0.2f;
-    CameraShake cameraShake;
+    public float camShakeAmount = 0.1f; //camera shake amount
+    public float camShakeLength = 0.2f; //camera shake length
+    private CameraShake cameraShake;
 
-    public string weaponShootSound = "DefaultShot";
-    AudioManager audioManager;
-    WeaponChange weaponChange;
+    public string weaponShootSound = "DefaultShot"; //weapon sound
+    private AudioManager audioManager;
+    private WeaponManager weaponManager;
 
     private PauseMenu pauseMenu;
 
@@ -31,48 +31,68 @@ public class Weapon : MonoBehaviour {
 
     private void Start()
     {
-        firePoint = transform.GetChild(0);
+        InitializeWeapon();
+    }
 
-        if (ReferenceEquals(firePoint, null))
-        {
-            Debug.LogError("No firepoint. Weapon.cs");
-        }
+    private void InitializeWeapon()
+    {
+        InitializeFirePoint();
 
-        var gm = GameMaster.gm.gameObject;
+        InitializeGameMaster();
 
-        if (gm != null)
-        {
-            cameraShake = gm.GetComponent<CameraShake>();
-        }
+        InitializeWeaponChange();
 
-        audioManager = AudioManager.instance;
+        InitalizeAudioManager();
 
-        if (audioManager == null)
-            Debug.LogError("Weapon: No audiomanager found in scene");
-
-        weaponChange = transform.parent.gameObject.GetComponent<WeaponChange>();
-
-        if (weaponChange == null)
-            Debug.LogError("Weapon: can't find weaponchange in parent");
-
-        pauseMenu = PauseMenu.pm;
+        InitalizePauseMenu();
 
         parentTransform = transform.parent.gameObject.transform.parent;
     }
+
+    private void InitalizePauseMenu()
+    {
+        pauseMenu = PauseMenu.pm;
+    }
+
+    private void InitializeWeaponChange()
+    {
+        weaponManager = transform.parent.gameObject.GetComponent<WeaponManager>();
+        if (weaponManager == null)
+            Debug.LogError("Weapon: can't find weaponchange in parent");
+    }
+
+    private void InitalizeAudioManager()
+    {
+        audioManager = AudioManager.instance; //get current audiomanager
+        if (audioManager == null) //if there is not audiomanager on scene show error
+            Debug.LogError("Weapon: No audiomanager found in scene"); 
+    }
+
+    private void InitializeGameMaster()
+    {
+        var gm = GameMaster.gm.gameObject; //get current gamemaster
+        if (gm != null) //if gamemaster on scene
+        {
+            cameraShake = gm.GetComponent<CameraShake>(); //initialize camera shake
+        }
+    }
 	
+    private void InitializeFirePoint()
+    {
+        firePoint = transform.GetChild(0); //initialize fire point
+
+        if (ReferenceEquals(firePoint, null)) //if there is no firepoint on weapon show error
+        {
+            Debug.LogError("No firepoint. Weapon.cs");
+        }
+    }
+
 	// Update is called once per frame
 	void Update () {
 
         if (!pauseMenu.IsGamePause)
         {
-            if (Input.GetButtonDown("Fire1"))
-            {
-                weaponChange.EquipWeapon(0);
-            }
-            else if (Input.GetButtonDown("Fire2"))
-            {
-                weaponChange.EquipWeapon(1);
-            }
+            ChangeEquipedWeapon();
 
             if (FireRate.CompareTo(0f) == 0)
             {
@@ -92,6 +112,18 @@ public class Weapon : MonoBehaviour {
         }
 	}
 
+    private void ChangeEquipedWeapon()
+    {
+        if (Input.GetButtonDown("Fire1"))
+        {
+            weaponManager.EquipWeapon(0);
+        }
+        else if (Input.GetButtonDown("Fire2"))
+        {
+            weaponManager.EquipWeapon(1);
+        }
+    }
+
     private void Shoot()
     {
         Vector2 mousePosition = GetMousePosition();
@@ -102,12 +134,11 @@ public class Weapon : MonoBehaviour {
         if ((whereToShoot.x < 0 & parentTransform.localScale.x < 0) | (whereToShoot.x > 0 & parentTransform.localScale.x > 0))
         {
             RaycastHit2D hit2D = Physics2D.Raycast(firePointPosition, whereToShoot, Distance, whatToHit);
+
             DrawBulletTrailEffect();
+            PlayWeaponSound();
 
             cameraShake.Shake(camShakeAmount, camShakeLength);
-
-            if (audioManager != null)
-                audioManager.PlaySound(weaponShootSound);
             
             if (!ReferenceEquals(hit2D.collider, null))
             {
@@ -119,6 +150,12 @@ public class Weapon : MonoBehaviour {
                 }
             }   
         }
+    }
+
+    private void PlayWeaponSound()
+    {
+        if (audioManager != null)
+            audioManager.PlaySound(weaponShootSound);
     }
 
     private void DrawBulletTrailEffect()
@@ -134,7 +171,6 @@ public class Weapon : MonoBehaviour {
                 var rotationOffset = firePoint.rotation.z > 0 ? 180 : -180;
                 bulletPrefab.Rotate(0, 0, rotationOffset);
             }
-            //bulletPrefab.parent = firePoint.parent;
 
             StartCoroutine(DrawMuzzleFlash());
         }
