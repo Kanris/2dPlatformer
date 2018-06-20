@@ -5,8 +5,7 @@ using UnityEngine;
 public class AlarmEnemy : MonoBehaviour {
 
     public float waitBeforeTurnSeconds = 5f;
-
-    public bool isPlayerFound = false;
+    private bool isPlayerFound = false;
 
     private void Start()
     {

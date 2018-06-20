@@ -7,7 +7,6 @@ public class WeaponManager : MonoBehaviour {
 
     //public static WeaponManager instance;
 
-
     public int currentWeaponEquiped = 0;
 
     public Transform[] weaponsToEquip;
