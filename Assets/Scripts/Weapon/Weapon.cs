@@ -31,7 +31,7 @@ public class Weapon : MonoBehaviour {
 
     private void Start()
     {
-        firePoint = transform.Find("FirePoint");
+        firePoint = transform.GetChild(0);
 
         if (ReferenceEquals(firePoint, null))
         {
