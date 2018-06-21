@@ -379,7 +379,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats:
-    MaxHealth: 4000
+    MaxHealth: 1000
     speed: 400
     DeathSound: Explosion
     DamageSound: 
