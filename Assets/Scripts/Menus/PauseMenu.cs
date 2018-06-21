@@ -10,9 +10,17 @@ public class PauseMenu : MonoBehaviour {
 
     private void Awake()
     {
-        if (pm == null)
+        if (pm != null)
+        {
+            if (pm != this)
+            {
+                Destroy(gameObject);
+            }
+        }
+        else
         {
             pm = this;
+            DontDestroyOnLoad(this);
         }
     }
 

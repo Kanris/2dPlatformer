@@ -124,7 +124,6 @@ public class PlayerStats : Stats
         CoinsText = GameObject.Find("CoinsUI").GetComponent<Text>();
         CoinsText.text = "Coins:" + Coins.ToString();
 
-
         var equipmentLength = (int)ItemType.ItemTypeCount;
 
         if (Equipment == null)

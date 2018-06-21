@@ -84,15 +84,21 @@ public class GameMaster : MonoBehaviour {
         }
         else
         {
-            gm.StartCoroutine(gm.DisplayAnnouncerMessage("Game Over", 10f));
-            StartCoroutine(LoadScene("MainMenu", 4.5f));
+            GameOver();
         }
+    }
+
+    public void GameOver()
+    {
+        Time.timeScale = 0.1f;
+        gm.StartCoroutine(gm.DisplayAnnouncerMessage("Game Over", 0.5f));
+        gm.StartCoroutine(LoadScene("MainMenu", 0.5f));
     }
 
     public IEnumerator LoadScene(string scene, float time)
     {
         yield return new WaitForSeconds(time);
-
+        Time.timeScale = 1f;
         (FindObjectOfType(typeof(LoadScene)) as LoadScene).Load(scene);
     }
 

@@ -28,24 +28,30 @@ public class LoadScene : MonoBehaviour {
     {
         var operation = SceneManager.LoadSceneAsync(scene);
 
+        InitializeLoadingScene();
+
+        while (!operation.isDone)
+        {
+            var progress = Mathf.Clamp01(operation.progress / .9f);
+
+            if (slider != null) slider.value = progress;
+
+            yield return null;
+        }
+    }
+
+    private void InitializeLoadingScene()
+    {
         if (loadingScene != null)
         {
             loadingScene.SetActive(true);
 
             slider = loadingScene.GetComponentInChildren<Slider>();
-        }
 
-        if (slider == null)
-        {
-            Debug.LogError("LoadScene: Can't find slider in LoadingScene.");
-        }
-
-        while (!operation.isDone)
-        {
-            var progress = Mathf.Clamp01(operation.progress / .9f);
-            slider.value = progress;
-
-            yield return null;
+            if (slider == null)
+            {
+                Debug.LogError("LoadScene: Can't find slider in LoadingScene.");
+            }
         }
     }
 }
