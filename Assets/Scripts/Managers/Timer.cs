@@ -48,6 +48,6 @@ public class Timer : MonoBehaviour {
 
     string ConvertTimeLeft()
     {
-        return (int)(TimeLeft / 60) + ":" + ((int)(TimeLeft % 60)).ToString("00");
+        return (int)(TimeLeft / 60) + ":" + (TimeLeft % 60).ToString("00");
     }
 }

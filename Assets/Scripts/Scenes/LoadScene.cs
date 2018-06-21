@@ -46,8 +46,8 @@ public class LoadScene : MonoBehaviour {
         {
             loadingScene.SetActive(true);
 
-            slider = loadingScene.GetComponentInChildren<Slider>();
-
+            slider = gameObject.transform.GetChild(0).GetComponentInChildren<Slider>();
+                               
             if (slider == null)
             {
                 Debug.LogError("LoadScene: Can't find slider in LoadingScene.");

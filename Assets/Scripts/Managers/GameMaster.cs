@@ -99,7 +99,8 @@ public class GameMaster : MonoBehaviour {
     {
         yield return new WaitForSeconds(time);
         Time.timeScale = 1f;
-        (FindObjectOfType(typeof(LoadScene)) as LoadScene).Load(scene);
+        GameObject.FindWithTag("SceneLoader").GetComponent<LoadScene>().Load(scene);
+        //(FindObjectOfType(typeof(LoadScene)) as LoadScene).Load(scene);
     }
 
     private void InitializeLifeGUI()

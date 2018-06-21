@@ -8,6 +8,7 @@ TagManager:
   - GameMaster
   - Enemy
   - WeaponsPanel
+  - SceneLoader
   layers:
   - Default
   - TransparentFX

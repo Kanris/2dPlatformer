@@ -26,12 +26,12 @@ public class PauseMenu : MonoBehaviour {
 
     #endregion 
 
-    private Transform pauseMenu;
+    private GameObject pauseMenu;
     private bool isGamePaused = false;
 
     private void Start()
     {
-        pauseMenu = transform.GetChild(0).transform;
+        pauseMenu = transform.GetChild(0).gameObject;
 
         if (pauseMenu == null)
         {
