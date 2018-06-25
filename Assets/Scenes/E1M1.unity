@@ -1282,7 +1282,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 859549563}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Platforms
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1615,6 +1615,10 @@ Prefab:
       propertyPath: m_TagString
       value: SceneLoader
       objectReference: {fileID: 0}
+    - target: {fileID: 4295619199997048, guid: efc74bd3f99b64b2ca57fcabf14b9169, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: efc74bd3f99b64b2ca57fcabf14b9169, type: 2}
   m_IsPrefabParent: 0
@@ -1787,6 +1791,10 @@ Prefab:
         type: 2}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1621087583770792, guid: f18f99404b229964b9e53ed1c0c37306, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f18f99404b229964b9e53ed1c0c37306, type: 2}

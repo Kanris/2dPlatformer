@@ -4,21 +4,28 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 
-public class BuyItem : MonoBehaviour
+public class BuyEquipment : MonoBehaviour
 {
-
-    public int Price = 50;
-    public Item item;
+    public Equipment item;
 
     private void Start()
+    {
+        InitializeItemGUI();
+        CheckIsItemAlreadyPurchased();
+    }
+
+    private void InitializeItemGUI()
     {
         var priceText = transform.GetComponentInChildren<Text>();
 
         if (priceText != null)
-            priceText.text = Price.ToString();
+            priceText.text = item.Price.ToString();
         else
             Debug.LogError("BuyItem: Can't find text in child");
+    }
 
+    private void CheckIsItemAlreadyPurchased()
+    {
         if (isAlreadyPurchased())
         {
             Destroy(gameObject);
@@ -27,8 +34,7 @@ public class BuyItem : MonoBehaviour
 
     public void Buy()
     {
-        var playerBoughtItem = PlayerStats.SpendMoney(Price, item);
-        //StartCoroutine(DestroyItem());
+        var playerBoughtItem = PlayerStats.SpendMoney(item.Price, item);
 
         if (playerBoughtItem)
             Destroy(gameObject);
@@ -52,8 +58,13 @@ public class BuyItem : MonoBehaviour
 public class Item
 {
     public string Name;
-    public float BuffAmount = 1f;
+    public int Price = 50;
+}
 
+[System.Serializable]
+public class Equipment : Item
+{
+    public float BuffAmount = 1f;
     public ItemType itemType;
 }
 

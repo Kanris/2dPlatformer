@@ -111,9 +111,10 @@ public class Stats {
 [System.Serializable]
 public class PlayerStats : Stats
 {
-    public static int Coins = 0;
+    public static int Coins = 2000;
     public static float AdditionalDamage = 0f;
     public static float DamageResistance = 0f;
+    public static int ResurectionStones = 0;
 
     private static Text CoinsText;
 
@@ -143,34 +144,81 @@ public class PlayerStats : Stats
         base.KillObject();
     }
 
-    public static bool SpendMoney(int amount, Item item)
+    public static bool SpendMoney(int amount, Equipment item)
     {
-        if (amount > Coins)
+        return SpendMoney(amount, item, () =>
         {
-            var announcerMessage = "Not enough money to buy - " + item.Name;
-            GameMaster.gm.StartCoroutine(
-                GameMaster.gm.DisplayAnnouncerMessage(announcerMessage, 2f));
-
-            return false;
-        }
-        else
-        {
-            Coins -= amount;
-            CoinsText.text = "Coins:" + Coins.ToString();
-            var announcerMessage = item.itemType.ToString() + " increased by " + item.BuffAmount;
-            GameMaster.gm.StartCoroutine(
-                GameMaster.gm.DisplayAnnouncerMessage(announcerMessage, 2f));
-
-            if (item.itemType == ItemType.Damage)
-                AdditionalDamage += item.BuffAmount;
-            else
-                DamageResistance += item.BuffAmount;
+            ChangeCoinsAmount(amount);
+            ApplyBuff(item, item.BuffAmount);
 
             int equipmentIndex = (int)item.itemType;
             Equipment[equipmentIndex] = item.Name;
+        });
+    }
 
-            return true;
+    public static bool SpendMoney(int amount, Item item)
+    {
+        return SpendMoney(amount, item, () =>
+        {
+            ChangeCoinsAmount(amount);
+            ResurectionStones++;
+            DisplayAnnouncerMessage("Resurection stone amount - " + ResurectionStones, 2f);
+        });
+    }
+
+    private static bool SpendMoney(int amount, Item item, VoidDelegate logic)
+    {
+        var result = CheckMoney(amount, item);
+
+        if (result)
+        {
+            logic();
         }
+
+        return result;
+    }
+
+    private delegate void VoidDelegate();
+
+    private static bool CheckMoney(int amount, Item item)
+    {
+        var result = true;
+
+        if (amount > Coins)
+        {
+            var announcerMessage = "Not enough money to buy - " + item.Name;
+            DisplayAnnouncerMessage(announcerMessage, 4f);
+            result = false;
+        }
+
+        return result;
+    }
+
+    private static void ChangeCoinsAmount(int amount)
+    {
+        Coins -= amount;
+        CoinsText.text = "Coins:" + Coins.ToString(); 
+    }
+
+    private static void DisplayAnnouncerMessage(string message, float time)
+    {
+        GameMaster.gm.StartCoroutine(GameMaster.gm.DisplayAnnouncerMessage(message, time));
+    }
+
+    private static void ApplyBuff(Equipment item,  float buffAmount)
+    {
+        switch (item.itemType)
+        {
+            case ItemType.Damage:
+                AdditionalDamage += buffAmount;
+                break;
+            case ItemType.Resistance:
+                DamageResistance += buffAmount;
+                break;
+        }      
+
+        var announcerMessage = item.itemType.ToString() + " increased by " + buffAmount;
+        DisplayAnnouncerMessage(announcerMessage, 2f);
     }
 
     public override void Damage(float damageFromSource)

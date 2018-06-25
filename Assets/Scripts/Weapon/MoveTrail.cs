@@ -6,7 +6,7 @@ public class MoveTrail : MonoBehaviour {
 
     public int moveSpeed = 230;
     [SerializeField]
-    public LayerMask LayerTohit;
+    public LayerMask LayerToHit;
 
 	// Update is called once per frame
     void Update () {
@@ -14,11 +14,11 @@ public class MoveTrail : MonoBehaviour {
         Destroy(gameObject, 1);
 	}
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if ( collision.gameObject.layer == 11)
+        if((LayerToHit & 1 << collision.gameObject.layer) == 1 << collision.gameObject.layer)
         {
-            Debug.LogError("Hit what i need");
+            Destroy(gameObject);
         }
     }
 }

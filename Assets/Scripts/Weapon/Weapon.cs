@@ -166,6 +166,14 @@ public class Weapon : MonoBehaviour {
 
             var bulletPrefab = Instantiate(bulletTrailPrefab, firePoint.position, firePoint.rotation);
 
+            var trail = bulletPrefab.GetComponent<Transform>();
+            var lineRenderer = trail.GetComponent<LineRenderer>();
+
+            if (lineRenderer != null)
+            {
+                
+            }
+
             if (parentTransform.localScale.x < 0)
             {
                 var rotationOffset = firePoint.rotation.z > 0 ? 180 : -180;
