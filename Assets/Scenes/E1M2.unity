@@ -1617,7 +1617,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d8238cc53530b64fbb7828c3d3bb591, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
+  target: {fileID: 869515257}
   damping: 0.3
   lookAheadFactor: 3
   lookAheadReturnSpeed: 0.5
@@ -1704,6 +1704,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &869515257 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4537188146068762, guid: f18f99404b229964b9e53ed1c0c37306,
+    type: 2}
+  m_PrefabInternal: {fileID: 1239695427}
 --- !u!4 &886323176 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4507383584968836, guid: f0cfffe9ce6eb452cb9bed435dc786d0,
