@@ -84,7 +84,14 @@ public class GameMaster : MonoBehaviour {
         }
         else
         {
-            GameOver();
+            if (PlayerStats.ResurectionStones > 0)
+            {
+                ResurectionManager.instance.ShowHideResurectionUI();
+            }
+            else
+            {
+                GameOver();
+            }
         }
     }
 
