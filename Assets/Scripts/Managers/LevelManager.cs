@@ -7,7 +7,7 @@ public class LevelManager : MonoBehaviour {
 
     private int wavesCount = 0;
     private int wavesCompleted = 0;
-    private float updateRate = 2f;
+    private float updateRate = 5f;
 
     private bool isLevelOver = false;
 
@@ -17,17 +17,24 @@ public class LevelManager : MonoBehaviour {
 
     private void Start()
     {
-        for (int index = 0; index < gameObject.transform.childCount; index++)
+        for (int index = 0; index < gameObject.transform.childCount - 1; index++)
         {
             var enemySpawn = gameObject.transform.GetChild(index).GetComponent<EnemySpawn>();
             wavesCount += enemySpawn.waves.Length;
         }
 
-        wavesCompleted -= gameObject.transform.childCount;
+        wavesCompleted -= gameObject.transform.childCount - 1;
 
         TextLevelCompletion.text = "Level completion:0%";
+    }
 
-        StartCoroutine(IsLevelOver());
+    private void Update()
+    {
+        if (Time.time >= updateRate)
+        {
+            updateRate = Time.time + 5f;
+            IsLevelOver();
+        }
     }
 
     public void WaveCompleted()
@@ -39,9 +46,9 @@ public class LevelManager : MonoBehaviour {
         TextLevelCompletion.text = "Level completion:" + waveCompletedPercent + "%";
     }
 
-    private IEnumerator IsLevelOver()
+    private void IsLevelOver()
     {
-        if (gameObject.transform.childCount == 0)
+        if (gameObject.transform.childCount <= 1)
         {
             isLevelOver = true;
             updateRate = 10f;
@@ -50,13 +57,6 @@ public class LevelManager : MonoBehaviour {
 
             StartCoroutine(GameMaster.gm.LoadScene(NextScene, 0f));
         }
-
-        yield return new WaitForSeconds(updateRate);
-
-        if (!isLevelOver)
-            StartCoroutine(IsLevelOver());
-        else
-            Destroy(gameObject);
     }
 
 

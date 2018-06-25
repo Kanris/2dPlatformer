@@ -9,6 +9,11 @@ TagManager:
   - Enemy
   - WeaponsPanel
   - SceneLoader
+  - LevelCompletion
+  - Parallaxing
+  - EnemiesSpawn
+  - LifesUI
+  - AnnouncerUI
   layers:
   - Default
   - TransparentFX

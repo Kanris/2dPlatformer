@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Parallaxing : MonoBehaviour {
 
-	public Transform[] backgrounds; //array of all the transfortms to be parallaxed
+    private Transform[] backgrounds; //array of all the transfortms to be parallaxed
 	private float[] parallaxScales; //the proportion of the camera's movement to move the backgrounds by
 	public float smoothing = 1f; // how smooth the parallax is going to be (needs to be above 0)
 
@@ -18,6 +18,8 @@ public class Parallaxing : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        InitializeBackgrounds();
+
 		previousCamPos = cam.position;
 		parallaxScales = new float[backgrounds.Length];
 
@@ -26,6 +28,17 @@ public class Parallaxing : MonoBehaviour {
             parallaxScales[index] = backgrounds[index].position.z * -1;
         }
 	}
+
+    void InitializeBackgrounds()
+    {
+        var parallaxingList = GameObject.FindGameObjectsWithTag("Parallaxing");
+        backgrounds = new Transform[parallaxingList.Length];
+
+        for (int index = 0; index < backgrounds.Length; index++)
+        {
+            backgrounds[index] = parallaxingList[index].transform;
+        }
+    }
 	
 	// Update is called once per frame
 	void Update () {

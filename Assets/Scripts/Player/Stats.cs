@@ -48,6 +48,13 @@ public class Stats {
         {
             healthText.text = CurrentHealth + "/" + MaxHealth;
         }
+
+        var deathPrefabGO = Resources.Load("Effects/SpawnParticles") as GameObject;
+
+        if (deathPrefabGO != null)
+            deathPrefab = deathPrefabGO.transform;
+        else
+            Debug.LogError("Stats: Can't find death prefab particles");
     }
 
     public virtual void Damage(float damageFromSource)

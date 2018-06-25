@@ -8,16 +8,14 @@ public class GameMaster : MonoBehaviour {
     public static GameMaster gm;
 
     public Transform playerPrefab;
-    public Transform spawnPoint;
+    private Transform spawnPoint;
     public float spawnDelay = 3.7f;
-    public Transform spawnPrefab;
 
     public int LifeCount = 2;
-    public Transform LifeGUI;
-    public Transform lifeImage;
+    private Transform LifeGUI;
     private Transform[] lifesLeft;
 
-    public GameObject announcer;
+    private GameObject announcer;
 
     private AudioManager audioManager;
     public string spawnSoundName;
@@ -26,7 +24,7 @@ public class GameMaster : MonoBehaviour {
 
     [HideInInspector]
     public delegate void VoidDelegate();
-    public GameObject enemiesSpawnPrefab;
+    private GameObject enemiesSpawnPrefab;
 
     void Awake()
     {
@@ -34,11 +32,32 @@ public class GameMaster : MonoBehaviour {
         {
             gm = GameObject.FindGameObjectWithTag("GameMaster").GetComponent<GameMaster>();
         }
+    }
+
+    private void Start()
+    {
+        InitalizeAnnouncer();
+
+        InitalizeAudioManager();
+
+        InitalizeEnemySpawn();
+
+        InitalizeSpawnPoint();
 
         InitializeLifeGUI();
     }
 
-    private void Start()
+    private void InitalizeSpawnPoint()
+    {
+        spawnPoint = GameObject.FindWithTag("Respawn").gameObject.transform;
+
+        if (spawnPoint == null)
+        {
+            Debug.LogError("GameMaster: Can't find spawn point on scene");
+        }
+    }
+
+    private void InitalizeAudioManager()
     {
         audioManager = AudioManager.instance;
 
@@ -48,14 +67,35 @@ public class GameMaster : MonoBehaviour {
         {
             AudioManager.ChangeBackgroundMusic(LevelMusic);
         }
+    }
 
-        if ( !string.IsNullOrEmpty(LevelName))
+    private void InitalizeAnnouncer()
+    {
+        announcer = GameObject.FindWithTag("AnnouncerUI");
+
+        if (announcer == null)
+            Debug.LogError("GameMaster: Can't find announcer on scene");
+        else
+        {
+            announcer.SetActive(false);
+        }
+    }
+
+    private void InitalizeEnemySpawn()
+    {
+        enemiesSpawnPrefab = GameObject.FindWithTag("EnemiesSpawn");
+
+        if (enemiesSpawnPrefab != null)
+            enemiesSpawnPrefab.SetActive(false);
+
+        if (!string.IsNullOrEmpty(LevelName))
         {
             if (enemiesSpawnPrefab != null)
                 StartCoroutine(DisplayAnnouncerMessage(LevelName, 2f, () => enemiesSpawnPrefab.SetActive(true)));
             else
                 StartCoroutine(DisplayAnnouncerMessage(LevelName, 2f));
         }
+
     }
 
     public IEnumerator RespawnPlayer()
@@ -66,6 +106,7 @@ public class GameMaster : MonoBehaviour {
 
         Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
 
+        var spawnPrefab = Resources.Load("Effects/SpawnParticles") as GameObject;
         var spawnEffect = Instantiate(spawnPrefab, spawnPoint.position, spawnPoint.rotation).gameObject;
         Destroy(spawnEffect, 2.5f);
     }
@@ -107,27 +148,38 @@ public class GameMaster : MonoBehaviour {
         yield return new WaitForSeconds(time);
         Time.timeScale = 1f;
         GameObject.FindWithTag("SceneLoader").GetComponent<LoadScene>().Load(scene);
-        //(FindObjectOfType(typeof(LoadScene)) as LoadScene).Load(scene);
     }
 
     private void InitializeLifeGUI()
     {
-        if (lifeImage != null)
-        {
-            lifesLeft = new Transform[LifeCount];
+        var lifeGUIObject = GameObject.FindWithTag("LifesUI");
 
-            for (int index = 0; index < LifeCount; index++)
+        if (lifeGUIObject == null)
+        {
+            Debug.LogError("GameMaster: Can't find Lifes UI on scene");
+        }
+        else
+        {
+            LifeGUI = lifeGUIObject.transform;
+
+            var lifeImage = Resources.Load("GUI/LifeImage") as GameObject;
+
+            if (lifeImage != null)
             {
-                lifesLeft[index] = Instantiate(lifeImage, LifeGUI.transform);
-                lifesLeft[index].position = new Vector3(lifesLeft[index].position.x, lifesLeft[index].position.y);
-            }   
+                lifesLeft = new Transform[LifeCount];
+
+                for (int index = 0; index < LifeCount; index++)
+                {
+                    lifesLeft[index] = Instantiate(lifeImage.transform, LifeGUI.transform);
+                    lifesLeft[index].position = new Vector3(lifesLeft[index].position.x, lifesLeft[index].position.y);
+                }
+            }
         }
     }
 
     private void ChangeLifeGUI()
     {
-        if (lifeImage != null)
-            Destroy(lifesLeft[LifeCount].gameObject);
+        Destroy(lifesLeft[LifeCount].gameObject);
     }
 
     public IEnumerator DisplayAnnouncerMessage(string message, float duration, VoidDelegate delayFunc = null)

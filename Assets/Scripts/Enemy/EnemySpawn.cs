@@ -22,29 +22,28 @@ public class EnemySpawn : MonoBehaviour {
     private void Start()
     {
         levelManager = gameObject.transform.parent.GetComponent<LevelManager>();
-        StartCoroutine(SpawnWave());
     }
 
-    private IEnumerator SpawnWave()
+    private void Update()
     {
-        if (gameObject.transform.childCount == 0)
+        if (rateForNextWaveCheck <= Time.time)
         {
-            if (currentWave < waves.Length)
+            rateForNextWaveCheck = Time.time + 5f;   
+            if (gameObject.transform.childCount == 0)
             {
-                SpawnEnemies();
-                currentWave++;
-                levelManager.WaveCompleted();
-            }
-            else
-            {   
-                levelManager.WaveCompleted();
-                Destroy(gameObject);
+                if (currentWave < waves.Length)
+                {
+                    SpawnEnemies();
+                    currentWave++;
+                    levelManager.WaveCompleted();
+                }
+                else
+                {
+                    levelManager.WaveCompleted();
+                    Destroy(gameObject);
+                }
             }
         }
-
-        yield return new WaitForSeconds(rateForNextWaveCheck);
-
-        StartCoroutine(SpawnWave());
     }
 
     private void SpawnEnemies()
