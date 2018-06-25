@@ -53,6 +53,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 230
+  LayerTohit:
+    serializedVersion: 2
+    m_Bits: 3072
 --- !u!120 &120880072144408440
 LineRenderer:
   m_ObjectHideFlags: 1

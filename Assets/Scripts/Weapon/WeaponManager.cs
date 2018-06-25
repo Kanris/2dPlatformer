@@ -14,7 +14,7 @@ public class WeaponManager : MonoBehaviour {
 
     private GridLayoutGroup weaponsPanel;
 
-    public bool AllowToChageWeapon;
+    public bool AllowToChangeWeapon;
 
     private PauseMenu pauseMenu;
 
@@ -46,7 +46,7 @@ public class WeaponManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        if (AllowToChageWeapon)
+        if (AllowToChangeWeapon)
         {
             if (!pauseMenu.IsGamePause)
             {

@@ -1504,7 +1504,7 @@ Transform:
   m_Children:
   - {fileID: 1798724810}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &779084513
 MonoBehaviour:
@@ -1517,7 +1517,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d8238cc53530b64fbb7828c3d3bb591, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 1610577815}
+  target: {fileID: 0}
   damping: 0.3
   lookAheadFactor: 3
   lookAheadReturnSpeed: 0.5
@@ -2396,7 +2396,7 @@ Prefab:
         type: 2}
       propertyPath: playerPrefab
       value: 
-      objectReference: {fileID: 4915299427332476, guid: f18f99404b229964b9e53ed1c0c37306,
+      objectReference: {fileID: 4537188146068762, guid: f18f99404b229964b9e53ed1c0c37306,
         type: 2}
     - target: {fileID: 114883234586605516, guid: 924df003b63d8694589500e078d1b768,
         type: 2}
@@ -2539,7 +2539,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1357489484
 GameObject:
@@ -2955,11 +2955,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
---- !u!4 &1610577815 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4915299427332476, guid: f18f99404b229964b9e53ed1c0c37306,
-    type: 2}
-  m_PrefabInternal: {fileID: 1239695427}
 --- !u!1 &1669622146
 GameObject:
   m_ObjectHideFlags: 0
@@ -3156,7 +3151,7 @@ Transform:
   m_LocalScale: {x: 1.7715329, y: 1.7715304, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1710615418
 GameObject:

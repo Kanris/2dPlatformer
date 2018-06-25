@@ -12,7 +12,6 @@ public class FlyingAlarmEnemy : MonoBehaviour {
 
     public float waitBeforeStartMove = 2f;
     private Rigidbody2D body;
-    private bool isMoving = false;
 
     private Vector2 velocity;
 
