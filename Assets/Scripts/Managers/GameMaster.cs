@@ -95,7 +95,37 @@ public class GameMaster : MonoBehaviour {
             else
                 StartCoroutine(DisplayAnnouncerMessage(LevelName, 2f));
         }
+    }
 
+    private void InitializeLifeGUI()
+    {
+        var lifeGUIObject = GameObject.FindWithTag("LifesUI");
+
+        if (lifeGUIObject == null)
+        {
+            Debug.LogError("GameMaster: Can't find Lifes UI on scene");
+        }
+        else
+        {
+            LifeGUI = lifeGUIObject.transform;
+
+            var lifeImage = Resources.Load("GUI/LifeImage") as GameObject;
+
+            if (lifeImage != null)
+            {
+                lifesLeft = new Transform[LifeCount];
+
+                for (int index = 0; index < LifeCount; index++)
+                {
+                    lifesLeft[index] = Instantiate(lifeImage.transform, LifeGUI.transform);
+                    lifesLeft[index].position = new Vector3(lifesLeft[index].position.x, lifesLeft[index].position.y);
+                }
+            }
+            else
+            {
+                Debug.LogError("GameMaster: Can't find LifeImage in Resources");
+            }
+        }
     }
 
     public IEnumerator RespawnPlayer()
@@ -148,33 +178,6 @@ public class GameMaster : MonoBehaviour {
         yield return new WaitForSeconds(time);
         Time.timeScale = 1f;
         GameObject.FindWithTag("SceneLoader").GetComponent<LoadScene>().Load(scene);
-    }
-
-    private void InitializeLifeGUI()
-    {
-        var lifeGUIObject = GameObject.FindWithTag("LifesUI");
-
-        if (lifeGUIObject == null)
-        {
-            Debug.LogError("GameMaster: Can't find Lifes UI on scene");
-        }
-        else
-        {
-            LifeGUI = lifeGUIObject.transform;
-
-            var lifeImage = Resources.Load("GUI/LifeImage") as GameObject;
-
-            if (lifeImage != null)
-            {
-                lifesLeft = new Transform[LifeCount];
-
-                for (int index = 0; index < LifeCount; index++)
-                {
-                    lifesLeft[index] = Instantiate(lifeImage.transform, LifeGUI.transform);
-                    lifesLeft[index].position = new Vector3(lifesLeft[index].position.x, lifesLeft[index].position.y);
-                }
-            }
-        }
     }
 
     private void ChangeLifeGUI()

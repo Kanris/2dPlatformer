@@ -9,32 +9,34 @@ public class LevelManager : MonoBehaviour {
     private int wavesCompleted = 0;
     private float updateRate = 5f;
 
-    private bool isLevelOver = false;
-
-    public Text TextLevelCompletion;
+    [SerializeField]
+    private Text TextLevelCompletion;
 
     public string NextScene;
 
     private void Start()
     {
+        InitializeWavesCompleted();
+        InitializeTextLevelCompletion();
+    }
+
+    private void InitializeWavesCompleted()
+    {
         for (int index = 0; index < gameObject.transform.childCount - 1; index++)
         {
             var enemySpawn = gameObject.transform.GetChild(index).GetComponent<EnemySpawn>();
-            wavesCount += enemySpawn.waves.Length;
+            wavesCount += enemySpawn.WaveCount;
         }
 
         wavesCompleted -= gameObject.transform.childCount - 1;
-
-        TextLevelCompletion.text = "Level completion:0%";
     }
 
-    private void Update()
+    private void InitializeTextLevelCompletion()
     {
-        if (Time.time >= updateRate)
-        {
-            updateRate = Time.time + 5f;
-            IsLevelOver();
-        }
+        if (TextLevelCompletion != null)
+            TextLevelCompletion.text = "Level completion:0%";
+        else
+            Debug.LogError("LevelManager: Can't find level completion Text UI");
     }
 
     public void WaveCompleted()
@@ -44,19 +46,17 @@ public class LevelManager : MonoBehaviour {
         float waveCompletedPercent = Mathf.Round((float)wavesCompleted / (float)wavesCount * 100f);
 
         TextLevelCompletion.text = "Level completion:" + waveCompletedPercent + "%";
+
+        if (waveCompletedPercent >= 100f)
+        {
+            LevelOver();
+        }
+            
     }
 
-    private void IsLevelOver()
+    private void LevelOver()
     {
-        if (gameObject.transform.childCount <= 1)
-        {
-            isLevelOver = true;
-            updateRate = 10f;
-            StartCoroutine(GameMaster.gm.DisplayAnnouncerMessage("Level complete", updateRate));
-            TextLevelCompletion.text = string.Empty;
-
-            StartCoroutine(GameMaster.gm.LoadScene(NextScene, 0f));
-        }
+        StartCoroutine(GameMaster.gm.LoadScene(NextScene, 0f));
     }
 
 

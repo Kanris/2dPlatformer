@@ -9,7 +9,7 @@ public class EnemyAI : MonoBehaviour {
     //what to chase
     public Transform target;
 
-    public float updateRate = 2f;
+    private float updateRate = 2f;
     public float updateRateSearchPlayer = 0f;
 
     private Seeker seeker;
@@ -17,8 +17,6 @@ public class EnemyAI : MonoBehaviour {
 
     public Path path; //calculated path
     private int currentWaypoint = 0;
-
-    public ForceMode2D fMode;
 
     public float nextWaypointDistance = 3; //max distacne from the AI to a waypoint
 
@@ -123,7 +121,7 @@ public class EnemyAI : MonoBehaviour {
             direction *= stats.speed * Time.fixedDeltaTime;
 
             //move ai
-            rb.AddForce(direction, fMode);
+            rb.AddForce(direction);
 
             //move to another waypoint??
             float distance = Vector3.Distance(transform.position, path.vectorPath[currentWaypoint]);

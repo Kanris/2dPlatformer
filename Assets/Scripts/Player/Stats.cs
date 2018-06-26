@@ -269,7 +269,7 @@ public class RangeEnemyStats : EnemyStats
 {
     public float AttackRange = 50f;
     public float AttackRate = 1f;
-    //[HideInInspector]
+    [HideInInspector]
     public bool shotPreparing = false;
 
     public Transform firePoint;

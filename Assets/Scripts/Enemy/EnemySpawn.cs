@@ -12,9 +12,14 @@ public class EnemySpawn : MonoBehaviour {
         public int count;
     }
 
-    public Wave[] waves;
+    [SerializeField]
+    private Wave[] waves;
+    public int WaveCount { get { return waves.Length; } }
+
     private int currentWave = 0;
     public int CurrentWave { get { return currentWave; } }
+
+    private float timeNextCheck = 2f;
     private float rateForNextWaveCheck = 2f;
 
     private LevelManager levelManager;
@@ -26,22 +31,21 @@ public class EnemySpawn : MonoBehaviour {
 
     private void Update()
     {
-        if (rateForNextWaveCheck <= Time.time)
+        if (timeNextCheck <= Time.time)
         {
-            rateForNextWaveCheck = Time.time + 2f;   
+            timeNextCheck = Time.time + rateForNextWaveCheck;
+
             if (gameObject.transform.childCount == 0)
             {
                 if (currentWave < waves.Length)
                 {
                     SpawnEnemies();
                     currentWave++;
-                    levelManager.WaveCompleted();
                 }
                 else
-                {
-                    levelManager.WaveCompleted();
                     Destroy(gameObject);
-                }
+
+                levelManager.WaveCompleted();
             }
         }
     }
