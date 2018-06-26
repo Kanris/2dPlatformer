@@ -15,7 +15,7 @@ public class EnemySpawn : MonoBehaviour {
     public Wave[] waves;
     private int currentWave = 0;
     public int CurrentWave { get { return currentWave; } }
-    private float rateForNextWaveCheck = 5f;
+    private float rateForNextWaveCheck = 2f;
 
     private LevelManager levelManager;
 
@@ -28,7 +28,7 @@ public class EnemySpawn : MonoBehaviour {
     {
         if (rateForNextWaveCheck <= Time.time)
         {
-            rateForNextWaveCheck = Time.time + 5f;   
+            rateForNextWaveCheck = Time.time + 2f;   
             if (gameObject.transform.childCount == 0)
             {
                 if (currentWave < waves.Length)
