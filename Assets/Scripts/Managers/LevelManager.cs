@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour {
 
-    private int wavesCount = 0;
-    private int wavesCompleted = 0;
-    private float updateRate = 5f;
+    private int m_wavesCount = 0;
+    private int m_waveCompleted = 0;
+    private float m_updateRate = 5f;
 
     [SerializeField]
     private Text TextLevelCompletion;
@@ -25,10 +25,10 @@ public class LevelManager : MonoBehaviour {
         for (int index = 0; index < gameObject.transform.childCount - 1; index++)
         {
             var enemySpawn = gameObject.transform.GetChild(index).GetComponent<EnemySpawn>();
-            wavesCount += enemySpawn.WaveCount;
+            m_wavesCount += enemySpawn.WaveCount;
         }
 
-        wavesCompleted -= gameObject.transform.childCount - 1;
+        m_waveCompleted -= gameObject.transform.childCount - 1;
     }
 
     private void InitializeTextLevelCompletion()
@@ -41,9 +41,9 @@ public class LevelManager : MonoBehaviour {
 
     public void WaveCompleted()
     {
-        wavesCompleted += 1;
+        m_waveCompleted += 1;
 
-        float waveCompletedPercent = Mathf.Round((float)wavesCompleted / (float)wavesCount * 100f);
+        float waveCompletedPercent = Mathf.Round((float)m_waveCompleted / (float)m_wavesCount * 100f);
 
         TextLevelCompletion.text = "Level completion:" + waveCompletedPercent + "%";
 
@@ -56,7 +56,10 @@ public class LevelManager : MonoBehaviour {
 
     private void LevelOver()
     {
-        StartCoroutine(GameMaster.gm.LoadScene(NextScene, 0f));
+        if (!string.IsNullOrEmpty(NextScene))
+            StartCoroutine(GameMaster.gm.LoadScene(NextScene, 0f));
+        else
+            Debug.LogError("LevelManager: Can't find scene to load.");
     }
 
 

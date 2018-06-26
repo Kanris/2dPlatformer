@@ -33,7 +33,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1350361430816440}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 486.44556, y: 261.32736, z: -3.721514}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -59,3 +59,59 @@ MonoBehaviour:
     volumeOffset: 0.1
     pitchOffset: 0.1
     loop: 0
+  - name: Music
+    clip: {fileID: 8300000, guid: bfd7e8c0bfc08437c91b148a7bedf108, type: 3}
+    volume: 0.4
+    pitch: 1
+    volumeOffset: 0
+    pitchOffset: 0
+    loop: 1
+  - name: DefaultShot
+    clip: {fileID: 8300000, guid: d4f4ed4508338464b8f2c3c85f188b10, type: 3}
+    volume: 0.7
+    pitch: 1
+    volumeOffset: 0.5
+    pitchOffset: 0.5
+    loop: 0
+  - name: Explosion
+    clip: {fileID: 8300000, guid: 47a29522d9d80493a9b6fb4a5bf1438a, type: 3}
+    volume: 0.7
+    pitch: 1
+    volumeOffset: 0.1
+    pitchOffset: 0.1
+    loop: 0
+  - name: DeathVoice
+    clip: {fileID: 8300000, guid: 8dc3b5ca3dd9e47da8c2d6e09f7d7745, type: 3}
+    volume: 0.5
+    pitch: 1
+    volumeOffset: 0
+    pitchOffset: 0
+    loop: 0
+  - name: Grunt
+    clip: {fileID: 8300000, guid: 54d616f86da184de6b76c39181a5b1ac, type: 3}
+    volume: 0.4
+    pitch: 1
+    volumeOffset: 0.1
+    pitchOffset: 0
+    loop: 0
+  - name: E1M1
+    clip: {fileID: 8300000, guid: 85030fe3b004041b5aea0ead67d83fd3, type: 3}
+    volume: 0.5
+    pitch: 1
+    volumeOffset: 0
+    pitchOffset: 0
+    loop: 1
+  - name: LaserShot
+    clip: {fileID: 8300000, guid: b3bd5b1e641bc4c5d9e806f391f471c8, type: 3}
+    volume: 0.5
+    pitch: 1
+    volumeOffset: 0
+    pitchOffset: 0
+    loop: 0
+  - name: MainMenu
+    clip: {fileID: 8300000, guid: a6a7bc579f9024f68ad5b0009b06045c, type: 3}
+    volume: 0.4
+    pitch: 1
+    volumeOffset: 0
+    pitchOffset: 0
+    loop: 1

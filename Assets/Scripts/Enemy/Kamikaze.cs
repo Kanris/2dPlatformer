@@ -16,7 +16,7 @@ public class Kamikaze : MonoBehaviour {
         if (collision.CompareTag("Player"))
         {
             var player = collision.gameObject.GetComponent<Player>();
-            player.playerStats.Damage(stats.damage);
+            player.playerStats.Damage(stats.OutputDamage);
             stats.Damage(99999);
         }
     }

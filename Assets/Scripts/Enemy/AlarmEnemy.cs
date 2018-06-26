@@ -4,30 +4,37 @@ using UnityEngine;
 
 public class AlarmEnemy : MonoBehaviour {
 
-    public float waitBeforeTurnSeconds = 5f;
-    private bool isPlayerFound = false;
+    public float WaitBeforeTurnSeconds = 5f;
+    private float m_waitTime;
+    public float RotationOffset = -180;
+    private bool m_isPlayerFound = false;
 
     private void Start()
     {
-        StartCoroutine(TurnAround(-180));
+        m_waitTime = WaitBeforeTurnSeconds;
     }
 
-    private IEnumerator TurnAround(float rotationOffset)
+    private void Update()
+    {
+        if (m_waitTime <= Time.time)
+        {
+            m_waitTime = Time.time + WaitBeforeTurnSeconds;
+            TurnAround(-RotationOffset);
+        }
+    }
+
+    private void TurnAround(float rotationOffset)
     {
         transform.Rotate(0, 0, rotationOffset);
 
-        yield return new WaitForSeconds(waitBeforeTurnSeconds);
-
-        StartCoroutine(TurnAround(-rotationOffset));
-
-        if (isPlayerFound) isPlayerFound = false;
+        if (m_isPlayerFound) m_isPlayerFound = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") & !isPlayerFound)
+        if (collision.CompareTag("Player") & !m_isPlayerFound)
         {
-            isPlayerFound = true;
+            m_isPlayerFound = true;
             collision.gameObject.GetComponent<Player>().playerStats.Damage(9999);
         }
     }
@@ -36,7 +43,7 @@ public class AlarmEnemy : MonoBehaviour {
     {
         if (collision.CompareTag("Player"))
         {
-            isPlayerFound = false;
+            m_isPlayerFound = false;
         }
     }
 }

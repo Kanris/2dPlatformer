@@ -118,7 +118,7 @@ public class EnemyAI : MonoBehaviour {
             pathIsEnded = false;
 
             Vector3 direction = (path.vectorPath[currentWaypoint] - transform.position).normalized;
-            direction *= stats.speed * Time.fixedDeltaTime;
+            direction *= stats.Speed * Time.fixedDeltaTime;
 
             //move ai
             rb.AddForce(direction);

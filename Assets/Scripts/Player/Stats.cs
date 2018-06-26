@@ -4,55 +4,63 @@ using UnityEngine.UI;
 [System.Serializable]
 public class Stats {
 
+#region Health
     public float MaxHealth = 100f; //max object health
-    private float _currentHealth; //current object health
+    private float m_currentHealth; //current object health
     public float CurrentHealth
     {
-        get { return _currentHealth; }
-        set { _currentHealth = Mathf.Clamp(value, 0, MaxHealth); } //current health can't be less than thero and greter than MaxHealth
+        get { return m_currentHealth; }
+        set { m_currentHealth = Mathf.Clamp(value, 0, MaxHealth); } //current health can't be less than thero and greter than MaxHealth
     }
+#endregion
 
-    public float speed = 300f; //object movement speed
-
+    public float Speed = 300f; //object movement speed
     public string DeathSound = "Explosion"; //death sound
     public string DamageSound; //sound when object takes some damage
 
-    private GameObject gameObject; //gameobject where this Stats attached
-    private Slider healthSlider; //object health UI
-    private Text healthText; //object text health UI
-    private AudioManager audioManager; //audio manager
-
-    public Transform deathPrefab;
+#region GameObjects
+    private GameObject m_gameObject; //gameobject where this Stats attached
+    private Slider m_healthSlider; //object health UI
+    private Text m_healthText; //object text health UI
+    private AudioManager m_audioManager; //audio manager
+    private Transform m_deathPrefab;
+#endregion
 
     public virtual void Initialize(GameObject parentGameObject)
     {
-        gameObject = parentGameObject;
-        healthSlider = gameObject.GetComponentInChildren(typeof(Slider)) as Slider;
-        healthText = gameObject.GetComponentInChildren(typeof(Text)) as Text;
+        m_gameObject = parentGameObject;
 
-        audioManager = AudioManager.instance;
+        m_audioManager = AudioManager.instance;
 
-        _currentHealth = MaxHealth;
+        InitializeHealth();
+        InitializeDeathPrefab();
+    }
 
-        if (healthSlider == null)
-        {
+    private void InitializeHealth()
+    {
+        m_healthSlider = m_gameObject.GetComponentInChildren(typeof(Slider)) as Slider;
+
+        CurrentHealth = MaxHealth;
+
+        if (m_healthSlider == null)
             Debug.LogError("Stats: Can't find slider!");
-        }
+        else
+            m_healthSlider.maxValue = CurrentHealth;
 
-        if (healthSlider != null)
-        {
-            healthSlider.maxValue = CurrentHealth;
-        }
+        m_healthText = m_gameObject.GetComponentInChildren(typeof(Text)) as Text;
 
-        if (healthText != null)
-        {
-            healthText.text = CurrentHealth + "/" + MaxHealth;
-        }
+        if (m_healthText != null)
+            m_healthText.text = CurrentHealth + "/" + MaxHealth;
+        else
+            Debug.LogError("Stats: Can't find health text");
+    }
 
+    private void InitializeDeathPrefab()
+    {
         var deathPrefabGO = Resources.Load("Effects/SpawnParticles") as GameObject;
 
         if (deathPrefabGO != null)
-            deathPrefab = deathPrefabGO.transform;
+            m_deathPrefab = deathPrefabGO.transform;
         else
             Debug.LogError("Stats: Can't find death prefab particles");
     }
@@ -76,14 +84,15 @@ public class Stats {
 
         ShowDeathAnimation();
 
-        GameObject.Destroy(gameObject); 
+        GameObject.Destroy(m_gameObject); 
     }
 
     private void ShowDeathAnimation()
     {
-        if (deathPrefab != null)
+        if (m_deathPrefab != null)
         {
-            var deathEffect = GameObject.Instantiate(deathPrefab, gameObject.transform.position, gameObject.transform.rotation).gameObject;
+            var deathEffect = GameObject.Instantiate
+                (m_deathPrefab, m_gameObject.transform.position, m_gameObject.transform.rotation).gameObject;
             GameObject.Destroy(deathEffect, 2.5f);
         }
 
@@ -91,18 +100,18 @@ public class Stats {
 
     protected virtual void DisplayUIChanges(float damageFromSource)
     {
-        if (healthText != null)
-            healthText.text = CurrentHealth + "/" + MaxHealth;
+        if (m_healthText != null)
+            m_healthText.text = CurrentHealth + "/" + MaxHealth;
 
-        if (healthSlider != null)
-            healthSlider.value += damageFromSource;
+        if (m_healthSlider != null)
+            m_healthSlider.value += damageFromSource;
     }
 
     private void PlayDamageSound()
     {
         if (DamageSound != string.Empty)
         {
-            audioManager.PlaySound(DamageSound);
+            m_audioManager.PlaySound(DamageSound);
         }
     }
 
@@ -110,7 +119,7 @@ public class Stats {
     {
         if (DeathSound != string.Empty)
         {
-            audioManager.PlaySound(DeathSound);
+            m_audioManager.PlaySound(DeathSound);
         }
     }
 }
@@ -122,22 +131,33 @@ public class PlayerStats : Stats
     public static float AdditionalDamage = 0f;
     public static float DamageResistance = 0f;
     public static int ResurectionStones = 0;
-
-    private static Text CoinsText;
-
     public static string[] Equipment;
+
+    private static Text m_coinsText;
+    private delegate void VoidDelegate();
 
     public override void Initialize(GameObject parentGameObject)
     {
-        CoinsText = GameObject.Find("CoinsUI").GetComponent<Text>();
-        CoinsText.text = "Coins:" + Coins.ToString();
+        InitializeCoinsText();
 
-        var equipmentLength = (int)ItemType.ItemTypeCount;
-
-        if (Equipment == null)
-            Equipment = new string[equipmentLength];
+        InitializeEquipment();
 
         base.Initialize(parentGameObject);
+    }
+
+    private void InitializeCoinsText()
+    {
+        m_coinsText = GameObject.Find("CoinsUI").GetComponent<Text>();
+        m_coinsText.text = "Coins:" + Coins.ToString();
+    }
+
+    private void InitializeEquipment()
+    {
+        if (Equipment == null)
+        {
+            var equipmentLength = (int)ItemType.ItemTypeCount;
+            Equipment = new string[equipmentLength];
+        }
     }
 
     protected override void KillObject()
@@ -175,36 +195,32 @@ public class PlayerStats : Stats
 
     private static bool SpendMoney(int amount, Item item, VoidDelegate logic)
     {
-        var result = CheckMoney(amount, item);
-
-        if (result)
+        if (CheckMoney(amount, item))
         {
             logic();
+            return true;
         }
 
-        return result;
+        return false;
     }
-
-    private delegate void VoidDelegate();
 
     private static bool CheckMoney(int amount, Item item)
     {
-        var result = true;
-
         if (amount > Coins)
         {
             var announcerMessage = "Not enough money to buy - " + item.Name;
             DisplayAnnouncerMessage(announcerMessage, 4f);
-            result = false;
+
+            return false;
         }
 
-        return result;
+        return true;
     }
 
-    private static void ChangeCoinsAmount(int amount)
+    public static void ChangeCoinsAmount(int amount)
     {
         Coins -= amount;
-        CoinsText.text = "Coins:" + Coins.ToString(); 
+        m_coinsText.text = "Coins:" + Coins.ToString(); 
     }
 
     private static void DisplayAnnouncerMessage(string message, float time)
@@ -232,7 +248,7 @@ public class PlayerStats : Stats
     {
         damageFromSource -= DamageResistance;
 
-        if (damageFromSource < 0)
+        if (damageFromSource <= 0)
             damageFromSource = 1;
 
         base.Damage(damageFromSource);
@@ -242,23 +258,13 @@ public class PlayerStats : Stats
 [System.Serializable]
 public class EnemyStats : Stats
 {
-    public float damage = 20f;
-    public bool isAttacking = false;
-
+    public float OutputDamage = 20f;
     public int EnemyDeathCost = 10;
-
-    private Text CoinsText;
-
-    public override void Initialize(GameObject parentGameObject)
-    {
-        CoinsText = GameObject.Find("CoinsUI").GetComponent<Text>();
-        base.Initialize(parentGameObject);
-    }
+    public bool isAttacking = false;
 
     protected override void KillObject()
     {
-        PlayerStats.Coins += EnemyDeathCost;
-        CoinsText.text = "Coins:" + PlayerStats.Coins.ToString();
+        PlayerStats.ChangeCoinsAmount(-EnemyDeathCost);
         base.KillObject();
     }
 }
@@ -269,8 +275,9 @@ public class RangeEnemyStats : EnemyStats
 {
     public float AttackRange = 50f;
     public float AttackRate = 1f;
+
     [HideInInspector]
-    public bool shotPreparing = false;
+    public bool ShotPreparing = false;
 
     public Transform firePoint;
 }

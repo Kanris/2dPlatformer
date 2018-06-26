@@ -65,13 +65,13 @@ public class EnemyRangeAttack : MonoBehaviour {
 
     private IEnumerator ShootPlayer()
     {
-        if (!stats.shotPreparing)
+        if (!stats.ShotPreparing)
         {
-            stats.shotPreparing = true;
+            stats.ShotPreparing = true;
 
             if (enemyAI.target == null)
             {
-                stats.shotPreparing = false;
+                stats.ShotPreparing = false;
                 yield return new WaitForSeconds(1f / updateRateSearchPlayer);
                 StartCoroutine(ShootPlayer());
             } 
@@ -97,12 +97,12 @@ public class EnemyRangeAttack : MonoBehaviour {
                         var player = hit2D.transform.GetComponent<Player>();
                         if (player != null)
                         {
-                            player.playerStats.Damage(stats.damage);
+                            player.playerStats.Damage(stats.OutputDamage);
                         }
                     }   
 
                 yield return new WaitForSeconds(stats.AttackRate);
-                stats.shotPreparing = false;
+                stats.ShotPreparing = false;
 
                 if (stats.isAttacking)
                     StartCoroutine(ShootPlayer());
@@ -149,7 +149,7 @@ public class EnemyRangeAttack : MonoBehaviour {
         var rigid2d = GetComponent<Rigidbody2D>();
         rigid2d.transform.position = Vector3.MoveTowards(rigid2d.transform.position,
                                                          new Vector3(rigid2d.transform.position.x, rigid2d.transform.position.y - offsetY),
-                                                         stats.speed * Time.deltaTime);
+                                                         stats.Speed * Time.deltaTime);
 
         yield return new WaitForSeconds(1f);
 
