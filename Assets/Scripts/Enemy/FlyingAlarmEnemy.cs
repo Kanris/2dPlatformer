@@ -5,25 +5,25 @@ using UnityEngine;
 public class FlyingAlarmEnemy : MonoBehaviour {
 
     public float waitBeforeTurnSeconds = 5f;
-    private bool isPlayerFound = false;
+    private bool m_isPlayerFound = false;
     public float offsetX = 2f;
-    private Vector2 nextPoint;
+    private Vector2 m_nextPoint;
 
 
     public float waitBeforeStartMove = 2f;
-    private Rigidbody2D body;
+    private Rigidbody2D m_rigidbody;
 
-    private Vector2 velocity;
+    private Vector2 m_velocity;
 
     private void Start()
     {
         StartCoroutine(TurnAround(-180));
-        body = gameObject.GetComponent<Rigidbody2D>();
+        m_rigidbody = gameObject.GetComponent<Rigidbody2D>();
     }
 
     private void FixedUpdate()
     {
-        body.velocity = velocity;
+        m_rigidbody.velocity = m_velocity;
     }
 
     private IEnumerator TurnAround(float rotationOffset)
@@ -38,7 +38,7 @@ public class FlyingAlarmEnemy : MonoBehaviour {
 
         yield return new WaitForSeconds(waitBeforeStartMove);
 
-        if (isPlayerFound) isPlayerFound = false;
+        if (m_isPlayerFound) m_isPlayerFound = false;
 
         StartCoroutine(TurnAround(-rotationOffset));
     }
@@ -46,19 +46,19 @@ public class FlyingAlarmEnemy : MonoBehaviour {
     private void StartMoving()
     {
         offsetX = -offsetX;
-        velocity = new Vector2(offsetX, 0);
+        m_velocity = new Vector2(offsetX, 0);
     }
 
     private void StopMoving()
     {
-        velocity = new Vector2(0, 0);
+        m_velocity = new Vector2(0, 0);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") & !isPlayerFound)
+        if (collision.CompareTag("Player") & !m_isPlayerFound)
         {
-            isPlayerFound = true;
+            m_isPlayerFound = true;
             collision.gameObject.GetComponent<Player>().playerStats.Damage(9999);
         }
     }
@@ -67,7 +67,7 @@ public class FlyingAlarmEnemy : MonoBehaviour {
     {
         if (collision.CompareTag("Player"))
         {
-            isPlayerFound = false;
+            m_isPlayerFound = false;
         }
     }
 }

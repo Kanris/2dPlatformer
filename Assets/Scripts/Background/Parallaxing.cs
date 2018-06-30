@@ -4,39 +4,39 @@ using UnityEngine;
 
 public class Parallaxing : MonoBehaviour {
 
-    private Transform[] backgrounds; //array of all the transfortms to be parallaxed
-	private float[] parallaxScales; //the proportion of the camera's movement to move the backgrounds by
+    private Transform[] m_backgrounds; //array of all the transfortms to be parallaxed
+    private float[] m_paralaxScaling; //the proportion of the camera's movement to move the backgrounds by
 	public float smoothing = 1f; // how smooth the parallax is going to be (needs to be above 0)
 
-	private Transform cam; //main camera
-	private Vector3 previousCamPos; // the position of the camera in the previous frame
+    private Transform m_mainCamera; //main camera
+    private Vector3 m_previousCamPos; // the position of the camera in the previous frame
 
 	private void Awake()
 	{
-		cam = Camera.main.transform;
+		m_mainCamera = Camera.main.transform;
 	}
 
 	// Use this for initialization
 	void Start () {
         InitializeBackgrounds();
 
-		previousCamPos = cam.position;
-		parallaxScales = new float[backgrounds.Length];
+		m_previousCamPos = m_mainCamera.position;
+		m_paralaxScaling = new float[m_backgrounds.Length];
 
-		for (int index = 0; index < backgrounds.Length; index++)
+		for (int index = 0; index < m_backgrounds.Length; index++)
         {
-            parallaxScales[index] = backgrounds[index].position.z * -1;
+            m_paralaxScaling[index] = m_backgrounds[index].position.z * -1;
         }
 	}
 
     void InitializeBackgrounds()
     {
         var parallaxingList = GameObject.FindGameObjectsWithTag("Parallaxing");
-        backgrounds = new Transform[parallaxingList.Length];
+        m_backgrounds = new Transform[parallaxingList.Length];
 
-        for (int index = 0; index < backgrounds.Length; index++)
+        for (int index = 0; index < m_backgrounds.Length; index++)
         {
-            backgrounds[index] = parallaxingList[index].transform;
+            m_backgrounds[index] = parallaxingList[index].transform;
         }
     }
 	
@@ -47,17 +47,17 @@ public class Parallaxing : MonoBehaviour {
 
     void ApplyParallax()
 	{
-		for (int index = 0; index < backgrounds.Length; index++)
+		for (int index = 0; index < m_backgrounds.Length; index++)
 		{
-			float parallax = (previousCamPos.x - cam.position.x) * parallaxScales[index];
-			float backgroundTargetPosX = backgrounds[index].position.x + parallax;
+			float parallax = (m_previousCamPos.x - m_mainCamera.position.x) * m_paralaxScaling[index];
+			float backgroundTargetPosX = m_backgrounds[index].position.x + parallax;
 
 			var backgroundTargetPos = 
-				new Vector3(backgroundTargetPosX, backgrounds[index].position.y, backgrounds[index].position.z); //get new position for background
+				new Vector3(backgroundTargetPosX, m_backgrounds[index].position.y, m_backgrounds[index].position.z); //get new position for background
             
-			backgrounds[index].position = Vector3.Lerp(backgrounds[index].position, backgroundTargetPos, smoothing * Time.deltaTime); //set new position for background
+			m_backgrounds[index].position = Vector3.Lerp(m_backgrounds[index].position, backgroundTargetPos, smoothing * Time.deltaTime); //set new position for background
 		}
 
-		previousCamPos = cam.position;
+		m_previousCamPos = m_mainCamera.position;
 	}
 }

@@ -16,45 +16,45 @@ public class EnemySpawn : MonoBehaviour {
     private Wave[] waves;
     public int WaveCount { get { return waves.Length; } }
 
-    private int currentWave = 0;
-    public int CurrentWave { get { return currentWave; } }
+    private int m_currentWave = 0;
+    public int CurrentWave { get { return m_currentWave; } }
 
-    private float timeNextCheck = 2f;
-    private float rateForNextWaveCheck = 2f;
+    private float m_timeNextCheck = 2f;
+    private float m_rateForNextWaveCheck = 2f;
 
-    private LevelManager levelManager;
+    private LevelManager m_levelManager;
 
     private void Start()
     {
-        levelManager = gameObject.transform.parent.GetComponent<LevelManager>();
+        m_levelManager = gameObject.transform.parent.GetComponent<LevelManager>();
     }
 
     private void Update()
     {
-        if (timeNextCheck <= Time.time)
+        if (m_timeNextCheck <= Time.time)
         {
-            timeNextCheck = Time.time + rateForNextWaveCheck;
+            m_timeNextCheck = Time.time + m_rateForNextWaveCheck;
 
             if (gameObject.transform.childCount == 0)
             {
-                if (currentWave < waves.Length)
+                if (m_currentWave < waves.Length)
                 {
                     SpawnEnemies();
-                    currentWave++;
+                    m_currentWave++;
                 }
                 else
                     Destroy(gameObject);
 
-                levelManager.WaveCompleted();
+                m_levelManager.WaveCompleted();
             }
         }
     }
 
     private void SpawnEnemies()
     {
-        var enemyToSpawn = waves[currentWave].enemyToSpawn;
+        var enemyToSpawn = waves[m_currentWave].enemyToSpawn;
 
-        for (int index = 0; index < waves[currentWave].count; index++)
+        for (int index = 0; index < waves[m_currentWave].count; index++)
         {
             var spawnPosition = GetRandomSpawnPoint();
             var enemy = Instantiate(enemyToSpawn, gameObject.transform);

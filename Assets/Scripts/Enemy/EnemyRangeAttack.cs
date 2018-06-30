@@ -5,10 +5,10 @@ using UnityEngine;
 public class EnemyRangeAttack : MonoBehaviour {
 
     public RangeEnemyStats stats;
-    private float updateRateSearchPlayer;
-    private EnemyAI enemyAI;
+    private float m_updateRateSearchPlayer;
+    private EnemyAI m_enemyAI;
 
-    private Vector3 firePointPosition;
+    private Vector3 m_firePointPosition;
     public Transform bulletTrailPrefab;
     public LayerMask whatToHit;
 
@@ -16,42 +16,52 @@ public class EnemyRangeAttack : MonoBehaviour {
 
     public string weaponShootSound;
 
-    private AudioManager audioManager;
+    private AudioManager m_audioManager;
 
 	// Use this for initialization
 	void Start () {
 
+        InitializeEnemyAI();
+
+        InitializeAudioManager();
+
+	}
+
+    private void InitializeEnemyAI()
+    {
         var refEnemyAI = transform.GetComponent<EnemyAI>();
 
         if (refEnemyAI != null)
         {
-            enemyAI = refEnemyAI;
-            updateRateSearchPlayer = refEnemyAI.updateRateSearchPlayer;
+            m_enemyAI = refEnemyAI;
+            m_updateRateSearchPlayer = refEnemyAI.updateRateSearchPlayer;
         }
         else
         {
             Debug.LogError("EnemyRangeAttack: Can't find EnemyStats in Parent GameObject");
         }
 
-        if (!string.IsNullOrEmpty(weaponShootSound))
-            audioManager = AudioManager.instance;
-
-        if (audioManager == null)
-            Debug.LogError("EnemyRangeAttack: Can't find AudioManager.");
-
         stats.Initialize(gameObject);
-	}
-	
+    }
+
+    private void InitializeAudioManager()
+    {
+        if (!string.IsNullOrEmpty(weaponShootSound))
+            m_audioManager = AudioManager.instance;
+
+        if (m_audioManager == null)
+            Debug.LogError("EnemyRangeAttack: Can't find AudioManager.");
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            if (enemyAI.target == null)
-                enemyAI.target = collision.transform;
+            if (m_enemyAI.target == null)
+                m_enemyAI.target = collision.transform;
             
             stats.isAttacking = true;
             StartCoroutine(ShootPlayer());
-            StartCoroutine(IdleAnimation(0.1f));
         }
     }
 
@@ -69,39 +79,32 @@ public class EnemyRangeAttack : MonoBehaviour {
         {
             stats.ShotPreparing = true;
 
-            if (enemyAI.target == null)
+            if (m_enemyAI.target == null)
             {
-                stats.ShotPreparing = false;
-                yield return new WaitForSeconds(1f / updateRateSearchPlayer);
-                StartCoroutine(ShootPlayer());
+                StartCoroutine( SearchForTarget() );
             } 
             else
             {
-                var whereToShoot = enemyAI.target.position;
+                var whereToShoot = m_enemyAI.target.position;
 
-                firePointPosition = new Vector3(stats.firePoint.position.x, stats.firePoint.position.y);
-                DrawLine(firePointPosition, whereToShoot, Color.red, 0.5f);
+                m_firePointPosition = new Vector3(stats.firePoint.position.x, stats.firePoint.position.y);
+
+                DrawShootingLine(m_firePointPosition, whereToShoot, Color.red, 0.5f);
 
                 yield return new WaitForSeconds(0.6f);
 
-                RaycastHit2D hit2D = Physics2D.Raycast(firePointPosition,
-                                                       whereToShoot - firePointPosition,
+                RaycastHit2D hit2D = Physics2D.Raycast(m_firePointPosition,
+                                                       whereToShoot - m_firePointPosition,
                                                        stats.AttackRange, whatToHit);
 
                 PlayShootSound();
 
                 DrawBulletTrailEffect(whereToShoot);
 
-                if (!ReferenceEquals(hit2D.collider, null) & enemyAI.target == hit2D.transform)
-                    {
-                        var player = hit2D.transform.GetComponent<Player>();
-                        if (player != null)
-                        {
-                            player.playerStats.Damage(stats.OutputDamage);
-                        }
-                    }   
+                ShootAtTarget(hit2D);
 
                 yield return new WaitForSeconds(stats.AttackRate);
+
                 stats.ShotPreparing = false;
 
                 if (stats.isAttacking)
@@ -110,24 +113,46 @@ public class EnemyRangeAttack : MonoBehaviour {
         }
     }
 
-    void PlayShootSound()
+    private void ShootAtTarget(RaycastHit2D hit2D)
     {
-        if (audioManager != null)
-            audioManager.PlaySound(weaponShootSound);
+        if (!ReferenceEquals(hit2D.collider, null) & m_enemyAI.target == hit2D.transform)
+        {
+            var player = hit2D.transform.GetComponent<Player>();
+            if (player != null)
+            {
+                player.playerStats.Damage(stats.OutputDamage);
+            }
+        } 
     }
 
-    void DrawLine(Vector3 start, Vector3 end, Color color, float duration = 0.2f)
+    private IEnumerator SearchForTarget()
+    {
+        stats.ShotPreparing = false;
+        yield return new WaitForSeconds(1f / m_updateRateSearchPlayer);
+        StartCoroutine(ShootPlayer());
+    }
+
+    private void PlayShootSound()
+    {
+        if (m_audioManager != null)
+            m_audioManager.PlaySound(weaponShootSound);
+    }
+
+    private void DrawShootingLine(Vector3 start, Vector3 end, Color color, float duration = 0.2f)
     {
         GameObject myLine = new GameObject();
         myLine.transform.position = start;
         myLine.AddComponent<LineRenderer>();
+
         LineRenderer lr = myLine.GetComponent<LineRenderer>();
         lr.material = trailMaterial;
 
         lr.startColor = color;
         lr.endColor = color;
+
         lr.startWidth = 0.1f;
         lr.endWidth = 0.1f;
+
         lr.SetPosition(0, start);
         lr.SetPosition(1, end);
 
@@ -142,18 +167,5 @@ public class EnemyRangeAttack : MonoBehaviour {
         float rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
         Instantiate(bulletTrailPrefab, stats.firePoint.position,
                     Quaternion.Euler(0f, 0f, rotationZ));
-    }
-
-    private IEnumerator IdleAnimation(float offsetY)
-    {
-        var rigid2d = GetComponent<Rigidbody2D>();
-        rigid2d.transform.position = Vector3.MoveTowards(rigid2d.transform.position,
-                                                         new Vector3(rigid2d.transform.position.x, rigid2d.transform.position.y - offsetY),
-                                                         stats.Speed * Time.deltaTime);
-
-        yield return new WaitForSeconds(1f);
-
-        if (stats.isAttacking)
-            StartCoroutine(IdleAnimation(-offsetY));
     }
 }

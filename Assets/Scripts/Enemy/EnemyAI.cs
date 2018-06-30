@@ -9,14 +9,14 @@ public class EnemyAI : MonoBehaviour {
     //what to chase
     public Transform target;
 
-    private float updateRate = 2f;
+    private float m_updateRate = 2f;
     public float updateRateSearchPlayer = 0f;
 
-    private Seeker seeker;
-    private Rigidbody2D rb;
+    private Seeker m_seeker;
+    private Rigidbody2D m_rigidbody;
 
     public Path path; //calculated path
-    private int currentWaypoint = 0;
+    private int m_currentWaypoint = 0;
 
     public float nextWaypointDistance = 3; //max distacne from the AI to a waypoint
 
@@ -27,8 +27,8 @@ public class EnemyAI : MonoBehaviour {
 
     private void Awake()
     {
-        seeker = GetComponent<Seeker>();
-        rb = GetComponent<Rigidbody2D>();
+        m_seeker = GetComponent<Seeker>();
+        m_rigidbody = GetComponent<Rigidbody2D>();
     }
 
     private void Start()
@@ -41,7 +41,7 @@ public class EnemyAI : MonoBehaviour {
         SearchForStats();
 
         // Path to the target position
-        seeker.StartPath(transform.position, target.position, OnPathComplete);
+        m_seeker.StartPath(transform.position, target.position, OnPathComplete);
         StartCoroutine( UpdatePath() );
     }
 
@@ -70,7 +70,7 @@ public class EnemyAI : MonoBehaviour {
         if (!p.error)
         {
             path = p;
-            currentWaypoint = 0;
+            m_currentWaypoint = 0;
         }
     }
 
@@ -86,11 +86,11 @@ public class EnemyAI : MonoBehaviour {
             else
             {
                 // Path to the target position
-                seeker.StartPath(transform.position, target.position, OnPathComplete);
+                m_seeker.StartPath(transform.position, target.position, OnPathComplete);
             }   
         }
 
-        yield return new WaitForSeconds(1f / updateRate);
+        yield return new WaitForSeconds(1f / m_updateRate);
         StartCoroutine(UpdatePath());
     }
 
@@ -106,7 +106,7 @@ public class EnemyAI : MonoBehaviour {
                 return;
             }
 
-            if (currentWaypoint >= path.vectorPath.Count)
+            if (m_currentWaypoint >= path.vectorPath.Count)
             {
                 if (pathIsEnded)
                     return;
@@ -117,17 +117,17 @@ public class EnemyAI : MonoBehaviour {
 
             pathIsEnded = false;
 
-            Vector3 direction = (path.vectorPath[currentWaypoint] - transform.position).normalized;
+            Vector3 direction = (path.vectorPath[m_currentWaypoint] - transform.position).normalized;
             direction *= stats.Speed * Time.fixedDeltaTime;
 
             //move ai
-            rb.AddForce(direction);
+            m_rigidbody.AddForce(direction);
 
             //move to another waypoint??
-            float distance = Vector3.Distance(transform.position, path.vectorPath[currentWaypoint]);
+            float distance = Vector3.Distance(transform.position, path.vectorPath[m_currentWaypoint]);
             if (distance < nextWaypointDistance)
             {
-                currentWaypoint++;
+                m_currentWaypoint++;
                 return;
             }
         }
@@ -160,7 +160,7 @@ public class EnemyAI : MonoBehaviour {
         } else
         {
             // Path to the target position
-            seeker.StartPath(transform.position, target.position, OnPathComplete);
+            m_seeker.StartPath(transform.position, target.position, OnPathComplete);
             StartCoroutine(UpdatePath());
         }
     }
