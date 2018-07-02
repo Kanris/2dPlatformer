@@ -15,33 +15,14 @@ public class GameMaster : MonoBehaviour {
     private Transform LifeGUI;
     private Transform[] lifesLeft;
 
-    private GameObject announcer;
-
     private AudioManager audioManager;
     public string spawnSoundName;
     public string LevelMusic;
     public string LevelName;
 
     private GameObject enemiesSpawnPrefab;
-    [HideInInspector]
-    public delegate void VoidDelegate();
 
-    [System.Serializable]
-    public class DisplayMessage
-    {
-        public string message;
-        public float duration;
-        public VoidDelegate delayFunc = null;
-
-        public DisplayMessage(string message, float duration, VoidDelegate delayFunc = null)
-        {
-            this.message = message;
-            this.duration = duration;
-            this.delayFunc = delayFunc;
-        }
-    }
-
-    private Queue<DisplayMessage> messages;
+    private AnnouncerManager announcer;
 
     void Awake()
     {
@@ -53,9 +34,7 @@ public class GameMaster : MonoBehaviour {
 
     private void Start()
     {
-        InitializeMessagesQueue();
-
-        InitalizeAnnouncer();
+        InitializeAnnouncer();
 
         InitalizeAudioManager();
 
@@ -66,9 +45,12 @@ public class GameMaster : MonoBehaviour {
         InitializeLifeGUI();
     }
 
-    private void InitializeMessagesQueue()
+    private void InitializeAnnouncer()
     {
-        messages = new Queue<DisplayMessage>();
+        announcer = AnnouncerManager.instance;
+
+        if (announcer == null)
+            Debug.LogError("GameMaster: Can't find AnnouncerManager on scene");
     }
 
     private void InitalizeSpawnPoint()
@@ -93,18 +75,6 @@ public class GameMaster : MonoBehaviour {
         }
     }
 
-    private void InitalizeAnnouncer()
-    {
-        announcer = GameObject.FindWithTag("AnnouncerUI");
-
-        if (announcer == null)
-            Debug.LogError("GameMaster: Can't find announcer on scene");
-        else
-        {
-            announcer.SetActive(false);
-        }
-    }
-
     private void InitalizeEnemySpawn()
     {
         enemiesSpawnPrefab = GameObject.FindWithTag("EnemiesSpawn");
@@ -115,9 +85,9 @@ public class GameMaster : MonoBehaviour {
         if (!string.IsNullOrEmpty(LevelName))
         {
             if (enemiesSpawnPrefab != null)
-                StartCoroutine(DisplayAnnouncerMessage(LevelName, 2f, () => enemiesSpawnPrefab.SetActive(true)));
+                StartCoroutine(announcer.DisplayAnnouncerMessage(LevelName, 2f, () => enemiesSpawnPrefab.SetActive(true)));
             else
-                StartCoroutine(DisplayAnnouncerMessage(LevelName, 2f));
+                StartCoroutine(announcer.DisplayAnnouncerMessage(LevelName, 2f));
         }
     }
 
@@ -175,7 +145,7 @@ public class GameMaster : MonoBehaviour {
 
             string result = LifeCount > 1 ? "Lifes" : "Life";
             var announcerMessage = LifeCount + " " + result + " left";
-            StartCoroutine(DisplayAnnouncerMessage(announcerMessage, 3f));
+            StartCoroutine(announcer.DisplayAnnouncerMessage(announcerMessage, 3f));
         }
         else
         {
@@ -193,7 +163,7 @@ public class GameMaster : MonoBehaviour {
     public void GameOver()
     {
         Time.timeScale = 0.1f;
-        gm.StartCoroutine(gm.DisplayAnnouncerMessage("Game Over", 0.5f));
+        gm.StartCoroutine(announcer.DisplayAnnouncerMessage("Game Over", 0.5f));
         gm.StartCoroutine(LoadScene("MainMenu", 0.5f));
     }
 
@@ -207,36 +177,6 @@ public class GameMaster : MonoBehaviour {
     private void ChangeLifeGUI()
     {
         Destroy(lifesLeft[LifeCount].gameObject);
-    }
-
-    public IEnumerator DisplayAnnouncerMessage(string message, float duration, VoidDelegate delayFunc = null)
-    {
-        messages.Enqueue(new DisplayMessage(message, duration, delayFunc));
-
-        if (!announcer.active)
-        {
-            yield return DisplayAnnouncerMessage();
-        }
-    }
-
-    public IEnumerator DisplayAnnouncerMessage()
-    {
-        var displayMessage = messages.Dequeue();
-
-        announcer.SetActive(true);
-        announcer.GetComponentInChildren<Text>().text = displayMessage.message;
-
-        yield return new WaitForSeconds(displayMessage.duration);
-
-        announcer.SetActive(false);
-
-        if (displayMessage.delayFunc != null)
-        {
-            displayMessage.delayFunc();
-        }
-
-        if (messages.Count > 0)
-            yield return DisplayAnnouncerMessage();
     }
 
 }
