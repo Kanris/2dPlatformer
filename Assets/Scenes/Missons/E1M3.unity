@@ -1247,6 +1247,11 @@ Prefab:
       propertyPath: waitBeforeTurnSeconds
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 114037168757369930, guid: cbc664fe026f34ab9b16787f5d52144b,
+        type: 2}
+      propertyPath: WaitBeforeTurnSeconds
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cbc664fe026f34ab9b16787f5d52144b, type: 2}
   m_IsPrefabParent: 0

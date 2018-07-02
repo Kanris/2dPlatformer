@@ -22,9 +22,26 @@ public class GameMaster : MonoBehaviour {
     public string LevelMusic;
     public string LevelName;
 
+    private GameObject enemiesSpawnPrefab;
     [HideInInspector]
     public delegate void VoidDelegate();
-    private GameObject enemiesSpawnPrefab;
+
+    [System.Serializable]
+    public class DisplayMessage
+    {
+        public string message;
+        public float duration;
+        public VoidDelegate delayFunc = null;
+
+        public DisplayMessage(string message, float duration, VoidDelegate delayFunc = null)
+        {
+            this.message = message;
+            this.duration = duration;
+            this.delayFunc = delayFunc;
+        }
+    }
+
+    private Queue<DisplayMessage> messages;
 
     void Awake()
     {
@@ -36,6 +53,8 @@ public class GameMaster : MonoBehaviour {
 
     private void Start()
     {
+        InitializeMessagesQueue();
+
         InitalizeAnnouncer();
 
         InitalizeAudioManager();
@@ -45,6 +64,11 @@ public class GameMaster : MonoBehaviour {
         InitalizeSpawnPoint();
 
         InitializeLifeGUI();
+    }
+
+    private void InitializeMessagesQueue()
+    {
+        messages = new Queue<DisplayMessage>();
     }
 
     private void InitalizeSpawnPoint()
@@ -187,17 +211,32 @@ public class GameMaster : MonoBehaviour {
 
     public IEnumerator DisplayAnnouncerMessage(string message, float duration, VoidDelegate delayFunc = null)
     {
-        announcer.SetActive(true);
-        announcer.GetComponentInChildren<Text>().text = message;
+        messages.Enqueue(new DisplayMessage(message, duration, delayFunc));
 
-        yield return new WaitForSeconds(duration);
+        if (!announcer.active)
+        {
+            yield return DisplayAnnouncerMessage();
+        }
+    }
+
+    public IEnumerator DisplayAnnouncerMessage()
+    {
+        var displayMessage = messages.Dequeue();
+
+        announcer.SetActive(true);
+        announcer.GetComponentInChildren<Text>().text = displayMessage.message;
+
+        yield return new WaitForSeconds(displayMessage.duration);
 
         announcer.SetActive(false);
 
-        if (delayFunc != null)
+        if (displayMessage.delayFunc != null)
         {
-            delayFunc();
+            displayMessage.delayFunc();
         }
+
+        if (messages.Count > 0)
+            yield return DisplayAnnouncerMessage();
     }
 
 }
