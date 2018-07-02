@@ -5,15 +5,14 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class FlightPlatform : MonoBehaviour {
 
-    public float m_offsetX = 20f;
-    public float m_moveTime = 2f;
+    public float OffsetX = 20f;
+    public float MoveTime = 2f;
 
-    Rigidbody2D body;
-    public bool isMoving = false;
-    Vector2 target;
+    private Rigidbody2D body;
+    private bool m_isMoving = false;
+    private Vector2 target;
 
-    public Rigidbody2D player;
-    public bool isPlayerMoving = false;
+    private Rigidbody2D m_player;
 
 	// Use this for initialization
 	void Start () {
@@ -25,28 +24,22 @@ public class FlightPlatform : MonoBehaviour {
 
     private void FixedUpdate()
     {
-        if (isMoving)
+        if (m_isMoving)
         {
             var moveTowards = Vector2.MoveTowards(body.transform.position, target, Time.fixedDeltaTime * 2f);
             body.MovePosition(moveTowards);
 
-            if (player != null)
+            if (m_player != null)
             {
-                var playerMoveSpeed = player.gameObject.GetComponent<Animator>().GetFloat("Speed");
+                var playerMoveSpeed = m_player.gameObject.GetComponent<Animator>().GetFloat("Speed");
 
                 if (playerMoveSpeed > 0f)
                 {
-                    player = null;
-                    isPlayerMoving = true;
+                    m_player = null;
                 }
                 else
                 {
-                    isPlayerMoving = false;
-                }
-
-                if (player != null)
-                {
-                    player.position = new Vector2(body.transform.position.x, player.transform.position.y);
+                    m_player.position = new Vector2(body.transform.position.x, m_player.transform.position.y);
                 }
             }
         }
@@ -54,18 +47,18 @@ public class FlightPlatform : MonoBehaviour {
 
     private void ChangePlatformDirection()
     {
-        m_offsetX = -m_offsetX;
-        target = new Vector2(body.transform.position.x - m_offsetX, body.transform.position.y);
+        OffsetX = -OffsetX;
+        target = new Vector2(body.transform.position.x - OffsetX, body.transform.position.y);
 
-        this.isMoving = true;
+        this.m_isMoving = true;
 
         StartCoroutine(Move());
     }
 
     private IEnumerator Move()
     {
-        yield return new WaitForSeconds(m_moveTime);
-        this.isMoving = false;
+        yield return new WaitForSeconds(MoveTime);
+        this.m_isMoving = false;
 
         target = Vector2.zero;
 
@@ -76,26 +69,26 @@ public class FlightPlatform : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player" & player == null)
+        if (collision.gameObject.CompareTag("Player") & m_player == null)
         {
-            player = collision.gameObject.GetComponent<Rigidbody2D>();
+            m_player = collision.gameObject.GetComponent<Rigidbody2D>();
             collision.transform.SetParent(transform);
         }
     }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player" & player == null)
+        if (collision.gameObject.CompareTag("Player") & m_player == null)
         {
-            player = collision.gameObject.GetComponent<Rigidbody2D>();
+            m_player = collision.gameObject.GetComponent<Rigidbody2D>();
         }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.CompareTag("Player"))
         {
-            player = null;
+            m_player = null;
             collision.transform.SetParent(null);
         }
     }
