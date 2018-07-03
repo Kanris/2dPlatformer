@@ -27,6 +27,8 @@ public class AnnouncerManager : MonoBehaviour {
 
     private Queue<DisplayMessage> messages;
 
+    public int MessagesCount = 0;
+
     public static AnnouncerManager instance;
 
     #region singletone
@@ -68,20 +70,21 @@ public class AnnouncerManager : MonoBehaviour {
         }
     }
 
-    public IEnumerator DisplayAnnouncerMessage(string message, float duration, VoidDelegate delayFunc = null)
+    public void DisplayAnnouncerMessage(string message, float duration, VoidDelegate delayFunc = null)
     {
         messages.Enqueue(new DisplayMessage(message, duration, delayFunc));
+        MessagesCount = messages.Count;
 
         if (!announcer.active)
         {
-            yield return DisplayAnnouncerMessage();
+            StartCoroutine(DisplayAnnouncerMessage());
         }
     }
 
     public IEnumerator DisplayAnnouncerMessage()
     {
         var displayMessage = messages.Dequeue();
-
+        MessagesCount = messages.Count;
         announcer.SetActive(true);
         announcer.GetComponentInChildren<Text>().text = displayMessage.message;
 

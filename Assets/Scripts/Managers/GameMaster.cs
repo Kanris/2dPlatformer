@@ -10,6 +10,9 @@ public class GameMaster : MonoBehaviour {
     public enum PlayersType { Battle, Hub }
     public PlayersType PlayerType;
 
+    public enum GameMastersType { Battle, Hub, Stealth }
+    public GameMastersType GameMasterType;
+
     private Transform playerPrefab;
     private Transform spawnPoint;
     public float spawnDelay = 3.7f;
@@ -34,6 +37,8 @@ public class GameMaster : MonoBehaviour {
             gm = this; //GameObject.FindGameObjectWithTag("GameMaster").GetComponent<GameMaster>();
         }
 
+        InstantiateGameMaster();
+
         InstantiateManagers();
 
         InitializeAnnouncer();
@@ -47,6 +52,35 @@ public class GameMaster : MonoBehaviour {
         InstantiatePlayer();
 
         InitializeLifeGUI();
+    }
+
+    private string GetPathToGameMasterPrefab()
+    {
+        var gameMasterPath = string.Empty;
+
+        switch (GameMasterType)
+        {
+            case GameMastersType.Battle:
+                gameMasterPath = "GameMaster/GMBattle";
+                break;
+
+            case GameMastersType.Hub:
+                gameMasterPath = "GameMaster/GMHub";
+                break;
+
+            case GameMastersType.Stealth:
+                gameMasterPath = "GameMaster/GMStealth";
+                break;
+        }
+
+        return gameMasterPath;
+    }
+
+    private void InstantiateGameMaster()
+    {
+        var gameMaster = Resources.Load(GetPathToGameMasterPrefab()) as GameObject;
+
+        Instantiate(gameMaster, transform);
     }
 
     private string GetPathToPlayerPrefab()
@@ -91,7 +125,7 @@ public class GameMaster : MonoBehaviour {
 
         InstantiateManager("Managers/EventSystem");
 
-        InstantiateManager("Managers/A_Path");
+        if (GameMasterType != GameMastersType.Hub) InstantiateManager("Managers/A_Path");
     }
 
     private void InstantiateManager(string resourcePath)
@@ -141,39 +175,42 @@ public class GameMaster : MonoBehaviour {
         if (!string.IsNullOrEmpty(LevelName))
         {
             if (enemiesSpawnPrefab != null)
-                StartCoroutine(announcer.DisplayAnnouncerMessage(LevelName, 2f, () => enemiesSpawnPrefab.SetActive(true)));
+                announcer.DisplayAnnouncerMessage(LevelName, 2f, () => enemiesSpawnPrefab.SetActive(true));
             else
-                StartCoroutine(announcer.DisplayAnnouncerMessage(LevelName, 2f));
+                announcer.DisplayAnnouncerMessage(LevelName, 2f);
         }
     }
 
     private void InitializeLifeGUI()
     {
-        var lifeGUIObject = GameObject.FindWithTag("LifesUI");
-
-        if (lifeGUIObject == null)
+        if (GameMasterType != GameMastersType.Hub)
         {
-            Debug.LogError("GameMaster: Can't find Lifes UI on scene");
-        }
-        else
-        {
-            LifeGUI = lifeGUIObject.transform;
+            var lifeGUIObject = GameObject.FindWithTag("LifesUI");
 
-            var lifeImage = Resources.Load("GUI/LifeImage") as GameObject;
-
-            if (lifeImage != null)
+            if (lifeGUIObject == null)
             {
-                lifesLeft = new Transform[LifeCount];
-
-                for (int index = 0; index < LifeCount; index++)
-                {
-                    lifesLeft[index] = Instantiate(lifeImage.transform, LifeGUI.transform);
-                    lifesLeft[index].position = new Vector3(lifesLeft[index].position.x, lifesLeft[index].position.y);
-                }
+                Debug.LogError("GameMaster: Can't find Lifes UI on scene");
             }
             else
             {
-                Debug.LogError("GameMaster: Can't find LifeImage in Resources");
+                LifeGUI = lifeGUIObject.transform;
+
+                var lifeImage = Resources.Load("GUI/LifeImage") as GameObject;
+
+                if (lifeImage != null)
+                {
+                    lifesLeft = new Transform[LifeCount];
+
+                    for (int index = 0; index < LifeCount; index++)
+                    {
+                        lifesLeft[index] = Instantiate(lifeImage.transform, LifeGUI.transform);
+                        lifesLeft[index].position = new Vector3(lifesLeft[index].position.x, lifesLeft[index].position.y);
+                    }
+                }
+                else
+                {
+                    Debug.LogError("GameMaster: Can't find LifeImage in Resources");
+                }
             }
         }
     }
@@ -201,7 +238,7 @@ public class GameMaster : MonoBehaviour {
 
             string result = LifeCount > 1 ? "Lifes" : "Life";
             var announcerMessage = LifeCount + " " + result + " left";
-            StartCoroutine(announcer.DisplayAnnouncerMessage(announcerMessage, 3f));
+            announcer.DisplayAnnouncerMessage(announcerMessage, 3f);
         }
         else
         {
@@ -219,7 +256,7 @@ public class GameMaster : MonoBehaviour {
     public void GameOver()
     {
         Time.timeScale = 0.1f;
-        gm.StartCoroutine(announcer.DisplayAnnouncerMessage("Game Over", 0.5f));
+        announcer.DisplayAnnouncerMessage("Game Over", 0.5f);
         gm.StartCoroutine(LoadScene("MainMenu", 0.5f));
     }
 

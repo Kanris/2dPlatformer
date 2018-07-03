@@ -268,9 +268,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4142856795638098}
-  - component: {fileID: 114463801097830012}
-  - component: {fileID: 114883234586605516}
-  - component: {fileID: 114895559687109878}
   m_Layer: 0
   m_Name: GMBattle
   m_TagString: GameMaster
@@ -460,18 +457,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: loading
---- !u!114 &114463801097830012
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1969358344473100}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db2215afccf664a0384e1076439a0cbd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  smoothing: 1
 --- !u!114 &114473432418068634
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -683,36 +668,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &114883234586605516
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1969358344473100}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bfa98147d16d1c459ea924d3ef91949, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 4537188146068762, guid: f18f99404b229964b9e53ed1c0c37306,
-    type: 2}
-  spawnDelay: 3.2
-  LifeCount: 4
-  spawnSoundName: Respawn
-  LevelMusic: E1M1
-  LevelName: E1M1
---- !u!114 &114895559687109878
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1969358344473100}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8dca986e2621d47db81a6009cca5f8d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainCam: {fileID: 0}
 --- !u!114 &114988495912871434
 MonoBehaviour:
   m_ObjectHideFlags: 1

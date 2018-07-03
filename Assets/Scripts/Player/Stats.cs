@@ -221,8 +221,7 @@ public class PlayerStats : Stats
 
     private static void DisplayAnnouncerMessage(string message, float time)
     {
-        AnnouncerManager.instance.StartCoroutine(
-            AnnouncerManager.instance.DisplayAnnouncerMessage(message, time));
+        AnnouncerManager.instance.DisplayAnnouncerMessage(message, time);
     }
 
     private static void ApplyBuff(Equipment item,  float buffAmount)
