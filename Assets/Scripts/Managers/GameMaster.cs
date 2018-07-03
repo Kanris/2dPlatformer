@@ -30,10 +30,9 @@ public class GameMaster : MonoBehaviour {
         {
             gm = GameObject.FindGameObjectWithTag("GameMaster").GetComponent<GameMaster>();
         }
-    }
 
-    private void Start()
-    {
+        InstantiateManagers();
+
         InitializeAnnouncer();
 
         InitalizeAudioManager();
@@ -43,6 +42,32 @@ public class GameMaster : MonoBehaviour {
         InitalizeSpawnPoint();
 
         InitializeLifeGUI();
+    }
+
+    private void InstantiateManagers()
+    {
+        InstantiateManager("Managers/AnnouncerManager");
+
+        InstantiateManager("Managers/AudioManager");
+
+        InstantiateManager("Managers/LoadSceneManager");
+
+        InstantiateManager("Managers/PauseMenuManager");
+
+        InstantiateManager("Managers/ResurectionUI");
+
+        InstantiateManager("Managers/ToolsUI");
+
+        InstantiateManager("Managers/EventSystem");
+
+        InstantiateManager("Managers/A_Path");
+    }
+
+    private void InstantiateManager(string resourcePath)
+    {
+        var manager = Resources.Load(resourcePath) as GameObject;
+
+        Instantiate(manager);
     }
 
     private void InitializeAnnouncer()
@@ -171,6 +196,7 @@ public class GameMaster : MonoBehaviour {
     {
         yield return new WaitForSeconds(time);
         Time.timeScale = 1f;
+
         GameObject.FindWithTag("SceneLoader").GetComponent<LoadScene>().Load(scene);
     }
 

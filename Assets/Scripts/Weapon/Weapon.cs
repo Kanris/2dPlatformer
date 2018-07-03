@@ -25,7 +25,7 @@ public class Weapon : MonoBehaviour {
     private AudioManager audioManager;
     private WeaponManager weaponManager;
 
-    private PauseMenu pauseMenu;
+    //private PauseMenu pauseMenu;
 
     private Transform parentTransform;
 
@@ -44,14 +44,7 @@ public class Weapon : MonoBehaviour {
 
         InitalizeAudioManager();
 
-        InitalizePauseMenu();
-
         parentTransform = transform.parent.gameObject.transform.parent;
-    }
-
-    private void InitalizePauseMenu()
-    {
-        pauseMenu = PauseMenu.pm;
     }
 
     private void InitializeWeaponChange()
@@ -90,7 +83,7 @@ public class Weapon : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (!pauseMenu.IsGamePause)
+        if (!PauseMenu.pm.IsGamePause | PauseMenu.pm == null)
         {
             ChangeEquipedWeapon();
 

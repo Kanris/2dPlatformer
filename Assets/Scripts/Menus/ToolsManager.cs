@@ -24,4 +24,9 @@ public class ToolsManager : MonoBehaviour {
         }
 	}
     #endregion
+
+    public void Load(string scene)
+    {
+        GameObject.FindWithTag("SceneLoader").GetComponent<LoadScene>().Load(scene);
+    }
 }

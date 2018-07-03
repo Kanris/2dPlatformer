@@ -42,17 +42,13 @@ public class Stats {
 
         CurrentHealth = MaxHealth;
 
-        if (m_healthSlider == null)
-            Debug.LogError("Stats: Can't find slider!");
-        else
+        if (m_healthSlider != null)
             m_healthSlider.maxValue = CurrentHealth;
 
         m_healthText = m_gameObject.GetComponentInChildren(typeof(Text)) as Text;
 
         if (m_healthText != null)
             m_healthText.text = CurrentHealth + "/" + MaxHealth;
-        else
-            Debug.LogError("Stats: Can't find health text");
     }
 
     private void InitializeDeathPrefab()

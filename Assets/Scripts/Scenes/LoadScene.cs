@@ -38,6 +38,9 @@ public class LoadScene : MonoBehaviour {
 
             yield return null;
         }
+
+        if (loadingScene != null)
+            loadingScene.SetActive(false);
     }
 
     private void InitializeLoadingScene()

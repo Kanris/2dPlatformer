@@ -5,14 +5,13 @@ using UnityEngine;
 public class ArmRotation : MonoBehaviour {
 
     public int rotationOffset = 0;
-    private PauseMenu pauseMenu;
+    //private PauseMenu pauseMenu;
 
     [HideInInspector]
     public Transform parentTransform;
 
     private void Start()
     {
-        pauseMenu = PauseMenu.pm;
         parentTransform = transform.parent.gameObject.transform;
 
         if (parentTransform == null)
@@ -24,7 +23,7 @@ public class ArmRotation : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
-        if (!pauseMenu.IsGamePause)
+        if (!PauseMenu.pm.IsGamePause | PauseMenu.pm == null)
         {
             Vector3 difference = Vector3.zero;
 

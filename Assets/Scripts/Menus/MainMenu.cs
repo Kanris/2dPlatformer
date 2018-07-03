@@ -5,17 +5,37 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour {
-
-    public GameObject loadingScene;
-    public Slider slider;
-
+    
     public string LevelMusic;
 
     public string scene = "Main";
 
     private AudioManager audioManager;
 
-    private void Start()
+    private void Awake()
+    {
+        InstantiateManagers();
+    }
+
+    private void InstantiateManagers()
+    {
+        InstantiateManager("Managers/AudioManager");
+
+        InstantiateManager("Managers/LoadSceneManager");
+
+        InstantiateManager("Managers/ToolsUI");
+
+        InstantiateManager("Managers/EventSystem");
+    }
+
+    private void InstantiateManager(string resourcePath)
+    {
+        var manager = Resources.Load(resourcePath) as GameObject;
+        
+        Instantiate(manager);         
+    }
+
+    private void InitializeAudiomanager()
     {
         audioManager = AudioManager.instance;
 
@@ -23,31 +43,26 @@ public class MainMenu : MonoBehaviour {
         {
             AudioManager.ChangeBackgroundMusic(LevelMusic);
         }
+        else
+            Debug.LogError("MainMenu: Can't find AudioManager on MainMenu scene");
     }
 
     public void PlayGame()
     {
-        StartCoroutine(LoadSceneAsync(scene));
+        var loadScene = GameObject.FindWithTag("SceneLoader") as GameObject;
+
+        if (loadScene != null)
+        {
+            var loadSceneInstance = loadScene.GetComponent<LoadScene>();
+            loadSceneInstance.Load(scene);
+        }
+        else
+            Debug.LogError("MainMenu: Can't find LoadScene on MainMenu scene");
     }
 
     public void QuitGame()
     {
         Application.Quit();
-    }
-
-    private IEnumerator LoadSceneAsync(string scene)
-    {
-        var operation = SceneManager.LoadSceneAsync(scene);
-
-        loadingScene.SetActive(true);
-
-        while (!operation.isDone)
-        {
-            var progress = Mathf.Clamp01(operation.progress / .9f);
-            slider.value = progress;
-
-            yield return null;
-        }
     }
 	
 }
