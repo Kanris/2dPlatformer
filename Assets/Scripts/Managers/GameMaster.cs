@@ -7,7 +7,10 @@ public class GameMaster : MonoBehaviour {
 
     public static GameMaster gm;
 
-    public Transform playerPrefab;
+    public enum PlayersType { Battle, Hub }
+    public PlayersType PlayerType;
+
+    private Transform playerPrefab;
     private Transform spawnPoint;
     public float spawnDelay = 3.7f;
 
@@ -28,7 +31,7 @@ public class GameMaster : MonoBehaviour {
     {
         if (gm == null)
         {
-            gm = GameObject.FindGameObjectWithTag("GameMaster").GetComponent<GameMaster>();
+            gm = this; //GameObject.FindGameObjectWithTag("GameMaster").GetComponent<GameMaster>();
         }
 
         InstantiateManagers();
@@ -41,7 +44,35 @@ public class GameMaster : MonoBehaviour {
 
         InitalizeSpawnPoint();
 
+        InstantiatePlayer();
+
         InitializeLifeGUI();
+    }
+
+    private string GetPathToPlayerPrefab()
+    {
+        var playerPath = string.Empty;
+
+        switch (PlayerType)
+        {
+            case PlayersType.Battle:
+                playerPath = "Players/Player";
+                break;
+
+            case PlayersType.Hub:
+                playerPath = "Players/HubPlayer";
+                break;
+        }
+
+        return playerPath;
+    }
+
+    private void InstantiatePlayer()
+    {
+        var playerGameObject = Resources.Load(GetPathToPlayerPrefab()) as GameObject;
+
+        playerPrefab = playerGameObject.transform;
+        Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
     }
 
     private void InstantiateManagers()

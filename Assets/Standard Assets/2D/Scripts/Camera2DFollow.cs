@@ -22,9 +22,12 @@ namespace UnityStandardAssets._2D
         // Use this for initialization
         private void Start()
         {
-            m_LastTargetPosition = target.position;
-            m_OffsetZ = (transform.position - target.position).z;
-            transform.parent = null;
+            if (target != null)
+            {
+                m_LastTargetPosition = target.position;
+                m_OffsetZ = (transform.position - target.position).z;
+                transform.parent = null;
+            }
         }
 
 
@@ -68,7 +71,13 @@ namespace UnityStandardAssets._2D
                 var searchResult = GameObject.FindGameObjectWithTag("Player");
 
                 if (searchResult != null)
+                {
                     target = searchResult.transform;
+
+                    m_LastTargetPosition = target.position;
+                    m_OffsetZ = (transform.position - target.position).z;
+                    transform.parent = null;
+                }
 
                 searchDelay = Time.time + 0.5f;
             }
