@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
 public class FlightPlatform : MonoBehaviour {
 
-    public float OffsetX = 20f;
-    public float MoveTime = 2f;
+    //public float OffsetX = 20f;
+    [SerializeField]
+    private float MoveTime = 2f;
+    [SerializeField]
+    private Vector3 velocity;
 
     private Rigidbody2D body;
     private bool m_isMoving = false;
@@ -26,29 +28,13 @@ public class FlightPlatform : MonoBehaviour {
     {
         if (m_isMoving)
         {
-            var moveTowards = Vector2.MoveTowards(body.transform.position, target, Time.fixedDeltaTime * 2f);
-            body.MovePosition(moveTowards);
-
-            if (m_player != null)
-            {
-                var playerMoveSpeed = m_player.gameObject.GetComponent<Animator>().GetFloat("Speed");
-
-                if (playerMoveSpeed > 0f)
-                {
-                    m_player = null;
-                }
-                else
-                {
-                    m_player.position = new Vector2(body.transform.position.x, m_player.transform.position.y);
-                }
-            }
+            transform.position += (velocity * Time.fixedDeltaTime);
         }
     }
 
     private void ChangePlatformDirection()
     {
-        OffsetX = -OffsetX;
-        target = new Vector2(body.transform.position.x - OffsetX, body.transform.position.y);
+        velocity = velocity * -1;
 
         this.m_isMoving = true;
 
@@ -69,18 +55,9 @@ public class FlightPlatform : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") & m_player == null)
+        if (collision.gameObject.CompareTag("Player"))
         {
-            m_player = collision.gameObject.GetComponent<Rigidbody2D>();
             collision.transform.SetParent(transform);
-        }
-    }
-
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player") & m_player == null)
-        {
-            m_player = collision.gameObject.GetComponent<Rigidbody2D>();
         }
     }
 
@@ -88,7 +65,6 @@ public class FlightPlatform : MonoBehaviour {
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            m_player = null;
             collision.transform.SetParent(null);
         }
     }

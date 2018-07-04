@@ -1840,9 +1840,20 @@ Prefab:
     - target: {fileID: 114961808527823266, guid: d77468f4418c341158c06c7d511fa894,
         type: 2}
       propertyPath: MoveTime
-      value: 8
+      value: 20
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 61725089216978414, guid: d77468f4418c341158c06c7d511fa894,
+        type: 2}
+      propertyPath: m_UsedByComposite
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114961808527823266, guid: d77468f4418c341158c06c7d511fa894,
+        type: 2}
+      propertyPath: velocity.x
+      value: -1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 50203750218442322, guid: d77468f4418c341158c06c7d511fa894, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: d77468f4418c341158c06c7d511fa894, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &2105432179
