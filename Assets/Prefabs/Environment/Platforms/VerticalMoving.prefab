@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4072137874145752}
   - component: {fileID: 212229724331137546}
   - component: {fileID: 61621290916271196}
-  - component: {fileID: 50883138943904144}
   - component: {fileID: 114554090096431818}
   m_Layer: 10
   m_Name: VerticalMoving
@@ -37,32 +36,12 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1719827822906630}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -13.13, y: -11.92, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &50883138943904144
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1719827822906630}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 9999
-  m_LinearDrag: 0
-  m_AngularDrag: 0
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 5
 --- !u!61 &61621290916271196
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -99,8 +78,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fc3e0f14972e4fd0854519aaaa35248, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_offsetY: 2
-  m_moveTime: 2
+  velocity: {x: 0, y: 2, z: 0}
+  UpdateTime: 3
 --- !u!212 &212229724331137546
 SpriteRenderer:
   m_ObjectHideFlags: 1
