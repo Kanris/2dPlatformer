@@ -4,46 +4,42 @@ using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour {
 
-    public float OffsetY = 20f;
-    public float MoveTime = 2f;
+    [SerializeField]
+    private Vector3 velocity;
+    [SerializeField]
+    private float UpdateTime = 2f;
+    private float MoveTime;
+    //private bool isMoving = false;
 
-    private Rigidbody2D body;
-    private bool isMoving = false;
-    private Vector3 nextPoint;
-
-    // Use this for initialization
-    void Start()
+    private void Start()
     {
-        body = transform.GetComponent<Rigidbody2D>();
-
-        StartCoroutine(ChangePlatformDirection());
+        MoveTime = UpdateTime;
     }
 
     private void FixedUpdate()
     {
-        if (isMoving)
+        if (Time.time >= MoveTime)
         {
-            Move();
+            MoveTime = Time.time + UpdateTime;
+            velocity *= -1;
+        }
+
+        transform.position += (velocity * Time.fixedDeltaTime);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Player"))
+        {
+            collision.collider.transform.SetParent(transform);
         }
     }
 
-    private IEnumerator ChangePlatformDirection()
+    private void OnCollisionExit2D(Collision2D collision)
     {
-        nextPoint = new Vector3(body.transform.position.x, body.transform.position.y - OffsetY);
-        this.isMoving = true;
-
-        OffsetY = -OffsetY;
-        yield return new WaitForSeconds(MoveTime);
-
-        this.isMoving = false;
-
-        yield return ChangePlatformDirection();
+        if (collision.collider.CompareTag("Player"))
+        {
+            collision.collider.transform.SetParent(null);
+        }
     }
-
-    private void Move()
-    {
-        Vector3 direction = (nextPoint - transform.position).normalized;
-        body.velocity = new Vector2(0, OffsetY);
-    }
-
 }

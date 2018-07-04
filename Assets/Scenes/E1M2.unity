@@ -244,7 +244,23 @@ Prefab:
       propertyPath: OffsetY
       value: -1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 114554090096431818, guid: 0be1de0f271b0472d8b13f469e5f7659,
+        type: 2}
+      propertyPath: velocity.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114554090096431818, guid: 0be1de0f271b0472d8b13f469e5f7659,
+        type: 2}
+      propertyPath: velocity.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114554090096431818, guid: 0be1de0f271b0472d8b13f469e5f7659,
+        type: 2}
+      propertyPath: UpdateTime
+      value: 4
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 50883138943904144, guid: 0be1de0f271b0472d8b13f469e5f7659, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 0be1de0f271b0472d8b13f469e5f7659, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &448689315
@@ -1850,7 +1866,12 @@ Prefab:
     - target: {fileID: 114961808527823266, guid: d77468f4418c341158c06c7d511fa894,
         type: 2}
       propertyPath: velocity.x
-      value: -1
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114961808527823266, guid: d77468f4418c341158c06c7d511fa894,
+        type: 2}
+      propertyPath: UpdateTime
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 50203750218442322, guid: d77468f4418c341158c06c7d511fa894, type: 2}
