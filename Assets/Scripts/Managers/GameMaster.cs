@@ -125,6 +125,8 @@ public class GameMaster : MonoBehaviour {
 
         InstantiateManager("Managers/EventSystem");
 
+        InstantiateManager("Managers/SaveLoadManager");
+
         if (GameMasterType != GameMastersType.Hub) InstantiateManager("Managers/A_Path");
     }
 

@@ -17,6 +17,19 @@ public class MainMenu : MonoBehaviour {
         InstantiateManagers();
     }
 
+    private void Start()
+    {
+        InitalizeLoadButton();
+    }
+
+    private void InitalizeLoadButton()
+    {
+        if (!SaveLoadManager.IsFileExists())
+        {
+            GameObject.FindWithTag("LoadButton").SetActive(false);
+        }
+    }
+
     private void InstantiateManagers()
     {
         InstantiateManager("Managers/AudioManager");

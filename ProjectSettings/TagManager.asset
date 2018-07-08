@@ -14,6 +14,7 @@ TagManager:
   - EnemiesSpawn
   - LifesUI
   - AnnouncerUI
+  - LoadButton
   layers:
   - Default
   - TransparentFX

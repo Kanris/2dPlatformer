@@ -30,6 +30,8 @@ public class LoadScene : MonoBehaviour {
 
         InitializeLoadingScene();
 
+        SaveGame(scene);
+            
         while (!operation.isDone)
         {
             var progress = Mathf.Clamp01(operation.progress / .9f);
@@ -41,6 +43,11 @@ public class LoadScene : MonoBehaviour {
 
         if (loadingScene != null)
             loadingScene.SetActive(false);
+    }
+
+    private void SaveGame(string scene)
+    {
+        SaveLoadMaster.Instance.SaveGame(scene);
     }
 
     private void InitializeLoadingScene()
