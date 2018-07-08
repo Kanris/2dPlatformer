@@ -17,6 +17,10 @@ public class LoadScene : MonoBehaviour {
         {
             Debug.LogError("LoadScene: Can't find LoadingScene in child.");
         }
+        else
+        {
+            loadingScene.SetActive(false);
+        }
     }
 
     public void Load(string scene)
