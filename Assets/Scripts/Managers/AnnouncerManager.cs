@@ -75,7 +75,7 @@ public class AnnouncerManager : MonoBehaviour {
         messages.Enqueue(new DisplayMessage(message, duration, delayFunc));
         MessagesCount = messages.Count;
 
-        if (!announcer.active)
+        if (!announcer.activeSelf)
         {
             StartCoroutine(DisplayAnnouncerMessage());
         }
@@ -84,18 +84,17 @@ public class AnnouncerManager : MonoBehaviour {
     public IEnumerator DisplayAnnouncerMessage()
     {
         var displayMessage = messages.Dequeue();
+
         MessagesCount = messages.Count;
         announcer.SetActive(true);
         announcer.GetComponentInChildren<Text>().text = displayMessage.message;
 
         yield return new WaitForSeconds(displayMessage.duration);
 
-        announcer.SetActive(false);
-
         if (displayMessage.delayFunc != null)
-        {
             displayMessage.delayFunc();
-        }
+        
+        announcer.SetActive(false);
 
         if (messages.Count > 0)
             yield return DisplayAnnouncerMessage();

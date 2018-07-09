@@ -169,15 +169,19 @@ public class GameMaster : MonoBehaviour {
 
     private void InitalizeEnemySpawn()
     {
-        enemiesSpawnPrefab = GameObject.FindWithTag("EnemiesSpawn");
-
-        //if (enemiesSpawnPrefab != null)
-          //  enemiesSpawnPrefab.SetActive(false);
-
         if (!string.IsNullOrEmpty(LevelName))
         {
+            enemiesSpawnPrefab = GameObject.FindWithTag("EnemiesSpawn");
+
             if (enemiesSpawnPrefab != null)
-                announcer.DisplayAnnouncerMessage(LevelName, 2f, () => enemiesSpawnPrefab.SetActive(true));
+            {
+                enemiesSpawnPrefab.SetActive(false);
+                announcer.DisplayAnnouncerMessage(LevelName, 2f, () =>
+                {
+                    if (enemiesSpawnPrefab != null)
+                        enemiesSpawnPrefab.SetActive(true);
+                });
+            }
             else
                 announcer.DisplayAnnouncerMessage(LevelName, 2f);
         }
