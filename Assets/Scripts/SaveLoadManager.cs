@@ -82,6 +82,7 @@ public class GameData
     public float DamageResistance;
     public int ResurectionStones;
     public string[] Equipment;
+    public string[] WeaponSlots;
 
     public string level;
 
@@ -95,6 +96,7 @@ public class GameData
         DamageResistance = PlayerStats.DamageResistance;
         ResurectionStones = PlayerStats.ResurectionStones;
         Equipment = PlayerStats.Equipment;
+        WeaponSlots = PlayerStats.WeaponSlots;
 
         this.level = level;
     }

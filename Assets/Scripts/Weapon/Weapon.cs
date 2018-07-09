@@ -89,14 +89,17 @@ public class Weapon : MonoBehaviour {
 
             if (FireRate.CompareTo(0f) == 0)
             {
-                if (Input.GetButtonDown("Fire1") | Input.GetButtonDown("Fire2"))
+                if ((Input.GetButtonDown("Fire1") & !string.IsNullOrEmpty(PlayerStats.WeaponSlots[(int)WeaponType.Handgun])) 
+                    | (Input.GetButtonDown("Fire2") & !string.IsNullOrEmpty(PlayerStats.WeaponSlots[(int)WeaponType.Automatic])))
                 {
                     Shoot();
                 }
             }
             else
             {
-                if ((Input.GetButton("Fire1") | Input.GetButton("Fire2")) & Time.time > timeToFire)
+                if (((Input.GetButton("Fire1") & !string.IsNullOrEmpty(PlayerStats.WeaponSlots[(int)WeaponType.Handgun]) 
+                      | (Input.GetButton("Fire2") & !string.IsNullOrEmpty(PlayerStats.WeaponSlots[(int)WeaponType.Automatic])))) 
+                      & Time.time > timeToFire)
                 {
                     timeToFire = Time.time + 1 / FireRate;
                     Shoot();
@@ -107,11 +110,11 @@ public class Weapon : MonoBehaviour {
 
     private void ChangeEquipedWeapon()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") & !string.IsNullOrEmpty(PlayerStats.WeaponSlots[(int)WeaponType.Handgun]))
         {
             weaponManager.EquipWeapon(0);
         }
-        else if (Input.GetButtonDown("Fire2"))
+        else if (Input.GetButtonDown("Fire2") & !string.IsNullOrEmpty(PlayerStats.WeaponSlots[(int)WeaponType.Automatic]))
         {
             weaponManager.EquipWeapon(1);
         }

@@ -44,6 +44,7 @@ public class SaveLoadMaster : MonoBehaviour {
             PlayerStats.DamageResistance = gameData.DamageResistance;
             PlayerStats.ResurectionStones = gameData.ResurectionStones;
             PlayerStats.Equipment = gameData.Equipment;
+            PlayerStats.WeaponSlots = gameData.WeaponSlots;
 
             LoadScene(gameData.level);
         }

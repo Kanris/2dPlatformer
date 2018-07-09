@@ -34,14 +34,28 @@ public class WeaponManager : MonoBehaviour {
 
     private void Start()
     {
-        totalWeaponAmount = 2; //TODO : CHANGE TO ARRAY LENGTH
+        totalWeaponAmount = (int) WeaponType.ItemTypeCount; //TODO : CHANGE TO ARRAY LENGTH
 
         if (weaponsPanel == null)
         {
             weaponsPanel = GameObject.FindGameObjectWithTag("WeaponsPanel").GetComponent<GridLayoutGroup>();
         }
 
+        InitializeWeaponPanel();
+
         pauseMenu = PauseMenu.pm;
+    }
+
+    private void InitializeWeaponPanel()
+    {
+        foreach (var weapon in PlayerStats.WeaponSlots)
+        {
+            if (!string.IsNullOrEmpty(weapon))
+            {
+                var weaponGameObject = Resources.Load("Weapons/GUI/" + weapon);
+                Instantiate(weaponGameObject, weaponsPanel.transform);      
+            }
+        }
     }
 
     // Update is called once per frame

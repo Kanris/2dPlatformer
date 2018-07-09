@@ -171,8 +171,8 @@ public class GameMaster : MonoBehaviour {
     {
         enemiesSpawnPrefab = GameObject.FindWithTag("EnemiesSpawn");
 
-        if (enemiesSpawnPrefab != null)
-            enemiesSpawnPrefab.SetActive(false);
+        //if (enemiesSpawnPrefab != null)
+          //  enemiesSpawnPrefab.SetActive(false);
 
         if (!string.IsNullOrEmpty(LevelName))
         {

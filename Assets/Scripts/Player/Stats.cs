@@ -128,6 +128,7 @@ public class PlayerStats : Stats
     public static float DamageResistance = 0f;
     public static int ResurectionStones = 0;
     public static string[] Equipment;
+    public static string[] WeaponSlots;
 
     private static Text m_coinsText;
     private delegate void VoidDelegate();
@@ -153,6 +154,14 @@ public class PlayerStats : Stats
         {
             var equipmentLength = (int)ItemType.ItemTypeCount;
             Equipment = new string[equipmentLength];
+        }
+
+        if (WeaponSlots == null)
+        {
+            var weaponCount = (int)WeaponType.ItemTypeCount;
+            WeaponSlots = new string[weaponCount];
+
+            WeaponSlots[0] = "Pistol";
         }
     }
 
@@ -186,6 +195,17 @@ public class PlayerStats : Stats
             ChangeCoinsAmount(amount);
             ResurectionStones++;
             DisplayAnnouncerMessage("Resurection stone amount - " + ResurectionStones, 2f);
+        });
+    }
+
+    public static bool SpendMoney(int amount, PlayerWeapon weapon)
+    {
+        return SpendMoney(amount, weapon, () =>
+        {
+            ChangeCoinsAmount(amount);
+            var weaponSlot = (int)weapon.itemType;
+            WeaponSlots[weaponSlot] = weapon.Name;
+            DisplayAnnouncerMessage("You bought new weapon - " + weapon.Name, 2f);
         });
     }
 
