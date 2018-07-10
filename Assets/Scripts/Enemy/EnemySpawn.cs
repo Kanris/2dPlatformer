@@ -7,9 +7,11 @@ public class EnemySpawn : MonoBehaviour {
     [System.Serializable]
     public class Wave
     {
-        public string name;
-        public Transform enemyToSpawn;
-        public int count;
+        public string Name;
+        public EnemyType EnemyToSpawn;
+        public int Count;
+
+        public enum EnemyType { Kamikaze, Boss };
     }
 
     [SerializeField]
@@ -52,14 +54,41 @@ public class EnemySpawn : MonoBehaviour {
 
     private void SpawnEnemies()
     {
-        var enemyToSpawn = waves[m_currentWave].enemyToSpawn;
+        var enemyToSpawn = GetEnemy( waves[m_currentWave].EnemyToSpawn );
 
-        for (int index = 0; index < waves[m_currentWave].count; index++)
+        for (int index = 0; index < waves[m_currentWave].Count; index++)
         {
             var spawnPosition = GetRandomSpawnPoint();
+
+
             var enemy = Instantiate(enemyToSpawn, gameObject.transform);
             enemy.transform.position = spawnPosition;
         }
+    }
+
+    private Transform GetEnemy(Wave.EnemyType enemyType)
+    {
+        Transform returnEnemy = null;
+
+        switch (enemyType)
+        {
+            case Wave.EnemyType.Kamikaze:
+                returnEnemy = GetObjectFromResources("EnemyAlienShip").transform;
+                break;
+
+            case Wave.EnemyType.Boss:
+                returnEnemy = GetObjectFromResources("BossAlienShip").transform;
+                break;
+        }
+
+        return returnEnemy;
+    }
+
+    private GameObject GetObjectFromResources(string name)
+    {
+        var returnGameObject = Resources.Load("Enemies/" + name) as GameObject;
+
+        return returnGameObject;
     }
 
     private Vector3 GetRandomSpawnPoint()

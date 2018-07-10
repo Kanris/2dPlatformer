@@ -687,6 +687,71 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1757725860145246, guid: 8cfe93e3368aa40e0b5a8afd4df0309b, type: 2}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114977477103993372, guid: 8cfe93e3368aa40e0b5a8afd4df0309b,
+        type: 2}
+      propertyPath: waves.Array.data[0].Name
+      value: First Wave
+      objectReference: {fileID: 0}
+    - target: {fileID: 114977477103993372, guid: 8cfe93e3368aa40e0b5a8afd4df0309b,
+        type: 2}
+      propertyPath: waves.Array.data[0].Count
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114977477103993372, guid: 8cfe93e3368aa40e0b5a8afd4df0309b,
+        type: 2}
+      propertyPath: waves.Array.data[1].Name
+      value: Second Wave
+      objectReference: {fileID: 0}
+    - target: {fileID: 114977477103993372, guid: 8cfe93e3368aa40e0b5a8afd4df0309b,
+        type: 2}
+      propertyPath: waves.Array.data[1].Count
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114457147898037890, guid: 8cfe93e3368aa40e0b5a8afd4df0309b,
+        type: 2}
+      propertyPath: waves.Array.data[0].Name
+      value: First Wave
+      objectReference: {fileID: 0}
+    - target: {fileID: 114457147898037890, guid: 8cfe93e3368aa40e0b5a8afd4df0309b,
+        type: 2}
+      propertyPath: waves.Array.data[0].Count
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114457147898037890, guid: 8cfe93e3368aa40e0b5a8afd4df0309b,
+        type: 2}
+      propertyPath: waves.Array.data[1].Name
+      value: Second Wave
+      objectReference: {fileID: 0}
+    - target: {fileID: 114457147898037890, guid: 8cfe93e3368aa40e0b5a8afd4df0309b,
+        type: 2}
+      propertyPath: waves.Array.data[1].Count
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114457147898037890, guid: 8cfe93e3368aa40e0b5a8afd4df0309b,
+        type: 2}
+      propertyPath: waves.Array.data[2].Name
+      value: Third Wave
+      objectReference: {fileID: 0}
+    - target: {fileID: 114457147898037890, guid: 8cfe93e3368aa40e0b5a8afd4df0309b,
+        type: 2}
+      propertyPath: waves.Array.data[2].Count
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114457147898037890, guid: 8cfe93e3368aa40e0b5a8afd4df0309b,
+        type: 2}
+      propertyPath: waves.Array.data[3].Name
+      value: Fourth Wave
+      objectReference: {fileID: 0}
+    - target: {fileID: 114457147898037890, guid: 8cfe93e3368aa40e0b5a8afd4df0309b,
+        type: 2}
+      propertyPath: waves.Array.data[3].Count
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114457147898037890, guid: 8cfe93e3368aa40e0b5a8afd4df0309b,
+        type: 2}
+      propertyPath: waves.Array.data[3].EnemyToSpawn
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
