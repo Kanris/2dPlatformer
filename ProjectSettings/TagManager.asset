@@ -15,6 +15,7 @@ TagManager:
   - LifesUI
   - AnnouncerUI
   - LoadButton
+  - APath
   layers:
   - Default
   - TransparentFX
