@@ -144,6 +144,15 @@ public class Weapon : MonoBehaviour {
                 {
                     enemyAI.stats.Damage(Damage + PlayerStats.AdditionalDamage);
                 }
+                else
+                {
+                    var missile = hit2D.transform.GetComponent<HomingMissile>();
+
+                    if (missile != null)
+                    {
+                        missile.Stats.Damage(Damage + PlayerStats.AdditionalDamage);
+                    }
+                }
             }   
         }
     }
