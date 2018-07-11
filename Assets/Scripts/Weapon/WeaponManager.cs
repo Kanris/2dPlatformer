@@ -41,7 +41,8 @@ public class WeaponManager : MonoBehaviour {
             weaponsPanel = GameObject.FindGameObjectWithTag("WeaponsPanel").GetComponent<GridLayoutGroup>();
         }
 
-        InitializeWeaponPanel();
+        if (weaponsPanel != null & weaponsPanel.transform.childCount == 0)
+            InitializeWeaponPanel();
 
         pauseMenu = PauseMenu.pm;
     }
